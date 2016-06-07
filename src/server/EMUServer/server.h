@@ -6,11 +6,17 @@ class server : public QObject
 {
     Q_OBJECT
 public:
-    explicit server(QObject *parent = 0);
+    explicit ChatServer(quint16 port, QObject *parent = Q_NULLPTR);
+    virtual ~ChatServer();
 
-signals:
+private Q_SLOTS:
+    void onNewConnection();
+    void processMessage(QString message);
+    void socketDisconnected();
 
-public slots:
+private:
+    QWebSocketServer *m_pWebSocketServer;
+    QList<QWebSocket *> m_clients;
 };
 
 #endif // SERVER_H
