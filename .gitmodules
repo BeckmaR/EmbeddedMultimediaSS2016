@@ -1,0 +1,3 @@
+[submodule "libs/mupdf-qt"]
+	path = libs/mupdf-qt
+	url = https://github.com/xiangxw/mupdf-qt.git
