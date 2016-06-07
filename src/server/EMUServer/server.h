@@ -17,6 +17,8 @@ private Q_SLOTS:
 private:
     QWebSocketServer *m_pWebSocketServer;
     QList<QWebSocket *> m_clients;
+
+    QWebSocket* m_master;
 };
 
 #endif // SERVER_H
