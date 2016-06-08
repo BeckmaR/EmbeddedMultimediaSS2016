@@ -1,0 +1,94 @@
+1.0 Präsenter
+Mehrere Personen haben die Absicht eine Präsentation zu halten
+
+	1.1 PräsenterEinwahl
+	Präsenter wählt sich in das System ein
+	
+	1.2 PasswörterSetzen
+	Präsenter legt das Passwort für Zuschauer fest
+	VORRAUSSETZUNG:	1.1 PräsenterEinwahl
+	BESCHRÄNKT:	2.2 PublikumEinwahl
+	
+	1.3 PräsentationHochladen
+	Präsenter lädt Präsentation hoch
+	VORRAUSSETZUNG:	1.2 PasswörterSetzen
+	
+	1.4 Navigation
+	Präsenter navigiert Präsentation
+	BEFEHLE: vor, zurück, verdunkeln/erhellen, beenden
+	VORRAUSSETZUNG: 1.3 PräsentationHochladen
+	BESCHRÄNKUNG: Anfang/Ende der Präsentation
+	BESCHRÄNKT:	Präsentation anzeigen
+	
+		1.4.1 NavigationSchaltflächen
+		Benutzeroberfläche stellt NavigationSchaltflächen bereit
+		BEFEHLE: wie 1.4
+	
+		1.4.2 NavigationWischen
+		Benutzeroberfläche reagiert auf Wischbewegungen
+		BEFEHLE: nach_links = vor , nach_rechts = zurück , nach_unten = verdunkeln/erhellen, nach_oben (mehrmals) = beenden
+	
+		1.4.3 NavigationBeschleunigungssensor
+		Navigation durch Kippbewegungen
+		BEFEHLE: nach_links = vor , nach_rechts = zurück , nach_unten = verdunkeln/erhellen, nach_oben (mehrmals) = beenden
+		
+		1.4.4 NavigationMikrofon
+		(OPTIONAL)
+		Navigatio durch Stimmerkennung
+		BEFEHLE: weiter = vor , zurück = zurück , dunkel = verdunkeln , hell = erhellen , beenden = beenden 
+		
+		1.4.5 NavigationKamera
+		Kamera erkennt Gesten zur Navigation
+		!BEFEHLE: NOCH NICHT BESTIMMT!
+		
+	1.5 Menue
+	(OPTIONAL)
+	Über eine Menueführung können Navigationsmöglichkeiten 1.4.x x>1 an/ausgeschaltet werden.
+	Die Präsentation kann beendet werden.
+	Eine neue Präsentation kann angehangen werden.
+	VORRAUSSETZUNG: 1.2 PasswörterSetzen v 1.1 PräsenterEinwahl falls das Menue erlauben sollte Paswörter zu wechseln.
+	
+2.0 Publikum
+Mehrere Personen haben die Absicht eine Präsentation zu verfolgen
+
+	2.1 PublikumEinwahl
+	Publikumsperson wählt sich in das System ein
+	VORRAUSSETZUNG: 1.2 PasswörterSetzen
+	
+	2.2 PräsentationAnzeigen
+	Die Präsentation wird angezeigt
+	VORRAUSSETZUNG: 1.3 PräsentationHochladen
+					2.1 PublikumEinwahl
+	
+	2.3 PräsentationSpeichern
+	Die Präsentation wird gespeichert
+	VORRAUSSETZUNG: 1.3 PräsentationHochladen
+					2.1 PublikumEinwahl
+	
+	2.4 Verlassen
+	Die Publikumsperson verlässt die Präsentation
+	VORRAUSSETZUNG: 2.1 PublikumEinwahl
+	
+	2.5 Menue
+	(OPTIONAL)
+	Ein Menue erlaubt die Anwendungsfälle 2.1 - 2.4
+
+3.0 DienstAnforderungen
+
+	3.1 Benutzer/Rechteverwaltung
+	Mehrere Präsenter, mehrere passwörgeschützte Publikumspersonen.
+	
+	3.2 Datenverwaltung
+	Sortierung und Verwaltung von Präsentationen
+	
+	3.3 Klientenschnittstelle
+	Muss derzeitige Seite der Präsentation verteilen.
+	
+4.0 KlientenAnforderungen
+
+	4.1 VerbindungHalten
+	
+	4.2 Einwahlschirm
+	
+	4.3 Bedienelemente
+	Nur Präsenter/Publikumsperson spezifische Schaltflächen sollen aktiv sein.
