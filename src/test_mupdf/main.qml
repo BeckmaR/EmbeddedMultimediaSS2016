@@ -3,17 +3,23 @@ import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
+    property alias mainForm1: mainForm1
+    property int pagenr: -1
     visible: true
-    width: 640
-    height: 480
-    title: qsTr("Hello World")
+    signal nextpage()
+    signal prevpage()
+    signal openfile(url _url)
+
+    function qml_setPage(nr) {
+        pagenr = nr
+    }
 
     menuBar: MenuBar {
         Menu {
             title: qsTr("File")
             MenuItem {
                 text: qsTr("&Open")
-                onTriggered: console.log("Open action triggered");
+                onTriggered: fileDialog.open();
             }
             MenuItem {
                 text: qsTr("Exit")
@@ -21,20 +27,31 @@ ApplicationWindow {
             }
         }
     }
-
-    MainForm {
-        anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a PDF file"
+        //folder: shortcuts.home
+        nameFilters: [ "Pdf files (*.pdf)" ]
+        onAccepted: {
+            console.log("You chose: " + fileDialog.fileUrl)
+            openfile(fileDialog.fileUrl)
+        }
+        onRejected: {
+            console.log("Canceled")
+        }
+        //Component.onCompleted: visible = true
     }
 
-    MessageDialog {
-        id: messageDialog
-        title: qsTr("May I have your attention, please?")
-
-        function show(caption) {
-            messageDialog.text = caption;
-            messageDialog.open();
+    MainForm {
+        id: mainForm1
+        anchors.fill: parent
+        button_back.onClicked: {
+            //console.log("Button back")
+            prevpage();
+        }
+        button_forward.onClicked: {
+            //console.log("Button forward")
+            nextpage();
         }
     }
 }

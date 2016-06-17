@@ -1,25 +1,38 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.3
-import QtQuick.Layouts 1.1
+import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.2
 
 Item {
-    width: 640
-    height: 480
+    id: item
+    property alias button_forward: button_forward
+    property alias button_back: button_back
+    ColumnLayout {
+        id: columnLayout1
+        anchors.fill: parent
 
-    property alias button1: button1
-    property alias button2: button2
-
-    RowLayout {
-        anchors.centerIn: parent
-
-        Button {
-            id: button1
-            text: qsTr("Press Me 1")
+        Image {
+            id: image1
+            source: "image://pdfrenderer/" + pagenr
         }
 
-        Button {
-            id: button2
-            text: qsTr("Press Me 2")
+        RowLayout {
+            id: rowLayout1
+            Button {
+                id: button_back
+                text: qsTr("Zurück")
+            }
+            Button {
+                id: button_forward
+                text: qsTr("Vorwärts")
+            }
+
+            Text {
+                id: text1
+                text: qsTr("Seite: ") + pagenr
+                font.pixelSize: 12
+            }
         }
     }
 }
+
