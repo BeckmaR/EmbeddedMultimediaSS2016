@@ -13,6 +13,12 @@ Item {
 
         Image {
             id: image1
+            fillMode: Image.PreserveAspectFit
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            sourceSize.width: paintedWidth;
+            sourceSize.height: paintedHeight;
+            cache: false
             source: "image://pdfrenderer/" + pagenr
         }
 
@@ -21,6 +27,7 @@ Item {
             Button {
                 id: button_back
                 text: qsTr("Zurück")
+                Layout.preferredWidth: -1
             }
             Button {
                 id: button_forward

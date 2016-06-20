@@ -58,6 +58,13 @@ void PdfRenderer::OpenPDF(const QUrl &url)
 QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
     QImage image;
+
+    //qDebug() << "req width: " << requestedSize.width() << "req height: " << requestedSize.height();
+//    if (size != 0)
+//    {
+//        qDebug() << "width: " << size->width() << "height: " << size->height();
+//        //*size = QSize(100, 100);
+//    }
     if (m_page) {
         delete m_page;
         m_page = NULL;
@@ -67,9 +74,17 @@ QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &re
         return image;
     }
     m_page = m_doc->page(index);
+    QSizeF pdf_size = m_page->size();
+    //qDebug() << "image size: " << pdf_size;
+    float ratio = requestedSize.width()/pdf_size.width();
+    if(ratio < 1)
+    {
+        ratio = 1;
+    }
     if (NULL == m_page) {
         return image;
     }
-    image = m_page->renderImage(1, 1);
+    image = m_page->renderImage(ratio, ratio);
+    //qDebug() << "image width: " << image.width() << "image height: " << image.height();
     return image;
 }
