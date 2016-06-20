@@ -8,7 +8,6 @@ TARGET = lib_mupdf
 TEMPLATE = lib
 
 DEFINES += LIB_MUPDF_LIBRARY
-#CONFIG += shared
 
 SOURCES += \
     ../../thirdparty/mupdf-qt/src/mupdf-document.cpp \
@@ -34,15 +33,17 @@ unix {
     INSTALLS += target
 }
 
-Release:DESTDIR = ../../build/lib_mupdf/$${OS_PATH_NAME}/release
-Debug:DESTDIR = ../../build/lib_mupdf/$${OS_PATH_NAME}/debug
+CONFIG(debug, debug|release) {
+    DESTDIR = ../../build/lib_mupdf/$${OS_PATH_NAME}/debug
+} else {
+    DESTDIR = ../../build/lib_mupdf/$${OS_PATH_NAME}/release
+}
 
- LIBS += -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/release/$${OS_PATH_NAME}/ -lmupdf \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/release/$${OS_PATH_NAME}/ -ljbig2dec \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/release/$${OS_PATH_NAME}/ -ljpeg \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/release/$${OS_PATH_NAME}/ -lmujs \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/release/$${OS_PATH_NAME}/ -lfreetype \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/release/$${OS_PATH_NAME}/ -lopenjpeg \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/release/$${OS_PATH_NAME}/ -lz
 
-message("$${OS_PATH_NAME} Version")
+ LIBS += -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lmupdf \
+    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -ljbig2dec \
+    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -ljpeg \
+    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lmujs \
+    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lfreetype \
+    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lopenjpeg \
+    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lz
