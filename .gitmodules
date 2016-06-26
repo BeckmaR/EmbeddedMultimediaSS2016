@@ -1,3 +1,6 @@
 [submodule "thirdparty/mupdf-qt"]
 	path = thirdparty/mupdf-qt
 	url = https://github.com/timheb/mupdf-qt.git
+[submodule "thirdparty/opencv"]
+	path = thirdparty/opencv
+	url = https://github.com/Itseez/opencv
