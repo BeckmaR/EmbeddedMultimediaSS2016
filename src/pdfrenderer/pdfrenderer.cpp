@@ -86,5 +86,11 @@ QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &re
     }
     image = m_page->renderImage(ratio, ratio);
     //qDebug() << "image width: " << image.width() << "image height: " << image.height();
+    if(size)
+    {
+        size->setHeight(image.height());
+        size->setWidth(image.width());
+        //qDebug() << "size gesetzt";
+    }
     return image;
 }

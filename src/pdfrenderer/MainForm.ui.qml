@@ -1,4 +1,4 @@
-import QtQuick 2.4
+import QtQuick 2.5
 import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.2
@@ -16,8 +16,10 @@ Item {
             fillMode: Image.PreserveAspectFit
             Layout.fillHeight: true
             Layout.fillWidth: true
-            sourceSize.width: paintedWidth;
-            sourceSize.height: paintedHeight;
+            //anchors.fill: parent
+            sourceSize.width: paintedWidth
+
+            //sourceSize.height: paintedHeight;
             cache: false
             source: "image://pdfrenderer/" + pagenr
         }
@@ -37,7 +39,6 @@ Item {
             Text {
                 id: text1
                 text: qsTr("Seite: ") + pagenr
-                font.pixelSize: 12
             }
         }
     }

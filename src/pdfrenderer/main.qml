@@ -3,6 +3,8 @@ import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
+    width: 200
+    height: 200
     property alias mainForm1: mainForm1
     property int pagenr: -1
     visible: true
