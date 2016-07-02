@@ -1,4 +1,4 @@
-#How to use the "test_mupdf" Demo
+#How to use the "test_pdfrenderer" Demo
 
 1. checkout the submodule
 "git submodule update" for the "thirdparty/mupdf-qt" and "thirdparty/mupdf-qt/mupdf" Repo
