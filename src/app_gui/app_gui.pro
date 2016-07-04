@@ -2,10 +2,10 @@ QT += qml quick
 
 CONFIG += c++11
 
-SOURCES += ../test_mupdf/pdfrenderer.cpp \
+SOURCES += ../pdfrenderer/pdfrenderer.cpp \
             main.cpp
 
-HEADERS += ../test_mupdf/pdfrenderer.h
+HEADERS += ../pdfrenderer/pdfrenderer.h
 
 RESOURCES += qml.qrc
 
@@ -22,7 +22,7 @@ FORMS +=
 
 
 INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/include \
-               $$PWD/../test_mupdf
+               $$PWD/../pdfrenderer
 
 win32 {
     OS_PATH_NAME = Windows_NT
