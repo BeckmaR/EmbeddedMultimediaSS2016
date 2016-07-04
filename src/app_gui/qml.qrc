@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Page1.qml</file>
+        <file>Page1Form.ui.qml</file>
+        <file>Page2.qml</file>
+        <file>Page2Form.ui.qml</file>
+        <file>ScrollBar.qml</file>
+        <file>MyButton.qml</file>
+        <file>Download/abb-13-01-skelettsystem.jpg</file>
+        <file>Download/GreekAlphabet.png</file>
+        <file>Download/menschliches-skelett-von-der-hinteren-und-vorhergehenden-ansicht-didaktisches-brett-von-anatomie-des-menschlichen-knöchernen-29868500.jpg</file>
+        <file>Download/Skelett_des_Menschen_2.png</file>
+        <file>Download/Skelett_des_Menschen_MK1888.png</file>
+    </qresource>
+</RCC>
