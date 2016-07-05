@@ -4,3 +4,6 @@
 [submodule "thirdparty/opencv"]
 	path = thirdparty/opencv
 	url = https://github.com/Itseez/opencv
+[submodule "thirdparty/opencv_contrib"]
+	path = thirdparty/opencv_contrib
+	url = https://github.com/Itseez/opencv_contrib
