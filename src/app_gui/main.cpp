@@ -5,6 +5,8 @@
 //#include <QDebug>
 #include "pdfrenderer.h"
 //Aus
+
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);//Alt und nicht im neuen

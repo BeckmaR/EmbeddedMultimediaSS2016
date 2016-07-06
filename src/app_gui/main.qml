@@ -31,6 +31,7 @@ ApplicationWindow {
         }
         onRejected: {
             console.log("Canceled")
+            tabBar.currentIndex = tabBar.currentIndex +1
         }
    //     Component.onCompleted: visible = false
     }
@@ -51,10 +52,8 @@ ApplicationWindow {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
-
         Page1 {
         }
-
         Page2 {
         }
     }
