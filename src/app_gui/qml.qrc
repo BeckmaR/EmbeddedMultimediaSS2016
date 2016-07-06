@@ -7,7 +7,5 @@
         <file>Page2Form.ui.qml</file>
         <file>ScrollBar.qml</file>
         <file>MyButton.qml</file>
-        <file>Download/GreekAlphabet.png</file>
-        <file>Download/Skelett_des_Menschen_MK1888.png</file>
     </qresource>
 </RCC>
