@@ -181,6 +181,7 @@ void server::socketDisconnected()
 bool server::setpdfpage(int pagenum)
 {
     pdfpage = pagenum;
+    emit pdfPageChanged(pagenum);
     return true;
 }
 
@@ -197,9 +198,10 @@ void server::broadcast(QString message)
     }
 }
 
-QFile* server::savepdf(QByteArray)
+QFile* server::savepdf(QByteArray data)
 {
     pdffile = new QFile();
+    emit pdfReceived(data);
     return pdffile;
 }
 
