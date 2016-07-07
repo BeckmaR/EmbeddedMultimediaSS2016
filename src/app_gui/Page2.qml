@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.0
 //BEGIN ACCELEROMETER
 import QtQuick.Window 2.2
 import QtSensors 5.3
+import QtQuick 2.5
 //END ACCELEROMETER
 
 Page2Form {
@@ -28,65 +29,87 @@ Page2Form {
         1 + 2 + 4 + 8
     }
     /*
-      Activate and Contol the behaviour of the Accelerometer
+      Used variables for Accelerometer evaluation
     */
     Item{
-        id: direction
-        property var dead : 5
+        id: accelEvaluation
+        property var dead : 3
         property var oldX : 0
         property var oldY : 0
     }
+    /*
+    */
+    Item{
+        Timer{
+            id: accelTimer
+            interval: 500
+            running: false
+            repeat: false
+        }
+    }
+
+    /*
+      Activate and Contol the behaviour of the Accelerometer
+    */
 
     Accelerometer {
         id: accel
         dataRate: 10
         active:true
         onReadingChanged: {
-            if ((Screen.orientation === 1) || (Screen.orientation === 4))
+            if (accelTimer.running === false)
             {
-                var currentX = accel.reading.x
-                if (currentX > direction.dead){
-                    direction.oldX = 1
-                }
-                if (currentX < - direction.dead){
-                    direction.oldX = -1
-                }
-                else{
-                    if (((direction.oldX === 1) && (Screen.orientation === 1)) || ((direction.oldX === -1) && (Screen.orientation === 4))){
-                        prevpage()
+                if ((Screen.orientation === 1) || (Screen.orientation === 4))
+                {
+                    var currentX = accel.reading.x
+                    if (currentX > accelEvaluation.dead){
+                        accelEvaluation.oldX = 1
                     }
-                    if (((direction.oldX === 1) && (Screen.orientation === 4)) || ((direction.oldX === -1) && (Screen.orientation === 1))){
-                        nextpage()
+                    else if (currentX < - accelEvaluation.dead){
+                        accelEvaluation.oldX = -1
                     }
+                    else{
+                        if (((accelEvaluation.oldX === 1) && (Screen.orientation === 1)) || ((accelEvaluation.oldX === -1) && (Screen.orientation === 4))){
+                            prevpage()
+                            accelTimer.restart()
+                        }
+                        else if (((accelEvaluation.oldX === 1) && (Screen.orientation === 4)) || ((accelEvaluation.oldX === -1) && (Screen.orientation === 1))){
+                            nextpage()
+                            accelTimer.restart()
+                        }
 
-                    direction.oldX = 0
-                }
-            }
-            if ((Screen.orientation === 2) || (Screen.orientation === 8))
-            {
-                var currentY = accel.reading.y
-                if (currentY > direction.dead){
-                    direction.oldY = 1
-                }
-                if (currentY < - direction.dead){
-                    direction.oldY = -1
-                }
-                else{
-                    if (((direction.oldY === 1) && (Screen.orientation === 2)) || ((direction.oldY === -1) && (Screen.orientation === 8))){
-                        nextpage()
+                        accelEvaluation.oldX = 0
                     }
-                    if (((direction.oldY === 1) && (Screen.orientation === 8)) || ((direction.oldY === -1) && (Screen.orientation === 2))){
-                        prevpage()
+                }
+                else if ((Screen.orientation === 2) || (Screen.orientation === 8))
+                {
+                    var currentY = accel.reading.y
+                    if (currentY > accelEvaluation.dead){
+                        accelEvaluation.oldY = 1
                     }
+                    else if (currentY < - accelEvaluation.dead){
+                        accelEvaluation.oldY = -1
+                    }
+                    else{
+                        if (((accelEvaluation.oldY === 1) && (Screen.orientation === 2)) || ((accelEvaluation.oldY === -1) && (Screen.orientation === 8))){
+                            nextpage()
+                            accelTimer.restart()
+                        }
+                        else if (((accelEvaluation.oldY === 1) && (Screen.orientation === 8)) || ((accelEvaluation.oldY === -1) && (Screen.orientation === 2))){
+                            prevpage()
+                            accelTimer.restart()
+                        }
 
-                    direction.oldY = 0
+                        accelEvaluation.oldY = 0
+                    }
                 }
             }
         }
     }
     Screen.onOrientationChanged: {
-        direction.oldX = 0
-        direction.oldY = 0
+        accelTimer.restart()
+        accelEvaluation.oldX = 0
+        accelEvaluation.oldY = 0
     }
     //END ACCELEROMETER
 }
