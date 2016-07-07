@@ -38,6 +38,7 @@ Page2Form {
         property var oldY : 0
     }
     /*
+      Timer to limit page turn rate
     */
     Item{
         Timer{
