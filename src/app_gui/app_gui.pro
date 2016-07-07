@@ -9,6 +9,7 @@ HEADERS += ../pdfrenderer/pdfrenderer.h
 
 RESOURCES += qml.qrc
 
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
@@ -16,9 +17,8 @@ QML_IMPORT_PATH =
 #include(deployment.pri) nur für qnx
 
 FORMS +=
-
-#DISTFILES += \
 #    Page2Form.ui.qml
+#DISTFILES += \
 
 
 INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/include \
