@@ -1,21 +1,45 @@
+//#include <QDebug>
+
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-//Ein
+
+/* VON GALLERY
+*/
+#include <QQmlContext>
+#include <QSettings>
+#include <QQuickStyle>
+/* VON GUI
+*/
 #include <QImage>
-//#include <QDebug>
 #include "pdfrenderer.h"
-//Aus
+
+
+
 
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);//Alt und nicht im neuen
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
+    QGuiApplication::setApplicationName("Presentao");
+    QGuiApplication::setOrganizationName("Embedded_Multimedia");
+
+    QSettings settings;
+    QString style = QQuickStyle::name();
+    if (!style.isEmpty())
+        settings.setValue("style", style);
+    else
+        QQuickStyle::setStyle(settings.value("style").toString());
+
+
+
     QQmlApplicationEngine engine;
+    engine.load(QUrl(QLatin1String("qrc:/main.qml")));
+    //engine.load(QUrl("qrc:/gallery.qml"));
+    if (engine.rootObjects().isEmpty())
+        return -1;
 
     PdfRenderer myPdfRenderer;
-
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     engine.addImageProvider(QLatin1String("pdfrenderer"), &myPdfRenderer);//Neu , aber warum=????
 
     QObject *root = engine.rootObjects()[0];
@@ -27,7 +51,6 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
-
 
 
 
