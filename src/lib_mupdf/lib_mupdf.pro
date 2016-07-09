@@ -7,7 +7,7 @@
 TARGET = lib_mupdf
 TEMPLATE = lib
 
-DEFINES += LIB_MUPDF_LIBRARY
+#DEFINES += LIB_MUPDF_LIBRARY
 
 SOURCES += \
     ../../thirdparty/mupdf-qt/src/mupdf-document.cpp \
@@ -29,6 +29,7 @@ android {
 }
 
 unix {
+	OS_PATH_NAME = linux
     target.path = /usr/lib
     INSTALLS += target
 }
