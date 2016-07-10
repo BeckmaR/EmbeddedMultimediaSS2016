@@ -6,7 +6,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     handcontrol.cpp \
-    #test_handcontrol.cpp
+    QMLRenderer.cpp \
+    opencv_worker.cpp
 
 TARGET = test_handcontrol
 
@@ -28,7 +29,7 @@ win32 {
         -lopencv_imgproc310 \
         #-lopencv_imgcodecs310 \
         #-lopencv_video310 \
-        -lopencv_videoio310
+        #-lopencv_videoio310
         #-lopencv_bgsegm310
 }
 
@@ -37,32 +38,33 @@ android {
     LIBS += -L"../../build/opencv/sdk/native/libs/armeabi-v7a" \
             -L"../../build/opencv/sdk/native/3rdparty/libs/armeabi-v7a"
 
-    LIBS += -llibtiff\
-        -llibjpeg\
-        -llibjasper\
-        -llibpng\
-        -lIlmImf\
-        -ltbb\
+    LIBS += \
+        #-llibtiff\
+        #-llibjpeg\
+        #-llibjasper\
+        #-llibpng\
+        #-lIlmImf\
+        #-ltbb\
         -lopencv_core\
         #-lopencv_androidcamera\
-        -lopencv_flann\
-        -lopencv_imgproc\
-        -lopencv_highgui\
-        -lopencv_features2d\
-        -lopencv_calib3d\
-        -lopencv_ml\
-        -lopencv_objdetect\
-        -lopencv_videoio\
-        -lopencv_video\
+        #-lopencv_flann\
+        #-lopencv_imgproc\
+        #-lopencv_highgui\
+        #-lopencv_features2d\
+        #-lopencv_calib3d\
+        #-lopencv_ml\
+        #-lopencv_objdetect\
+        #-lopencv_videoio\
+        #-lopencv_video\
         #-lopencv_contrib\
-        -lopencv_photo\
+        #-lopencv_photo\
         #-lopencv_java\
         #-lopencv_legacy\
         #-lopencv_ocl\
-        -lopencv_stitching\
-        -lopencv_superres\
+        #-lopencv_stitching\
+        #-lopencv_superres\
         #-lopencv_ts\
-        -lopencv_videostab\
+        #-lopencv_videostab\
         -lopencv_java3
 }
 
@@ -76,7 +78,8 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 
 HEADERS += \
     handcontrol.h \
-    #test_handcontrol.h
+    QMLRenderer.h \
+    opencv_worker.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

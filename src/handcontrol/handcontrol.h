@@ -3,25 +3,31 @@
 
 #include <QObject>
 #include <QVariant>
-#include <QCamera>
-#include <QCameraImageCapture>
+#include <QThread>
+#include <QAbstractVideoFilter>
+#include <QVideoFilterRunnable>
 #include "opencv2/opencv.hpp"
 
-class handcontrol_worker;
+class OpenCV_Worker;
+class QMLRenderer;
 
-class handcontrol : public QObject
+class handcontrol : public QAbstractVideoFilter
 {
-    handcontrol_worker *worker;
-    QCamera *camera;
     Q_OBJECT
+    OpenCV_Worker *opencv_worker;
+    QThread thread;
+
 public:
-    explicit handcontrol(QObject *parent = 0);
+    //explicit handcontrol(QObject *parent = 0);
+    handcontrol();
     virtual ~handcontrol();
+    QVideoFilterRunnable * createFilterRunnable();
 
 signals:
     void change_page(QVariant dir);
     void debugMessage(QVariant msg);
     void errorMessage(QVariant msg);
+    void finished(QObject *result);
 public slots:
     void enable(int);
 
