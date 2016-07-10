@@ -6,7 +6,6 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     handcontrol.cpp \
-    QMLRenderer.cpp \
     opencv_worker.cpp
 
 TARGET = test_handcontrol
@@ -78,7 +77,7 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 
 HEADERS += \
     handcontrol.h \
-    QMLRenderer.h \
+    #QMLRenderer.h \
     opencv_worker.h
 
 DISTFILES += \

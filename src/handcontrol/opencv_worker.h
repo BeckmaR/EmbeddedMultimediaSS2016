@@ -19,17 +19,19 @@ class OpenCV_Worker : public QObject
     int dir_count = 0;
     int prev_index = 0;
     int frame_count = 0;
+    cv::Mat current_frame;
     cv::Mat frame_gray;
     cv::Mat prev_frame;
     cv::Mat frame_sub;
     cv::Mat hist;
 public:
-    cv::Mat current_frame;
     explicit OpenCV_Worker(handcontrol *parent);
 
 signals:
+    void sendFrame(QVideoFrame::PixelFormat pixelFormat);
 
 public slots:
+    void processFrame(const QVideoFrame &frame);
     void AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat);
 };
 

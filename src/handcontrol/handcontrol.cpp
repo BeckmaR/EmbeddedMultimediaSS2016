@@ -2,7 +2,8 @@
 #include <QObject>
 #include <QString>
 #include <QThread>
-#include "QMLRenderer.h"
+//#include "QMLRenderer.h"
+#include <QCamera>
 #include "handcontrol.h"
 #include "opencv_worker.h"
 
@@ -14,6 +15,7 @@ handcontrol::handcontrol()/*(QObject *parent) : public QAbstractVideoFilter(pare
     //camera->setCaptureMode(QCamera::CaptureViewfinder);
     //worker->setHandcontrolPtr(this);
     opencv_worker->moveToThread(&thread);
+    QObject::connect(&probe, SIGNAL(videoFrameProbed(QVideoFrame)), opencv_worker, SLOT(processFrame(QVideoFrame)));
     thread.start();
 
 }
@@ -39,10 +41,13 @@ handcontrol::~handcontrol()
     thread.quit();
     delete(opencv_worker);
 }
-
-QVideoFilterRunnable * handcontrol::createFilterRunnable()
+void handcontrol::setCamera(QCamera *camera)
 {
-    QMLRenderer *renderer = new QMLRenderer(this,opencv_worker);
-    QObject::connect(renderer, SIGNAL(sendFrame(QVideoFrame::PixelFormat)), opencv_worker, SLOT(AnalyzeFrame(QVideoFrame::PixelFormat)));
-    return renderer;
+    if(probe.setSource(camera))
+    {
+        qDebug() << "setSource geklappt";
+    }else {
+        qDebug() << "setSource nicht geklappt";
+    }
 }
+

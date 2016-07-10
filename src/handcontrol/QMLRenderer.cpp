@@ -28,7 +28,7 @@ QVideoFrame QMLRenderer::run(QVideoFrame *input, const QVideoSurfaceFormat &surf
             qDebug() << "input->bits(): "<< *input->bits();
             qDebug() << "height:" << input->height() << "width:" << input->width();
             emit p_handcontrol->errorMessage("height:" + QString::number(input->height()) + "width:" + QString::number(input->width()));
-            p_opencv_worker->current_frame = cv_temp_frame.clone();
+            current_frame = cv_temp_frame.clone();
             input->unmap();
             //emit p_handcontrol->debugMessage("Mat kopiert");
             //current_frame =  Mat(temp_frame.height(),temp_frame.width(),CV_8UC4,(void *) temp_frame.bits(),temp_frame.bytesPerLine());

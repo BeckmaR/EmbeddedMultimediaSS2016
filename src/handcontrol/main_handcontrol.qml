@@ -2,7 +2,7 @@ import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import QtMultimedia 5.6
-import handcontrol 1.0
+//import handcontrol 1.0
 
 ApplicationWindow {
     visible: true
@@ -11,54 +11,16 @@ ApplicationWindow {
     property int page_nr: 0
     property int handcontrol_enable_nr: 0
     signal handcontrol_enable(int enable)
-//    function print_errorMessage(msg) {
-//        //text1.text = text1.text + "<b>" + msg + "</b>"
-//        text1.append("<b>" + msg + "</b>")
-//    }
-//    function print_debugMessage(msg) {
-//        //text1.text = text1.text + msg
-//        text1.append(msg)
-//    }
-//    function count_page(value) {
-//        page_nr = page_nr + value
-//    }
-    function listProperty(item)
-    {
-        for (var p in item)
-        console.log(p + ": " + item[p]);
+    function print_errorMessage(msg) {
+        //text1.text = text1.text + "<b>" + msg + "</b>"
+        text1.append("<b>" + msg + "</b>")
     }
-    Camera {
-        id: camera
-        position: Camera.FrontFace
-        captureMode: CaptureViewfinder
-        viewfinder {
-            resolution: "320x240"
-        }
-       Component.onCompleted: {
-           camera.stop()
-           filter.enable(0)
-           console.log (viewfinder.resolution)
-           console.log (viewfinder.minimumFrameRate)
-           console.log (viewfinder.maximumFrameRate)
-       }
-
-
+    function print_debugMessage(msg) {
+        //text1.text = text1.text + msg
+        text1.append(msg)
     }
-    Handcontrol {
-        id: filter
-        // set properties, they can also be animated
-        //onFinished: console.log("results of the computation: " + result)
-        //ondebugMessage: console.log("results of the computation: " + msg)
-        onDebugMessage: text1.append(msg)
-        onErrorMessage: text1.append("<b>" + msg + "</b>")
-        onChange_page: page_nr = page_nr + dir
-
-    }
-    VideoOutput {
-        source: camera
-        filters: [ filter ]
-        //anchors.fill: parent
-        visible: false
+    function count_page(value) {
+        page_nr = page_nr + value
     }
 
     ColumnLayout {
@@ -68,7 +30,26 @@ ApplicationWindow {
         anchors.leftMargin: 0
         anchors.topMargin: 0
         anchors.fill: parent
-
+        VideoOutput {
+            source: camera
+            //visible: false
+            Camera {
+                id: camera
+                objectName: "camera"
+                position: Camera.FrontFace
+                //captureMode: Camera.CaptureVideo
+                viewfinder {
+                    resolution: "320x240"
+                }
+               Component.onCompleted: {
+                   camera.stop()
+                   //filter.enable(0)
+                   text1.append(viewfinder.resolution)
+                   text1.append(viewfinder.minimumFrameRate)
+                   text1.append(viewfinder.maximumFrameRate)
+               }
+            }
+        }
 
         TextArea {
             id: text1
@@ -94,14 +75,15 @@ ApplicationWindow {
                     if(handcontrol_enable_nr) {
                         handcontrolbutton.text = "handcontrol deaktiviert"
                         handcontrol_enable(0)
-                        filter.enable(0)
+                        //filter.enable(0)
                         camera.stop()
                         handcontrol_enable_nr = 0
                     }else {
                         handcontrol_enable(1)
                         handcontrolbutton.text = "handcontrol aktiviert"
                         handcontrol_enable_nr = 1
-                        filter.enable(1)
+                        handcontrol_enable(1)
+                        //filter.enable(1)
                         camera.start()
                     }
                 }
