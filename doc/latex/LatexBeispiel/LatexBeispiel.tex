@@ -1,8 +1,8 @@
 \chapter{Latex Beispiel}
 \thispagestyle{fancy}
 \label{LatexBeispiel}
-\"Uber das chapter Steuerzeichen werden \"Uberschriften generiert.\\
-\"Uber das label Steuerzeichen k\"onnen Referenzmarken geschaffen werden die \"uber \mbox{(siehe Kap. \ref{LatexBeispiel}  S. \pageref{LatexBeispiel})} referenziert werden k\"onnen.
+Über das chapter Steuerzeichen werden Überschriften generiert.\\
+Über das label Steuerzeichen können Referenzmarken geschaffen werden die über \mbox{(siehe Kap. \ref{LatexBeispiel}  S. \pageref{LatexBeispiel})} referenziert werden können.
 Dazu muss jedoch das Dokument zwei Mal berechnet werden.
 \section{Unter einem Chapter kommt eine Section}
 Eine Section wird numeriert und taucht im Inhaltsverzeichnis auf.
@@ -11,9 +11,9 @@ Eine SubSection wird numeriert und taucht im Inhaltsverzeichnis auf.
 \subsubsection{Unter einer Subsection eine SubSubSection}
 Eine SubSubSection wird numeriert und taucht in diesem Falle nicht im Inhaltsverzeichnis auf.
 \paragraph{Ein Paragraph}$\;$\\
-Ein Paragraph erh\"alt keine Nummerierung, daf\"ur eine fette \"Uberschrift und wird nicht im Inhaltsverzeichnis aufgez\"ahlt.
+Ein Paragraph erhält keine Nummerierung, dafür eine fette Überschrift und wird nicht im Inhaltsverzeichnis aufgezählt.
 \\ %Leerzeile
-Fu{\ss}note\footnote{\mbox{Innenwiderstand $20m\Omega$ $\rightarrow$ $\frac{1,35V-0,85V}{20m\Omega}=25A$ Ladestrom}} mit grenzeneinhaltender Mathematik.
+Fußnote\footnote{\mbox{Innenwiderstand $20m\Omega$ $\rightarrow$ $\frac{1,35V-0,85V}{20m\Omega}=25A$ Ladestrom}} mit grenzeneinhaltender Mathematik.
 Einfache Elemente kann man auch so: $V_{high}$ einbinden.
 oder als numerierte Equation
 \begin{equation} \label{eq:Tiefpass24}
@@ -30,7 +30,7 @@ Zitiere Eric C. Darcy\cite{Darcy} aus der Bibliothek.
 \end{figure}
 
 \newpage
-So kann Code eingef\"ugt werden.
+So kann Code eingefügt werden.
 \begin{lstlisting}[frame=single,breaklines=true,basicstyle=\tiny,language=C,label={PWMStart},caption={Kommentierter Start der PWM}]
 /*! \brief Starts the PWM
  * 
@@ -42,5 +42,3 @@ static void vStartPwm( void )
 	tc_software_trigger( &AVR32_TC0, PWM_CHANNEL );
 }
 \end{lstlisting}
-
-
