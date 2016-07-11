@@ -8,8 +8,10 @@ void onConnected();
 void OnMessageReceived(QString);
 void registerAsMaster();
 void sendFile(QString);
+void incPageNum();
 
 static QWebSocket websock;
+static int pagenum;
 
 int main(int argc, char *argv[])
 {
@@ -58,7 +60,15 @@ void onConnected()
         websock.sendTextMessage("This is a test message and not a command.");
         registerAsMaster();
         sendFile("../../theoryoffun.pdf");
+
+        incPageNum();
+
     }
+}
+
+void OnMessageReceived(QString message)
+{
+    qDebug() << message;
 }
 
 void registerAsMaster()
@@ -68,6 +78,7 @@ void registerAsMaster()
 
 void sendFile(QString filename)
 {
+    qDebug() << "Sending File...";
     QFile file(filename);
     QByteArray buffer;
     if(!file.open(QIODevice::ReadOnly))
@@ -81,7 +92,9 @@ void sendFile(QString filename)
     websock.sendBinaryMessage(buffer);
 }
 
-void OnMessageReceived(QString message)
+void incPageNum()
 {
-    qDebug() << message;
+    websock.sendTextMessage("SP:" + QString::number(++pagenum));
 }
+
+
