@@ -13,4 +13,9 @@ ApplicationWindow {
     function qml_setPage(nr) {
             pagenr = nr
     }
+
+    MainForm {
+            id: mainForm1
+            anchors.fill: parent
+        }
 }
