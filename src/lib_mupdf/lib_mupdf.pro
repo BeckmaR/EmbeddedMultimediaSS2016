@@ -29,6 +29,7 @@ android {
 }
 
 unix {
+    OS_PATH_NAME = unix
     target.path = /usr/lib
     INSTALLS += target
 }
