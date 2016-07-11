@@ -24,7 +24,8 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
                 current_frame = cv_temp_frame.clone();
             } else if(temp_frame.pixelFormat() == QVideoFrame::Format_NV21) {
                 Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC1,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
-                frame_gray = cv_temp_frame.clone();
+                resize(cv_temp_frame,frame_gray,Size(640,480),0,0,INTER_NEAREST);
+                //frame_gray = cv_temp_frame.clone();
             }
 
             //Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC4,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
@@ -121,10 +122,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
             if(dir_count==5)
             {
                 emit p_handcontrol->debugMessage("dir: " + QString::number(new_dir) + "dir_count: " + QString::number(dir_count));
-                qDebug() << "dir: " << dir << "dir_count: " << dir_count;
-                if(dir == 1)  {
-                    emit p_handcontrol->change_page(dir);
-                }
+                emit p_handcontrol->change_page(dir);
             }
             //emit p_handcontrol->debugMessage("Frame: " + QString::number(frame_count) + " index: " + QString::number(current_index) + " dir: " + QString::number(dir) + " dir_count: " + QString::number(dir_count)+ " hist_max: " + QString::number(hist_max));
         }
@@ -132,7 +130,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
         {
             dir_count = 0;
         }
-        //qDebug() << "Frame: " << frame_count << "index: " << current_index << " dir: " << dir << " dir_count: " << dir_count << "hist_max: " << hist_max;
+        qDebug() << "Frame: " << frame_count << "index: " << current_index << " dir: " << dir << " dir_count: " << dir_count << "hist_max: " << hist_max;
         prev_index = current_index;
 
     }
