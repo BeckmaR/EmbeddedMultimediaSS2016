@@ -1,7 +1,9 @@
-import QtQuick 2.4
-import QtQuick.Controls 1.3
+import QtQuick 2.3
+import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
+
 
 ApplicationWindow {
     width: 200
@@ -14,8 +16,20 @@ ApplicationWindow {
             pagenr = nr
     }
 
-    MainForm {
-            id: mainForm1
-            anchors.fill: parent
-        }
+    Image {
+        id: image1
+        fillMode: Image.PreserveAspectFit
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        //anchors.fill: parent
+        sourceSize.width: paintedWidth
+
+        //sourceSize.height: paintedHeight;
+        cache: false
+        source: "image://pdfrenderer/" + pagenr
+    }
+
+
+
+
 }
