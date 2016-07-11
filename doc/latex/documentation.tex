@@ -1,0 +1,75 @@
+%\documentclass[a4paper,11pt,fleqn]{report}
+%\documentclass[a4paper,11pt,twoside]{report}
+\documentclass[a4paper,12pt,]{report}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[german, ngerman]{babel}
+\usepackage{longtable}
+\usepackage[BCOR0.5cm]{typearea} %deaktivate
+\usepackage{tabularx}
+\usepackage{latexsym}
+\usepackage{amsmath,mathptmx} %  Times-Schriftart
+\usepackage{graphicx,float}
+\usepackage{helvet}
+\usepackage{fancyheadings}
+\pagestyle{fancy}
+\usepackage{geometry}
+\usepackage{microtype}
+\geometry{a4paper, top=30mm, left=25mm, right=25mm, bottom=0mm,
+headsep=10mm, footskip=10mm}
+%\usepackage{amsfonts}
+\usepackage{listings}
+\setlength{\headwidth}{16cm}
+\setlength{\textwidth}{16cm}
+\setlength{\leftmargin}{-1cm}
+
+\renewcommand{\chaptermark}[1]%
+                  {\markboth{#1}{}}
+
+\renewcommand{\sectionmark}[1]%
+               {\markright{\thesection\ #1}}
+\lhead[\fancyplain{}{\bfseries\thepage}]%
+     {\fancyplain{}{\bfseries\rightmark}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]%
+      {\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+
+\setlength{\parindent}{0pt} %kein einzug nach Absatz
+
+\renewcommand{\baselinestretch}{1.2} 
+\usepackage{lscape} 
+\setlength{\textheight}{24.5cm}
+
+%\usepackage[hang, rm, bf]{caption}
+\usepackage[font=small,format=plain,labelfont=bf,up,textfont=rm,rm]{caption}
+\clubpenalty = 10000 
+\widowpenalty = 10000 
+\displaywidowpenalty = 10000
+\begin{document}
+
+\include{Deckblatt/Deckblatt}
+
+\pagenumbering{Roman}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+{\parskip=4mm \tableofcontents}
+\newpage
+\listoffigures
+\newpage
+\pagenumbering{arabic}
+
+%\include{Erklaerung/Erklaerung}
+
+\setcounter{page}{1}
+
+\include{Einleitung/Einleitung}
+\include{LatexBeispiel/LatexBeispiel}
+
+%\addcontentsline{toc}{chapter}{Danksagung}
+%\include{Danksagung/Danksagung}
+
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\bibliography{Literaturverzeichnis/biblio}
+\bibliographystyle{Literaturverzeichnis/unsrtdin_pi}
+
+\end{document}
