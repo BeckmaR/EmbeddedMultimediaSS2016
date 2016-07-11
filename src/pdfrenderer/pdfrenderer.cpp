@@ -33,14 +33,15 @@ void PdfRenderer::nextPage(void)
     setPage(m_index);
 }
 
-void PdfRenderer::OpenPDF(const QUrl &url)
+void PdfRenderer::OpenPDF(QString filepath)
 {
+    /*
     qDebug() << "Url: " << url;
     if (m_doc) {
         delete m_doc;
         m_doc = NULL;
     }
-    QString filepath = url.toLocalFile();
+    QString filepath = url.toLocalFile();*/
     m_doc = MuPDF::loadDocument(filepath);
     if (NULL == m_doc) {
         qDebug() << "PDF konnte nicht geöffnet werden";

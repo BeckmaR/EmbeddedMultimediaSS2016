@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
+import QtQuick.Window 2.2
 
 ApplicationWindow {
     width: 200
@@ -8,6 +9,7 @@ ApplicationWindow {
     property alias mainForm1: mainForm1
     property int pagenr: -1
     visible: true
+    visibility: Window.FullScreen
     signal nextpage()
     signal prevpage()
     signal openfile(url _url)
