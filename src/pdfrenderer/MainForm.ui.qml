@@ -5,14 +5,13 @@ import QtQuick.Layouts 1.2
 
 Item {
     id: item
-    property alias button_forward: button_forward
-    property alias button_back: button_back
     ColumnLayout {
         id: columnLayout1
         anchors.fill: parent
 
         Image {
             id: image1
+            height: 342
             fillMode: Image.PreserveAspectFit
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -26,20 +25,6 @@ Item {
 
         RowLayout {
             id: rowLayout1
-            Button {
-                id: button_back
-                text: qsTr("Zurück")
-                Layout.preferredWidth: -1
-            }
-            Button {
-                id: button_forward
-                text: qsTr("Vorwärts")
-            }
-
-            Text {
-                id: text1
-                text: qsTr("Seite: ") + pagenr
-            }
         }
     }
 }

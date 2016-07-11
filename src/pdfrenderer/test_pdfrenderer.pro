@@ -1,9 +1,10 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml core quick websockets
 
 SOURCES += pdfrenderer.cpp \
-    main.cpp
+    main.cpp \
+    server.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,7 +15,8 @@ QML_IMPORT_PATH =
 #include(deployment.pri)
 
 HEADERS += \
-    pdfrenderer.h
+    pdfrenderer.h \
+    server.h
 
 INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/include
 
