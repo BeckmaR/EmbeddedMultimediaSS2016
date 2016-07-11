@@ -1,5 +1,7 @@
 #include <QDebug>
 #include <QUrl>
+#include <QFile>
+#include <QByteArray>
 #include "pdfrenderer.h"
 
 PdfRenderer::PdfRenderer() : QQuickImageProvider(QQuickImageProvider::Image)
@@ -31,6 +33,11 @@ void PdfRenderer::nextPage(void)
     }
     //openPage(m_index);
     setPage(m_index);
+}
+
+void PdfRenderer::slot_setPage(int pagenum)
+{
+    emit setPage((QVariant) pagenum);
 }
 
 void PdfRenderer::OpenPDF(QString filepath)
@@ -94,4 +101,19 @@ QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &re
         //qDebug() << "size gesetzt";
     }
     return image;
+}
+
+void PdfRenderer::savePDF(QByteArray data)
+{
+    QFile file("presentation.pdf");
+    if(file.open(QIODevice::WriteOnly))
+    {
+        file.write(data);
+        file.close();
+        OpenPDF("presentation.pdf");
+    }
+    else
+    {
+        qDebug() << "Could not open file 'presentation.pdf' for writing'";
+    }
 }
