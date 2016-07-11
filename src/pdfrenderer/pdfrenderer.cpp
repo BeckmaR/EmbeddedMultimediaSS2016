@@ -1,5 +1,7 @@
 #include <QDebug>
 #include <QUrl>
+#include <QFile>
+#include <QByteArray>
 #include "pdfrenderer.h"
 
 PdfRenderer::PdfRenderer() : QQuickImageProvider(QQuickImageProvider::Image)
@@ -33,14 +35,20 @@ void PdfRenderer::nextPage(void)
     setPage(m_index);
 }
 
-void PdfRenderer::OpenPDF(const QUrl &url)
+void PdfRenderer::slot_setPage(int pagenum)
 {
+    emit setPage((QVariant) pagenum);
+}
+
+void PdfRenderer::OpenPDF(QString filepath)
+{
+    /*
     qDebug() << "Url: " << url;
     if (m_doc) {
         delete m_doc;
         m_doc = NULL;
     }
-    QString filepath = url.toLocalFile();
+    QString filepath = url.toLocalFile();*/
     m_doc = MuPDF::loadDocument(filepath);
     if (NULL == m_doc) {
         qDebug() << "PDF konnte nicht geöffnet werden";
@@ -93,4 +101,19 @@ QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &re
         //qDebug() << "size gesetzt";
     }
     return image;
+}
+
+void PdfRenderer::savePDF(QByteArray data)
+{
+    QFile file("presentation.pdf");
+    if(file.open(QIODevice::WriteOnly))
+    {
+        file.write(data);
+        file.close();
+        OpenPDF("presentation.pdf");
+    }
+    else
+    {
+        qDebug() << "Could not open file 'presentation.pdf' for writing'";
+    }
 }

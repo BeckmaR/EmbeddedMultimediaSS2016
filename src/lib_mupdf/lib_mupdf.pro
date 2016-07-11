@@ -29,7 +29,7 @@ android {
 }
 
 unix {
-	OS_PATH_NAME = linux
+    OS_PATH_NAME = linux
     target.path = /usr/lib
     INSTALLS += target
 }

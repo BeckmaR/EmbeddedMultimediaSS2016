@@ -1,9 +1,10 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml core quick websockets
 
 SOURCES += pdfrenderer.cpp \
-    main.cpp
+    main.cpp \
+    server.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,7 +15,8 @@ QML_IMPORT_PATH =
 #include(deployment.pri)
 
 HEADERS += \
-    pdfrenderer.h
+    pdfrenderer.h \
+    server.h
 
 INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/include
 
@@ -29,7 +31,19 @@ android {
     LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
 }
 
+unix {
+    OS_PATH_NAME = unix
+    target.path = /usr/lib
+    INSTALLS += target
+    LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
+}
+
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
         $$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/liblib_mupdf.so
 }
+
+INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/build
+DEPENDPATH += $$PWD/../../thirdparty/mupdf-qt/build
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../../thirdparty/mupdf-qt/build/lib/libmupdf-qt.a
