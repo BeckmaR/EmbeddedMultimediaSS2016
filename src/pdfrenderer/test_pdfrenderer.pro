@@ -1,10 +1,9 @@
 TEMPLATE = app
 
-QT += qml quick websockets
+QT += qml quick
 
 SOURCES += pdfrenderer.cpp \
-    main.cpp \
-    server.cpp
+    main.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,17 +14,19 @@ QML_IMPORT_PATH =
 #include(deployment.pri)
 
 HEADERS += \
-    pdfrenderer.h \
-    server.h
+    pdfrenderer.h
 
-INCLUDEPATH += ../../thirdparty/mupdf-qt/include
+INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/include
 
 win32 {
     OS_PATH_NAME = Windows_NT
+    #LIBS += ../../build/lib_mupdf/$${OS_PATH_NAME}/release/lib_mupdf.dll
+    LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
 }
 
 android {
     OS_PATH_NAME = android
+    LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
 }
 
 linux {
