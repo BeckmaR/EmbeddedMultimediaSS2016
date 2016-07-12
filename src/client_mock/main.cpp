@@ -5,9 +5,7 @@
 #include <QTime>
 
 void onConnected();
-void OnMessageReceived(QString);
 void registerAsMaster();
-void sendFile(QString);
 
 static QWebSocket websock;
 
@@ -18,7 +16,6 @@ int main(int argc, char *argv[])
     websock.open(QUrl(QStringLiteral("ws://localhost:1234")));
 
     QObject::connect(&websock, &QWebSocket::connected, onConnected);
-    QObject::connect(&websock, &QWebSocket::textMessageReceived, OnMessageReceived);
 
     /*
     qDebug() << "Opened WebSocket";
@@ -55,33 +52,12 @@ void onConnected()
     else
     {
         qDebug() << "Everything's fine.";
-        websock.sendTextMessage("This is a test message and not a command.");
+        websock.sendTextMessage("FUBAR: Fucked Up Beyond All Recognition.");
         registerAsMaster();
-        sendFile("../../theoryoffun.pdf");
     }
 }
 
 void registerAsMaster()
 {
     websock.sendTextMessage("RM:mpw12345");
-}
-
-void sendFile(QString filename)
-{
-    QFile file(filename);
-    QByteArray buffer;
-    if(!file.open(QIODevice::ReadOnly))
-    {
-        qDebug() << "Could not open file";
-        qDebug() << file.errorString();
-        return;
-    }
-    buffer = file.readAll();
-    file.close();
-    websock.sendBinaryMessage(buffer);
-}
-
-void OnMessageReceived(QString message)
-{
-    qDebug() << message;
 }

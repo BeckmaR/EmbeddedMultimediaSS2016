@@ -40,8 +40,6 @@ void server::onNewConnection()
 {
     QWebSocket *pSocket = m_pWebSocketServer->nextPendingConnection();
 
-    qDebug() << "New Connection!";
-
     connect(pSocket, &QWebSocket::textMessageReceived, this, &server::processMessage);
     connect(pSocket, &QWebSocket::binaryMessageReceived, this, &server::processBinary);
     connect(pSocket, &QWebSocket::disconnected, this, &server::socketDisconnected);
@@ -51,7 +49,6 @@ void server::onNewConnection()
 
 void server::processMessage(QString message)
 {
-    qDebug() << "got Message " << message;
     bool is_master = false;
     QString masterpassword = "mpw12345";
     QWebSocket *pSender = qobject_cast<QWebSocket *>(sender());
@@ -82,7 +79,6 @@ void server::processMessage(QString message)
             {
                 m_master = pSender;
                 m_master->sendTextMessage("ACK");
-                qDebug() << "registered client as master";
             }
             else if(payload != masterpassword)
             {
@@ -148,17 +144,15 @@ void server::processMessage(QString message)
 
 void server::processBinary(QByteArray message)
 {
-    qDebug() << "received binary stuff";
     QWebSocket *pSender = qobject_cast<QWebSocket *>(sender());
 
     if(m_master != Q_NULLPTR && pSender == m_master)
     {
-        emit pdfReceived(message);
+        setpdf(savepdf(message));
         pdfcontents = message;
         pSender->sendTextMessage("ACK");
         broadcast("PDFAVAILABLE");
-        pdfpage = 0;
-        emit pdfPageChanged(pdfpage);
+        pdfpage = 1;
     }
     else
     {

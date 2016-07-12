@@ -38,7 +38,7 @@ void PdfRenderer::nextPage(void)
 
 void PdfRenderer::slot_setPage(int pagenum)
 {
-    setPage((QVariant) pagenum);
+    emit setPage((QVariant) pagenum);
 }
 
 void PdfRenderer::OpenPDF(QString filepath)

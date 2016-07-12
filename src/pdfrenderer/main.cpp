@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
     QObject::connect(&pdfServer, SIGNAL(pdfPageChanged(int)), &myPdfRenderer, SLOT(slot_setPage(int)));
     QObject::connect(&myPdfRenderer, SIGNAL(setPage(QVariant)),root, SLOT(qml_setPage(QVariant)));
 
+    myPdfRenderer.OpenPDF(QString("/home/rene/Downloads/CCD-20150325.pdf"));
+
     qDebug() << "App gestartet";
     return app.exec();
 }
