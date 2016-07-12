@@ -33,7 +33,7 @@ ApplicationWindow {
     property int pagenr: -1
     signal nextpage()
     signal prevpage()
-    signal openfile(url _url)
+    signal openfile(string _url)
     function qml_setPage(nr) {
         pagenr = nr
     }
@@ -281,8 +281,12 @@ ApplicationWindow {
         folder: shortcuts.home
         nameFilters: [ "Pdf files (*.pdf)" ]
         onAccepted: {
+
             console.log("You chose: " + fileDialog.fileUrl)
-            openfile(fileDialog.fileUrl)
+            console.log("You chose2: " + fileDialog.fileUrl.toString())
+            var pdf_path = fileDialog.fileUrl.toString()
+            pdf_path= pdf_path.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"");
+            openfile(pdf_path)
             nextpage();//Da die Neue Pdf sonst erst beim ersten Blättern geladen wird
             prevpage();
             if (listView.currentIndex != 1) {

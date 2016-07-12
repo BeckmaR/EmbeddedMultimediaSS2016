@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(root, SIGNAL(nextpage()),&myPdfRenderer, SLOT(nextPage()));
     QObject::connect(root, SIGNAL(prevpage()),&myPdfRenderer, SLOT(prevPage()));
-    QObject::connect(root, SIGNAL(openfile(QUrl)),&myPdfRenderer, SLOT(OpenPDF(QUrl)));
+    QObject::connect(root, SIGNAL(openfile(QString)),&myPdfRenderer, SLOT(OpenPDF(QString)));
     QObject::connect(&myPdfRenderer, SIGNAL(setPage(QVariant)),root, SLOT(qml_setPage(QVariant)));
 
     return app.exec();
