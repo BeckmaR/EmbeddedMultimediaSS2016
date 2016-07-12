@@ -9,6 +9,10 @@ TEMPLATE = lib
 
 DEFINES += LIB_MUPDF_LIBRARY
 
+#contains(CONFIG,"debug") {
+#    error("Lib bitte im Release compilieren")
+#}
+
 SOURCES += \
     ../../thirdparty/mupdf-qt/src/mupdf-document.cpp \
     ../../thirdparty/mupdf-qt/src/mupdf-link.cpp \
@@ -28,7 +32,13 @@ android {
     OS_PATH_NAME = android
 }
 
-unix {
+linux {
+    OS_PATH_NAME = linux
+    contains($$QMAKESPEC,"/usr/lib/arm-linux-gnueabihf")
+    {
+        message("RaspberryPi: Kein Cross Compile")
+        OS_PATH_NAME = raspberry
+    }
     target.path = /usr/lib
     INSTALLS += target
 }
@@ -39,11 +49,14 @@ CONFIG(debug, debug|release) {
     DESTDIR = ../../build/lib_mupdf/$${OS_PATH_NAME}/release
 }
 
+LIBS += -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/
 
- LIBS += -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lmupdf \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -ljbig2dec \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -ljpeg \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lmujs \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lfreetype \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lopenjpeg \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lz
+message($$QMAKESPEC)
+
+LIBS +=    -lmupdf \
+            -ljbig2dec \
+            -ljpeg \
+            -lmujs \
+            -lfreetype \
+            -lopenjpeg \
+            -lz

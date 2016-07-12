@@ -29,7 +29,26 @@ android {
     LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
 }
 
+linux {
+    OS_PATH_NAME = linux
+    contains($$QMAKESPEC,"/usr/lib/arm-linux-gnueabihf")
+    {
+        OS_PATH_NAME = raspberry
+
+    }
+    target.path = /usr/lib
+    INSTALLS += target
+
+}
+
+LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
+
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
         $$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/liblib_mupdf.so
 }
+
+#INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/build
+#DEPENDPATH += $$PWD/../../thirdparty/mupdf-qt/build
+
+#unix:!macx: PRE_TARGETDEPS += $$PWD/../../thirdparty/mupdf-qt/build/linux/libmupdf-qt.a

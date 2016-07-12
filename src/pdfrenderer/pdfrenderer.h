@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QQuickImageProvider>
-#include "mupdf-qt.h"
+#include "../../thirdparty/mupdf-qt/include/mupdf-qt.h"
 
 class PdfRenderer : public QObject, public QQuickImageProvider
 {
@@ -19,7 +19,7 @@ signals:
 public slots:
     void prevPage();
     void nextPage();
-    void OpenPDF(const QUrl &url);
+    void OpenPDF(QString filepath);
 
 private:
     void updatePage();

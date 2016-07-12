@@ -120,13 +120,10 @@
 /* NVidia Video Decoding API*/
 /* #undef HAVE_NVCUVID */
 
-/* NVidia Video Encoding API*/
-/* #undef HAVE_NVCUVENC */
-
 /* OpenCL Support */
-#define HAVE_OPENCL
+/* #undef HAVE_OPENCL */
 /* #undef HAVE_OPENCL_STATIC */
-#define HAVE_OPENCL_SVM
+/* #undef HAVE_OPENCL_SVM */
 
 /* OpenEXR codec */
 #define HAVE_OPENEXR
@@ -162,7 +159,7 @@
 /* #undef HAVE_QTKIT */
 
 /* Intel Threading Building Blocks */
-/* #undef HAVE_TBB */
+#define HAVE_TBB
 
 /* TIFF codec */
 #define HAVE_TIFF
@@ -197,6 +194,3 @@
 
 /* Intel VA-API/OpenCL */
 /* #undef HAVE_VA_INTEL */
-
-/* Lapack */
-/* #undef HAVE_LAPACK */

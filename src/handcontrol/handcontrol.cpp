@@ -1,35 +1,53 @@
 #include <QDebug>
+#include <QObject>
+#include <QString>
+#include <QThread>
+//#include "QMLRenderer.h"
+#include <QCamera>
 #include "handcontrol.h"
-#include "opencv2/opencv.hpp"
+#include "opencv_worker.h"
 
-using namespace cv;
+//using namespace cv;
 
-handcontrol::handcontrol(QObject *parent) : QObject(parent)
+handcontrol::handcontrol()/*(QObject *parent) : public QAbstractVideoFilter(parent)*/
 {
+    opencv_worker = new OpenCV_Worker(this);
+    //camera->setCaptureMode(QCamera::CaptureViewfinder);
+    //worker->setHandcontrolPtr(this);
+    opencv_worker->moveToThread(&thread);
+    QObject::connect(&probe, SIGNAL(videoFrameProbed(QVideoFrame)), opencv_worker, SLOT(processFrame(QVideoFrame)));
+    thread.start();
 
 }
 
-void handcontrol::test_with_video()
+void handcontrol::enable(int enable)
 {
-   char video_name[] = "test.mp4";
-   VideoCapture cap(video_name);
-   if(!cap.isOpened())
-   {
-       qDebug() << "Video konnte nicht geoeffnet werden";
-       // check if we succeeded
-       return;
-   }
-   Mat edges;
-   namedWindow("edges",1);
-  for(;;)
-  {
-      Mat frame;
-      cap >> frame; // get a new frame from camera
-      cvtColor(frame, edges, COLOR_BGR2GRAY);
-      GaussianBlur(edges, edges, Size(7,7), 1.5, 1.5);
-      Canny(edges, edges, 0, 30, 3);
-      imshow("edges", edges);
-      if(waitKey(30) >= 0) break;
-  }
-
+    if(enable) {
+        //worker->prepareStart();
+        thread.start();
+        qDebug() << "handcontrol gestartet";
+        emit debugMessage("handcontrol gestartet");
+    } else {
+        //worker->quit_signal = 1;
+        thread.quit();
+        qDebug() << "handcontrol gestoppt";
+        emit debugMessage("handcontrol gestoppt");
+    }
 }
+
+
+handcontrol::~handcontrol()
+{
+    thread.quit();
+    delete(opencv_worker);
+}
+void handcontrol::setCamera(QCamera *camera)
+{
+    if(probe.setSource(camera))
+    {
+        qDebug() << "setSource geklappt";
+    }else {
+        qDebug() << "setSource nicht geklappt";
+    }
+}
+

@@ -41,6 +41,10 @@ private Q_SLOTS:
     void processMessage(QString message);
     void processBinary(QByteArray message);
     void socketDisconnected();
+
+signals:
+    void pdfReceived(QByteArray data);
+    void pdfPageChanged(int pagenum);
 };
 
 #endif // SERVER_H
