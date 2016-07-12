@@ -1,7 +1,8 @@
+
 #TEMPLATE = app
 #TARGET = gallery
-QT += quick quickcontrols2
-QT += qml quick
+QT += quick quickcontrols2 qml websockets
+
 
 CONFIG += c++11
 
@@ -49,5 +50,4 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 
 #target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols2/gallery
 #INSTALLS += target
-
 

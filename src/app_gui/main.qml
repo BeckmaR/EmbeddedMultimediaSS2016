@@ -7,12 +7,14 @@ import Qt.labs.settings 1.0
 
 import QtQuick.Dialogs 1.0
 
+
 ApplicationWindow {
     id: window
     width: 360
-    height: 520
+    height: 820
     visible: true
     title: qsTr("Presentao_APP")
+
 
     Settings {
         id: settings
@@ -20,6 +22,14 @@ ApplicationWindow {
     }
 
     //SIGNALE
+
+    property int appState: 0 //initialer Wert im main stackView
+    property int appStateStart: 1
+    property int appStateSprecherSet: 2
+    property int appStateHörerSet: 3
+    property int appStateSprecherReady: 4
+    property int appStateHörerReady: 5
+
     property int pagenr: -1
     signal nextpage()
     signal prevpage()
@@ -35,6 +45,8 @@ ApplicationWindow {
 
         ListView {
             id: listView
+            enabled: appState >= 4
+            visible: appState >= 4
             currentIndex: -1
             anchors.fill: parent
 
@@ -43,55 +55,40 @@ ApplicationWindow {
                 text: model.title
                 highlighted: ListView.isCurrentItem
                 onClicked: {// Wenn der ausgewählte Eintrag nicht bereits ausgewählt ist, wird ersetzt er den Stack
-                    if (listView.currentIndex != index) {
+                    if (index == 0) { //Start
                         listView.currentIndex = index
                         titleLabel.text = model.title
                         stackView.replace(model.source)
-                    }
+                        appState=appStateStart
+                    }else if (index == 1){
+                        listView.currentIndex = index
+                        titleLabel.text = model.title
+                        stackView.replace(model.source)
+                        if (appState==appStateHörerReady){
+                            appState=appStateHörerSet
+                        }
+                        if (appState==appStateSprecherReady){
+                            appState=appStateSprecherSet
+                        }
+                    }else if (listView.currentIndex != index) {
+                        listView.currentIndex = index
+                        titleLabel.text = model.title
+                        stackView.replace(model.source)
+                        }
                     drawer.close()
                 }
             }
 
             model: ListModel {
-                ListElement { title: "Pdf-Ansicht"; source: "qrc:/pages/PdfSteuerung.qml" } //PdfSteuerung ruft PdfAnsicht auf
+                ListElement { title: "Rollenwahl"; source: "qrc:/pages/Rollenwahl.qml" }
                 ListElement { title: "Netzwerkeinstellungen"; source: "qrc:/pages/Netzwerkeinstellungen.qml" }
+                ListElement { title: "Pdf-Ansicht"; source: "qrc:/pages/PdfSteuerung.qml" } //PdfSteuerung ruft PdfAnsicht auf
                 ListElement { title: "Bildschirmeinstellungen"; source: "qrc:/pages/Bildschirmeinstellungen.qml" }
                 ListElement { title: "Audioeinstellungen"; source: "qrc:/pages/Audioeinstellungen.qml" }
                 ListElement { title: "Touchsteuerung"; source: "qrc:/pages/Touchsteuerung.qml" }
                 ListElement { title: "Schwingsteuerung"; source: "qrc:/pages/Schwingsteuerung.qml" }
                 ListElement { title: "Gestensteuerung"; source: "qrc:/pages/Gestensteuerung.qml" }
                 ListElement { title: "Audio/Klatschsteuerung"; source: "qrc:/pages/Klatschsteuerung.qml" }
-
-                /*
-                ListElement { title: "ScrollIndicator"; source: "qrc:/pages/ScrollIndicatorPage.qml" }
-                  */
-/*                ListElement { title: "BusyIndicator"; source: "qrc:/pages/BusyIndicatorPage.qml" }
-                ListElement { title: "ScrollBar"; source: "qrc:/pages/ScrollBarPage.qml" }
-                ListElement { title: "Button"; source: "qrc:/pages/ButtonPage.qml" }
-                ListElement { title: "CheckBox"; source: "qrc:/pages/CheckBoxPage.qml" }
-                ListElement { title: "ComboBox"; source: "qrc:/pages/ComboBoxPage.qml" }
-                ListElement { title: "Dial"; source: "qrc:/pages/DialPage.qml" }
-                ListElement { title: "Delegates"; source: "qrc:/pages/DelegatePage.qml" }
-                ListElement { title: "Drawer"; source: "qrc:/pages/DrawerPage.qml" }
-                ListElement { title: "Frame"; source: "qrc:/pages/FramePage.qml" }
-                ListElement { title: "GroupBox"; source: "qrc:/pages/GroupBoxPage.qml" }
-                ListElement { title: "Menu"; source: "qrc:/pages/MenuPage.qml" }
-                ListElement { title: "PageIndicator"; source: "qrc:/pages/PageIndicatorPage.qml" }
-                ListElement { title: "Popup"; source: "qrc:/pages/PopupPage.qml" }
-                ListElement { title: "ProgressBar"; source: "qrc:/pages/ProgressBarPage.qml" }
-                ListElement { title: "RadioButton"; source: "qrc:/pages/RadioButtonPage.qml" }
-                ListElement { title: "RangeSlider"; source: "qrc:/pages/RangeSliderPage.qml" }
-                ListElement { title: "Slider"; source: "qrc:/pages/SliderPage.qml" }
-                ListElement { title: "SpinBox"; source: "qrc:/pages/SpinBoxPage.qml" }
-                ListElement { title: "StackView"; source: "qrc:/pages/StackViewPage.qml" }
-                ListElement { title: "SwipeView"; source: "qrc:/pages/SwipeViewPage.qml" }
-                ListElement { title: "Switch"; source: "qrc:/pages/SwitchPage.qml" }
-                ListElement { title: "TabBar"; source: "qrc:/pages/TabBarPage.qml" }
-                ListElement { title: "TextArea"; source: "qrc:/pages/TextAreaPage.qml" }
-                ListElement { title: "TextField"; source: "qrc:/pages/TextFieldPage.qml" }
-                ListElement { title: "ToolTip"; source: "qrc:/pages/ToolTipPage.qml" }
-                ListElement { title: "Tumbler"; source: "qrc:/pages/TumblerPage.qml" }
-*/
             }
             ScrollIndicator.vertical: ScrollIndicator { }
         }
@@ -104,54 +101,31 @@ ApplicationWindow {
             id: pane
             ColumnLayout {
                 id: columnLayout1
-                anchors.fill: parent
+                //anchors.fill: parent
 
-                /*
-                Image {
-                    id: image1
-                    fillMode: Image.PreserveAspectFit
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    sourceSize.width: paintedWidth;
-                    sourceSize.height: paintedHeight;
-                    cache: false
-                    source: "image://pdfrenderer/" + pagenr
+                Label {
+                    text: "Willkommen zur Ihrer Präsentationsapp! "
                 }
-                              */
-            }
 
-            Image {
-                id: logo
-                width: pane.availableWidth / 2
-                height: pane.availableHeight / 2
-                anchors.centerIn: parent
-                anchors.verticalCenterOffset: -50
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/images/qt-logo.png"
-            }
-
-            Label {
-                text: "Startbildschirm."
-                anchors.margins: 20
-                anchors.top: logo.bottom
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: arrow.top
-                horizontalAlignment: Label.AlignHCenter
-                verticalAlignment: Label.AlignVCenter
-                wrapMode: Label.Wrap
-            }
-
-            Image {
-                id: arrow
-                source: "qrc:/images/arrow.png"
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
+                Label {
+                    text: "<br><b>Starten der App: "
+                }
+                Button{
+                    id: startButton
+                    text: "Start"
+                    onClicked: {
+                        listView.currentIndex = 0
+                        titleLabel.text = "Rollenwahl"
+                        stackView.replace("qrc:/pages/Rollenwahl.qml")
+                        appState=appStateStart
+                    }
+                }
             }
         }
     }
 
-    footer: ToolBar { //Leiste am Bildschirm unten
+
+    header: ToolBar { //Leiste am Bildschirm unten
         Material.foreground: "white"
 
         RowLayout {
@@ -163,10 +137,26 @@ ApplicationWindow {
                     fillMode: Image.Pad
                     horizontalAlignment: Image.AlignHCenter
                     verticalAlignment: Image.AlignVCenter
-                    source: "qrc:/images/drawer.png"
+                    source: if (appState <= appStateStart){
+                                return "qrc:/images/blue.png"
+                            }else if ((appState == appStateHörerSet)||(appState == appStateSprecherSet)){
+                                return "qrc:/images/arrow.png"
+                            }else{
+                                return "qrc:/images/drawer.png"
+                            }
                 }
-                onClicked: drawer.open()
+                onClicked: if (appState <= appStateStart){
+                               //Nothing
+                           }else if ((appState == appStateHörerSet)||(appState == appStateSprecherSet)){
+                               listView.currentIndex = 0
+                               titleLabel.text = "Rollenwahl"
+                               stackView.replace("qrc:/pages/Rollenwahl.qml")
+                               appState=appStateStart
+                           }else{
+                                drawer.open()
+                            }
             }
+
             Label {//App-Namen zur Orientierung (ausblenden nach Zeit x?)
                 id: titleLabel
                 text: "Presentao-App"
@@ -176,7 +166,9 @@ ApplicationWindow {
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
             }
-            ToolButton {//Gezeichneter Knopf um Menu fürs Pdf öffnen und die Info aufzurufen
+
+            ToolButton {//Gezeichneter Knopf um Menu fürs Hilfe und Team Info aufzurufen
+                visible: true //masterv
                 contentItem: Image {
                     fillMode: Image.Pad
                     horizontalAlignment: Image.AlignHCenter
@@ -191,13 +183,13 @@ ApplicationWindow {
                     transformOrigin: Menu.TopRight
 
                     MenuItem {
-                        text: "Pdf öffnen"
+                        text: "Hilfe"
                         onTriggered: {
-                            fileDialog.open();
+                            hilfeDialog.open()
                         }
                     }
                     MenuItem {
-                        text: "Information"
+                        text: "Das Team"
                         onTriggered: infoDialog.open()
                     }
                 }
@@ -205,7 +197,46 @@ ApplicationWindow {
         }
     }
 
+
     Popup {//Hilfe POPUP-Menu
+        id: hilfeDialog
+        modal: true
+        focus: true
+        x: (window.width - width) / 2
+        y: window.height / 6
+        width: Math.min(window.width, window.height) / 3 * 2
+        contentHeight: hilfeSpalte.height
+        Column {//Infobox
+            id: hilfeSpalte
+            spacing: 20
+            Label {//Überschrift
+                text: "Hilfe zur App:"
+                font.bold: true
+            }
+            Label {//Applicationsname
+                width: infoDialog.availableWidth
+                text: "Presentao"
+                wrapMode: Label.Wrap
+                font.pixelSize: 12
+            }
+            Label {//EntwicklerTeam
+                width: infoDialog.availableWidth
+                text: "Diese App dient dem:<br>"
+                    + "Erstellen einer Präsentation<br>Anschauen einer Präsentation<br>"
+                wrapMode: Label.Wrap
+                font.pixelSize: 12
+            }
+            Label {//Weitere Informationen
+                width: infoDialog.availableWidth
+                text: "Für Tipps und weitere Informationen"
+                +" lesen Sie bitte den ausführlichen Abschlussbericht"
+                wrapMode: Label.Wrap
+                font.pixelSize: 8
+            }
+        }
+    }
+
+    Popup {//Information übers Team
         id: infoDialog
         modal: true
         focus: true
@@ -217,7 +248,7 @@ ApplicationWindow {
             id: infoSpalte
             spacing: 20
             Label {//Überschrift
-                text: "Info zur App:"
+                text: "Team der App:"
                 font.bold: true
             }
             Label {//Applicationsname
@@ -243,6 +274,7 @@ ApplicationWindow {
         }
     }
 
+
     FileDialog{//Um Dateien später aufrufen zu können
         id: fileDialog
         title: "Please choose a PDF file"
@@ -261,7 +293,6 @@ ApplicationWindow {
         }
         onRejected: {
             console.log("Canceled")
-   //         tabBar.currentIndex = tabBar.currentIndex +1
         }
    //     Component.onCompleted: visible = false
     }
