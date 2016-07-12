@@ -10,6 +10,12 @@ OpenCV_Worker::OpenCV_Worker(handcontrol *parent)
     QObject::connect(this, SIGNAL(sendFrame(QVideoFrame::PixelFormat)), this, SLOT(AnalyzeFrame(QVideoFrame::PixelFormat)));
 }
 
+bool OpenCV_Worker::present(const QVideoFrame &frame)
+{
+    processFrame(frame);
+    return true;
+}
+
 void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
 
     QVideoFrame temp_frame(frame);
@@ -56,11 +62,16 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
     //qDebug() << " in map part";
 
 }
-
+void OpenCV_Worker::One_sec_Timer()
+{
+    emit p_handcontrol->debugMessage("Frame_counter: " + QString::number(Frame_counter));
+    Frame_counter = 0;
+}
 
 void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
     //p_handcontrol->debugMessage("AnalyzeFrame");
     //qDebug()<< __FILE__ << __LINE__  << "thread: "<< QThread::currentThreadId();
+    Frame_counter++;
     if(pixelFormat == QVideoFrame::Format_RGB32) {
         cvtColor(current_frame, frame_gray,CV_RGB2GRAY);
     } else if(pixelFormat == QVideoFrame::Format_NV21) {
@@ -93,7 +104,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
             }
         }
         int current_index = 0;
-        if (hist_max > 20) //30
+        if (hist_max > 15) //30
         {
             int hist_sum_mean_point = hist_sum/2;
 
@@ -130,7 +141,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
         {
             dir_count = 0;
         }
-        qDebug() << "Frame: " << frame_count << "index: " << current_index << " dir: " << dir << " dir_count: " << dir_count << "hist_max: " << hist_max;
+        //qDebug() << "Frame: " << frame_count << "index: " << current_index << " dir: " << dir << " dir_count: " << dir_count << "hist_max: " << hist_max;
         prev_index = current_index;
 
     }
@@ -138,4 +149,42 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
     //imshow("test Frames",frame_gray);
     //waitKey(0);
     prev_frame = frame_gray.clone();
+}
+
+QList<QVideoFrame::PixelFormat> OpenCV_Worker::supportedPixelFormats(QAbstractVideoBuffer::HandleType handleType) const
+{
+    Q_UNUSED(handleType);
+    return QList<QVideoFrame::PixelFormat>()
+        << QVideoFrame::Format_ARGB32
+        << QVideoFrame::Format_ARGB32_Premultiplied
+        << QVideoFrame::Format_RGB32
+        << QVideoFrame::Format_RGB24
+        << QVideoFrame::Format_RGB565
+        << QVideoFrame::Format_RGB555
+        << QVideoFrame::Format_ARGB8565_Premultiplied
+        << QVideoFrame::Format_BGRA32
+        << QVideoFrame::Format_BGRA32_Premultiplied
+        << QVideoFrame::Format_BGR32
+        << QVideoFrame::Format_BGR24
+        << QVideoFrame::Format_BGR565
+        << QVideoFrame::Format_BGR555
+        << QVideoFrame::Format_BGRA5658_Premultiplied
+        << QVideoFrame::Format_AYUV444
+        << QVideoFrame::Format_AYUV444_Premultiplied
+        << QVideoFrame::Format_YUV444
+        << QVideoFrame::Format_YUV420P
+        << QVideoFrame::Format_YV12
+        << QVideoFrame::Format_UYVY
+        << QVideoFrame::Format_YUYV
+        << QVideoFrame::Format_NV12
+        << QVideoFrame::Format_NV21
+        << QVideoFrame::Format_IMC1
+        << QVideoFrame::Format_IMC2
+        << QVideoFrame::Format_IMC3
+        << QVideoFrame::Format_IMC4
+        << QVideoFrame::Format_Y8
+        << QVideoFrame::Format_Y16
+        << QVideoFrame::Format_Jpeg
+        << QVideoFrame::Format_CameraRaw
+        << QVideoFrame::Format_AdobeDng;
 }

@@ -37,15 +37,15 @@ ApplicationWindow {
                 id: camera
                 objectName: "camera"
                 position: Camera.FrontFace
-                imageProcessing {
-                    contrast: 0.5
-                }
+//                imageProcessing {
+//                    contrast: 0.5
+//                }
                Component.onCompleted: {
                    camera.stop()
                    //filter.enable(0)
-                   text1.append(camera.viewfinder.resolution)
-                   text1.append(viewfinder.minimumFrameRate)
-                   text1.append(viewfinder.maximumFrameRate)
+//                   text1.append(camera.viewfinder.resolution)
+//                   text1.append(viewfinder.minimumFrameRate)
+//                   text1.append(viewfinder.maximumFrameRate)
                }
             }
         }

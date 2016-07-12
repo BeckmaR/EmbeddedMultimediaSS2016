@@ -6,10 +6,11 @@
 #include <QThread>
 #include <QVideoProbe>
 #include <QCamera>
+#include <QTimer>
 #include "opencv2/opencv.hpp"
 
 class OpenCV_Worker;
-class QMLRenderer;
+//class QMLRenderer;
 
 class handcontrol : public QObject
 {
@@ -17,6 +18,7 @@ class handcontrol : public QObject
     OpenCV_Worker *opencv_worker;
     QVideoProbe probe;
     QThread thread;
+    QTimer _1msTimer;
 
 public:
     //explicit handcontrol(QObject *parent = 0);
