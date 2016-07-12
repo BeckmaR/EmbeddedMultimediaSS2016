@@ -3,33 +3,13 @@ import QtQuick.Controls 2.0
 
 import QtQuick 2.0
 
-import QtWebSockets 1.0
 
 Flickable {
     id: flickable
 
     contentHeight: pane.height
 
-    WebSocket{
-        id: webSocketId
-        url: "ws://localhost:1234"
-        //url: "ws://" + ipAdress.text
-        active: false
-        onTextMessageReceived: {
-                    messageBox.text = "\nReceived message: " + message
-                }
 
-        onStatusChanged: if (webSocketId.status == WebSocket.Error) {
-                                     console.log("Error: " + webSocketId.errorString)
-                                     active = false
-                                 } else if (webSocketId.status == WebSocket.Open) {
-                                    //getPageTimer.start() //console.log("Hörer startet Timer")
-                                    console.log("SocketOpen")
-                                     webSocketId.sendTextMessage("Hello World")
-                                 } else if (webSocketId.status == WebSocket.Closed) {
-                                     messageBox.text = "\nSocket closed"
-                                 }
-    }
     Timer{
         id: getPageTimer
         interval: 100
@@ -37,7 +17,7 @@ Flickable {
         repeat: true
         onTriggered: {
             console.log("GP-Send")
-            webSocketId.sendTextMessage("GP:")
+            getPage();
         }
     }
 
@@ -110,6 +90,15 @@ Flickable {
                 text: "Master:"
             }
 
+            Button{//Connect-Network
+                id: connectButton
+                visible: true
+                text: "Connect-Network"
+                onClicked: {
+                    connect(ipAdress);
+                    //registerMaster("mpw12345");
+                    }
+            }
             Button{//Connect-Master
                 id: connectButtonMaster
                 visible: if ((appState == appStateSprecherSet)||(appState == appStateSprecherReady)){
@@ -119,8 +108,7 @@ Flickable {
                          }
                 text: "Connect-Master"
                 onClicked: {
-                    webSocketId.active = true
-                    webSocketId.sendTextMessage("RM:mpw12345")
+                    registerMaster("mpw12345");
                     }
             }
             Button{//Download-File
@@ -133,7 +121,7 @@ Flickable {
                 text: "Download-File"
                 onClicked: {
                     console.log("Hörer try download")
-                    webSocketId.sendTextMessage("DL:")
+                    download_pdf("Presention.pdf")
                     }
             }
             Button{//Set Page
@@ -146,29 +134,14 @@ Flickable {
                 text: "Set Page"
                 onClicked: {
                     console.log("Master set Page")
-                    webSocketId.sendTextMessage("SP:12")
+                    setPage(12);
                     }
             }
             Button{//Get-Page
                 id: getPageButtonHörer
                 text: "Get-Page"
                 onClicked: {
-                    webSocketId.sendTextMessage("GP:")
-                    }
-            }
-
-
-            Button{//UL Möglich?
-                id: askULButton
-                visible: if ((appState == appStateSprecherSet)||(appState == appStateSprecherReady)){
-                             return true
-                         }else{
-                             return false
-                         }
-                text: "UL allowed"
-                onClicked: {
-                    console.log("Upload möglich?")
-                    webSocketId.sendTextMessage("UL:")
+                        getPage();
                     }
             }
             Button{//Upload-File
@@ -180,10 +153,10 @@ Flickable {
                          }
                 text: "Upload-File"
                 onClicked: {
-                    console.log("Choose Data")
-                    fileDialog.open();
-                    openfile(fileDialog.fileUrl)
-                    webSocketId.sendTextMessage("DL:")
+                        console.log("Choose Data")
+                        fileDialog.open();
+                        openfile(fileDialog.fileUrl)
+                        sendFile(fileDialog.fileUrl);
                     }
             }
 
@@ -217,7 +190,7 @@ Flickable {
                     appState=appStateSprecherReady
                     }
             }
-            Label {//webSocketId.status == WebSocket.Open ? qsTr("Sending...") : qsTr("Welcome!")
+            /*Label {//webSocketId.status == WebSocket.Open ? qsTr("Sending...") : qsTr("Welcome!")
                 id: messageBox
                 width: parent.width
                 wrapMode: Label.Wrap
@@ -231,7 +204,8 @@ Flickable {
                         //Qt.quit();
                     }
                 }*/
-            }
+         //   }
+
 
         }
     }

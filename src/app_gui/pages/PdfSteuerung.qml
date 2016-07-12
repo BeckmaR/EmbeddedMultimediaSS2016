@@ -11,9 +11,9 @@ import QtQuick 2.5
 //END ACCELEROMETER
 
 PdfAnsicht {
-    button_forward.onClicked: {
-        console.log("Button forward")
-        nextpage();
+    button_forward.onClicked: {        
+            console.log("Button forward")
+            nextpage();
     }
     button_back.onClicked: {
         console.log("Button back")

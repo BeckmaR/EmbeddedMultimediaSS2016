@@ -30,12 +30,23 @@ ApplicationWindow {
     property int appStateSprecherReady: 4
     property int appStateHörerReady: 5
 
+    signal toServer_pdf(string path)
+    signal connect(string url)
+    signal sendFile(string filename)
+    signal registerMaster(string password)
+    signal download_pdf(string filename)
+    signal getPage()
+    signal setPage(int pagenumber)
+
     property int pagenr: -1
     signal nextpage()
     signal prevpage()
     signal openfile(string _url)
     function qml_setPage(nr) {
         pagenr = nr
+    }
+    function connection_success(){
+    //SPÄTAA
     }
 
     Drawer {//Liste mit z.B. sämtlichen Geräteeinstellungen
