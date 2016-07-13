@@ -18,8 +18,6 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 #include(deployment.pri)
 
-
-
 win32 {
     INCLUDEPATH += ../../build/opencv/include
     LIBS += -L"../../build/opencv/x86/mingw/bin"
@@ -71,9 +69,6 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
         $$PWD/../../build/opencv/sdk/native/libs/armeabi-v7a/libopencv_java3.so
 }
-
-
-
 
 HEADERS += \
     handcontrol.h \

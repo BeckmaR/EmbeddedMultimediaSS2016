@@ -10,6 +10,11 @@ OpenCV_Worker::OpenCV_Worker(handcontrol *parent)
     QObject::connect(this, SIGNAL(sendFrame(QVideoFrame::PixelFormat)), this, SLOT(AnalyzeFrame(QVideoFrame::PixelFormat)));
 }
 
+void OpenCV_Worker::setTimerPeriodms(int period_ms)
+{
+    timer_period_ms = period_ms;
+}
+
 bool OpenCV_Worker::present(const QVideoFrame &frame)
 {
     processFrame(frame);
@@ -18,6 +23,7 @@ bool OpenCV_Worker::present(const QVideoFrame &frame)
 
 void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
 
+    time.start();
     QVideoFrame temp_frame(frame);
     if (temp_frame.isValid()) {
         //qDebug() << input->pixelFormat();
@@ -32,6 +38,10 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
                 Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC1,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
                 resize(cv_temp_frame,frame_gray,Size(640,480),0,0,INTER_NEAREST);
                 //frame_gray = cv_temp_frame.clone();
+            }
+            if(firstFrame)
+            {
+                emit p_handcontrol->debugMessage("orginal frame: height: " + QString::number(temp_frame.height()) + " width: " + QString::number(temp_frame.width()));
             }
 
             //Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC4,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
@@ -62,16 +72,18 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
     //qDebug() << " in map part";
 
 }
-void OpenCV_Worker::One_sec_Timer()
+void OpenCV_Worker::PeriodTimer()
 {
-    emit p_handcontrol->debugMessage("Frame_counter: " + QString::number(Frame_counter));
+    int Framerate_per_sec = (Frame_counter*1000)/timer_period_ms;
+    emit p_handcontrol->debugMessage("Framerate per sec: " + QString::number(Framerate_per_sec));
+    emit p_handcontrol->debugMessage("Time for AnalyseFrame: " + QString::number(time_elapse/Framerate_per_sec));
     Frame_counter = 0;
+    time_elapse = 0;
 }
 
 void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
     //p_handcontrol->debugMessage("AnalyzeFrame");
     //qDebug()<< __FILE__ << __LINE__  << "thread: "<< QThread::currentThreadId();
-    Frame_counter++;
     if(pixelFormat == QVideoFrame::Format_RGB32) {
         cvtColor(current_frame, frame_gray,CV_RGB2GRAY);
     } else if(pixelFormat == QVideoFrame::Format_NV21) {
@@ -85,8 +97,9 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
         firstFrame = 0;
         frame_count = 0;
         dir_count = 0;
-        qDebug()<< __FILE__ << __LINE__  << "thread: "<< QThread::currentThreadId();
-        qDebug() << "height:" << frame_gray.rows << "width:" << frame_gray.cols;
+        emit p_handcontrol->debugMessage("thread: " + QString::number((int) QThread::currentThreadId()));
+        emit p_handcontrol->debugMessage("frame_gray: height: " + QString::number(frame_gray.rows) + " width: " + QString::number(frame_gray.cols));
+        qDebug() << "PixelFormat:" << pixelFormat;
     } else {
         frame_sub = frame_gray - prev_frame;
         reduce(frame_sub,hist,0,CV_REDUCE_AVG);
@@ -149,6 +162,8 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
     //imshow("test Frames",frame_gray);
     //waitKey(0);
     prev_frame = frame_gray.clone();
+    Frame_counter++;
+    time_elapse += time.elapsed();
 }
 
 QList<QVideoFrame::PixelFormat> OpenCV_Worker::supportedPixelFormats(QAbstractVideoBuffer::HandleType handleType) const

@@ -15,8 +15,10 @@ handcontrol::handcontrol()/*(QObject *parent) : public QAbstractVideoFilter(pare
     opencv_worker = new OpenCV_Worker(this);
     //camera->setCaptureMode(QCamera::CaptureViewfinder);
     //worker->setHandcontrolPtr(this);
-    //opencv_worker->moveToThread(&thread);
-    //connect(&_1msTimer, SIGNAL(timeout()), opencv_worker, SLOT(One_sec_Timer()));
+    Timer.setInterval(2000);
+    //thread.setPriority(QThread::InheritPriority);
+    opencv_worker->moveToThread(&thread);
+    connect(&Timer, SIGNAL(timeout()), opencv_worker, SLOT(PeriodTimer()));
     connect(&probe, SIGNAL(videoFrameProbed(QVideoFrame)), opencv_worker, SLOT(processFrame(QVideoFrame)));
 }
 
@@ -25,14 +27,22 @@ void handcontrol::enable(int enable)
     if(enable) {
         //worker->prepareStart();
         thread.start();
-        //_1msTimer.start(1000);
+        Timer.start();
         qDebug() << "handcontrol gestartet";
+        if(camera)
+        {
+            camera->start();
+        }
         emit debugMessage("handcontrol gestartet");
     } else {
         //worker->quit_signal = 1;
         thread.quit();
-        //_1msTimer.stop();
+        Timer.stop();
         qDebug() << "handcontrol gestoppt";
+        if(camera)
+        {
+            camera->stop();
+        }
         emit debugMessage("handcontrol gestoppt");
     }
 }
@@ -43,16 +53,17 @@ handcontrol::~handcontrol()
     thread.quit();
     delete(opencv_worker);
 }
-void handcontrol::setCamera(QCamera *camera)
+void handcontrol::setCamera(QCamera *qml_camera)
 {
-    if(probe.setSource(camera))
+    if(probe.setSource(qml_camera))
     {
         qDebug() << "setSource geklappt";
         // Android
     }else {
         qDebug() << "setSource nicht geklappt";
         // Windows
-        //camera->setViewfinder(opencv_worker);
+        camera = new QCamera;
+        camera->setViewfinder(opencv_worker);
     }
 }
 

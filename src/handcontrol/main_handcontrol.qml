@@ -23,6 +23,25 @@ ApplicationWindow {
         page_nr = page_nr + value
     }
 
+    function handcontrol_start()
+    {
+        if(Qt.platform.os !== "windows")
+        {
+            camera.start()
+        }
+        handcontrol_enable(1)
+
+    }
+
+    function handcontrol_stop()
+    {
+        if(Qt.platform.os !== "windows")
+        {
+            camera.stop()
+        }
+        handcontrol_enable(0)
+    }
+
     ColumnLayout {
         id: columnLayout1
         anchors.rightMargin: 0
@@ -32,7 +51,7 @@ ApplicationWindow {
         anchors.fill: parent
         VideoOutput {
             source: camera
-            //visible: false
+            visible: false
             Camera {
                 id: camera
                 objectName: "camera"
@@ -42,10 +61,6 @@ ApplicationWindow {
 //                }
                Component.onCompleted: {
                    camera.stop()
-                   //filter.enable(0)
-//                   text1.append(camera.viewfinder.resolution)
-//                   text1.append(viewfinder.minimumFrameRate)
-//                   text1.append(viewfinder.maximumFrameRate)
                }
             }
         }
@@ -73,17 +88,13 @@ ApplicationWindow {
                 onClicked: {
                     if(handcontrol_enable_nr) {
                         handcontrolbutton.text = "handcontrol deaktiviert"
-                        handcontrol_enable(0)
-                        //filter.enable(0)
-                        camera.stop()
+                        handcontrol_stop()
                         handcontrol_enable_nr = 0
                     }else {
                         handcontrol_enable(1)
                         handcontrolbutton.text = "handcontrol aktiviert"
                         handcontrol_enable_nr = 1
-                        handcontrol_enable(1)
-                        //filter.enable(1)
-                        camera.start()
+                        handcontrol_start()
                     }
                 }
 

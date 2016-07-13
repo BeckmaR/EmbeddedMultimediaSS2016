@@ -18,7 +18,8 @@ class handcontrol : public QObject
     OpenCV_Worker *opencv_worker;
     QVideoProbe probe;
     QThread thread;
-    QTimer _1msTimer;
+    QTimer Timer;
+    QCamera *camera=0;
 
 public:
     //explicit handcontrol(QObject *parent = 0);
