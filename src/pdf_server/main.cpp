@@ -3,11 +3,15 @@
 #include <QQmlApplicationEngine>
 #include <QImage>
 #include <QDebug>
+#include <QNetworkInterface>
 #include "pdfrenderer.h"
 #include "server.h"
 
+void print_IP_Address();
+
 int main(int argc, char *argv[])
 {
+    print_IP_Address();
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     PdfRenderer myPdfRenderer;
@@ -26,4 +30,12 @@ int main(int argc, char *argv[])
 
     qDebug() << "App gestartet";
     return app.exec();
+}
+
+void print_IP_Address()
+{
+    foreach (const QHostAddress &address, QNetworkInterface::allAddresses()) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol && address != QHostAddress(QHostAddress::LocalHost))
+             qDebug() << address.toString();
+    }
 }
