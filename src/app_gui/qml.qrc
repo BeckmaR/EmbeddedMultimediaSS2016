@@ -1,11 +1,44 @@
 <RCC>
     <qresource prefix="/">
+        <file>images/+material/drawer.png</file>
+        <file>images/+material/drawer@2x.png</file>
+        <file>images/+material/drawer@3x.png</file>
+        <file>images/+material/drawer@4x.png</file>
+        <file>images/+material/menu.png</file>
+        <file>images/+material/menu@2x.png</file>
+        <file>images/+material/menu@3x.png</file>
+        <file>images/+material/menu@4x.png</file>
+        <file>images/arrow.png</file>
+        <file>images/arrow@2x.png</file>
+        <file>images/arrow@3x.png</file>
+        <file>images/arrow@4x.png</file>
+        <file>images/arrows.png</file>
+        <file>images/arrows@2x.png</file>
+        <file>images/arrows@3x.png</file>
+        <file>images/arrows@4x.png</file>
+        <file>images/drawer.png</file>
+        <file>images/drawer@2x.png</file>
+        <file>images/drawer@3x.png</file>
+        <file>images/drawer@4x.png</file>
+        <file>images/menu.png</file>
+        <file>images/menu@2x.png</file>
+        <file>images/menu@3x.png</file>
+        <file>images/menu@4x.png</file>
+        <file>pages/DrawerPage.qml</file>
+        <file>pages/Netzwerkeinstellungen.qml</file>
+        <file>pages/Touchsteuerung.qml</file>
+        <file>pages/Schwingsteuerung.qml</file>
+        <file>pages/Gestensteuerung.qml</file>
+        <file>pages/Klatschsteuerung.qml</file>
+        <file>pages/Bildschirmeinstellungen.qml</file>
+        <file>pages/Audioeinstellungen.qml</file>
+        <file>pages/PdfAnsicht.qml</file>
+        <file>pages/BusyIndicatorPage.qml</file>
+        <file>pages/DelegatePage.qml</file>
+        <file>pages/TabBarPage.qml</file>
+        <file>pages/PdfSteuerung.qml</file>
+        <file>pages/Rollenwahl.qml</file>
+        <file>images/blue.png</file>
         <file>main.qml</file>
-        <file>Page1.qml</file>
-        <file>Page1Form.ui.qml</file>
-        <file>Page2.qml</file>
-        <file>Page2Form.ui.qml</file>
-        <file>ScrollBar.qml</file>
-        <file>MyButton.qml</file>
     </qresource>
 </RCC>

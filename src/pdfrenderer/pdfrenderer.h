@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QQuickImageProvider>
-#include <QByteArray>
 #include "../../thirdparty/mupdf-qt/include/mupdf-qt.h"
 
 class PdfRenderer : public QObject, public QQuickImageProvider
@@ -21,8 +20,6 @@ public slots:
     void prevPage();
     void nextPage();
     void OpenPDF(QString filepath);
-    void savePDF(QByteArray data);
-    void slot_setPage(int pagenum);
 
 private:
     void updatePage();

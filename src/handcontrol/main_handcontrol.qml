@@ -1,6 +1,8 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
+import QtMultimedia 5.6
+//import handcontrol 1.0
 
 ApplicationWindow {
     visible: true
@@ -28,7 +30,25 @@ ApplicationWindow {
         anchors.leftMargin: 0
         anchors.topMargin: 0
         anchors.fill: parent
-
+        VideoOutput {
+            source: camera
+            //visible: false
+            Camera {
+                id: camera
+                objectName: "camera"
+                position: Camera.FrontFace
+                imageProcessing {
+                    contrast: 0.5
+                }
+               Component.onCompleted: {
+                   camera.stop()
+                   //filter.enable(0)
+                   text1.append(camera.viewfinder.resolution)
+                   text1.append(viewfinder.minimumFrameRate)
+                   text1.append(viewfinder.maximumFrameRate)
+               }
+            }
+        }
 
         TextArea {
             id: text1
@@ -54,11 +74,16 @@ ApplicationWindow {
                     if(handcontrol_enable_nr) {
                         handcontrolbutton.text = "handcontrol deaktiviert"
                         handcontrol_enable(0)
+                        //filter.enable(0)
+                        camera.stop()
                         handcontrol_enable_nr = 0
                     }else {
                         handcontrol_enable(1)
                         handcontrolbutton.text = "handcontrol aktiviert"
                         handcontrol_enable_nr = 1
+                        handcontrol_enable(1)
+                        //filter.enable(1)
+                        camera.start()
                     }
                 }
 

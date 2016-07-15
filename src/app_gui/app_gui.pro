@@ -1,14 +1,23 @@
-QT += qml quick
+
+#TEMPLATE = app
+#TARGET = gallery
+QT += quick quickcontrols2 qml websockets
+
 
 CONFIG += c++11
 
 SOURCES += ../pdfrenderer/pdfrenderer.cpp \
-            main.cpp
+            main.cpp \
+    web_socket_client.cpp
 
-HEADERS += ../pdfrenderer/pdfrenderer.h
+HEADERS += ../pdfrenderer/pdfrenderer.h \
+    web_socket_client.h
 
 RESOURCES += qml.qrc
 
+#OTHER_FILES += \
+ #   gallery.qml \
+  #  pages/*.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -39,3 +48,8 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
         $$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/liblib_mupdf.so
 }
+
+
+#target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols2/gallery
+#INSTALLS += target
+

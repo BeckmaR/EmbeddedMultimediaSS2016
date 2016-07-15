@@ -1,1 +1,14 @@
-*.pro.user
+src/server/EMUServer/echoclient.html
+src/server/EMUServer/EMUServer.pro.user.1a6f05d
+android-libapp_gui.so-deployment-settings.json
+build/lib_mupdf/android/release/ -llib_mupdf/Makefile
+build/lib_mupdf/android/release/ -llib_mupdf/mupdf-link.obj
+build/lib_mupdf/android/release/ -llib_mupdf/mupdf-textbox.obj
+moc_pdfrenderer.cpp
+build/lib_mupdf/android/release/ -llib_mupdf/mupdf-document.obj
+build/lib_mupdf/android/release/ -llib_mupdf/mupdf-page.obj
+build/lib_mupdf/android/release/ -llib_mupdf/mupdf-outline.obj
+qrc_qml.cpp
+src/server/EMUServer/EMUServer.pro.user
+*.user
+qrc_qml.cpp

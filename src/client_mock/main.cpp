@@ -5,7 +5,6 @@
 #include <QTime>
 
 void onConnected();
-void OnMessageReceived(QString);
 void registerAsMaster();
 void sendFile(QString);
 void incPageNum();
@@ -20,7 +19,6 @@ int main(int argc, char *argv[])
     websock.open(QUrl(QStringLiteral("ws://localhost:1234")));
 
     QObject::connect(&websock, &QWebSocket::connected, onConnected);
-    QObject::connect(&websock, &QWebSocket::textMessageReceived, OnMessageReceived);
 
     /*
     qDebug() << "Opened WebSocket";
@@ -57,7 +55,7 @@ void onConnected()
     else
     {
         qDebug() << "Everything's fine.";
-        websock.sendTextMessage("This is a test message and not a command.");
+        websock.sendTextMessage("FUBAR: Fucked Up Beyond All Recognition.");
         registerAsMaster();
         sendFile("../../theoryoffun.pdf");
 

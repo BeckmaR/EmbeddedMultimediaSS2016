@@ -28,10 +28,17 @@ android {
     OS_PATH_NAME = android
 }
 
-unix {
+linux {
     OS_PATH_NAME = linux
     target.path = /usr/lib
     INSTALLS += target
+    contains($$QMAKESPEC,"/usr/lib/arm-linux-gnueabihf")
+    {
+
+        OS_PATH_NAME = raspberry
+        message("Raspberry Pi erkannt")
+
+    }
 }
 
 CONFIG(debug, debug|release) {
@@ -42,9 +49,9 @@ CONFIG(debug, debug|release) {
 
 
  LIBS += -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lmupdf \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -ljbig2dec \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -ljpeg \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lmujs \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lfreetype \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lopenjpeg \
-    -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lz
+    -ljbig2dec \
+    -ljpeg \
+    -lmujs \
+    -lfreetype \
+    -lopenjpeg \
+    -lz
