@@ -19,7 +19,7 @@ signals:
 public slots:
     void prevPage();
     void nextPage();
-    void OpenPDF(QString filepath);
+    void OpenPDF(QUrl);
 
 private:
     void updatePage();

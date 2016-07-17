@@ -1,7 +1,6 @@
 src/server/EMUServer/echoclient.html
 src/server/EMUServer/EMUServer.pro.user.1a6f05d
 android-libapp_gui.so-deployment-settings.json
-*.so
 build/lib_mupdf/android/release/ -llib_mupdf/Makefile
 build/lib_mupdf/android/release/ -llib_mupdf/mupdf-link.obj
 build/lib_mupdf/android/release/ -llib_mupdf/mupdf-textbox.obj

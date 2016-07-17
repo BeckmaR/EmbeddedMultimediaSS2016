@@ -7,11 +7,7 @@
 TARGET = lib_mupdf
 TEMPLATE = lib
 
-DEFINES += LIB_MUPDF_LIBRARY
-
-#contains(CONFIG,"debug") {
-#    error("Lib bitte im Release compilieren")
-#}
+#DEFINES += LIB_MUPDF_LIBRARY
 
 SOURCES += \
     ../../thirdparty/mupdf-qt/src/mupdf-document.cpp \
@@ -34,13 +30,15 @@ android {
 
 linux {
     OS_PATH_NAME = linux
-    contains($$QMAKESPEC,"/usr/lib/arm-linux-gnueabihf")
-    {
-        message("RaspberryPi: Kein Cross Compile")
-        OS_PATH_NAME = raspberry
-    }
     target.path = /usr/lib
     INSTALLS += target
+    contains($$QMAKESPEC,"/usr/lib/arm-linux-gnueabihf")
+    {
+
+        OS_PATH_NAME = raspberry
+        message("Raspberry Pi erkannt")
+
+    }
 }
 
 CONFIG(debug, debug|release) {
@@ -49,14 +47,11 @@ CONFIG(debug, debug|release) {
     DESTDIR = ../../build/lib_mupdf/$${OS_PATH_NAME}/release
 }
 
-LIBS += -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/
 
-message($$QMAKESPEC)
-
-LIBS +=    -lmupdf \
-            -ljbig2dec \
-            -ljpeg \
-            -lmujs \
-            -lfreetype \
-            -lopenjpeg \
-            -lz
+ LIBS += -L$$PWD/../../thirdparty/mupdf-qt/mupdf/build/$${OS_PATH_NAME}/release/ -lmupdf \
+    -ljbig2dec \
+    -ljpeg \
+    -lmujs \
+    -lfreetype \
+    -lopenjpeg \
+    -lz

@@ -22,35 +22,32 @@ Flickable {
             spacing: 10
             width: parent.width
 
-            /*Label {
-                text: "Willkommen zur Ihrer Präsentationsapp! "
-            }*/
-            Label {
-                text: "<br>Bitte wählen Sie Ihrer Rolle: "
+            Label {//"Bitte wählen Sie Ihrer Rolle: "
+                text: "Bitte wählen Sie Ihrer Rolle: "
             }
-            Label {
+            Label {//Sprecher
                 text: "<br><b>Sprecher: "
             }
-            Button{
+            Button{//Ja, weiter
                 id: sprecherButton
                 text: "Ja, weiter"
                 onClicked: {
-                    listView.currentIndex = 1
-                    titleLabel.text = "Einstellungen"
-                    stackView.replace("qrc:/pages/Netzwerkeinstellungen.qml")
+                    listView.currentIndex = 2
+                    titleLabel.text = "Voreinstellungen"
+                    stackView.replace("qrc:/pages/Voreinstellungen.qml")
                     appState=appStateSprecherSet
                 }
             }
-            Label {
-                text: "<b>Zuhörer: "
+            Label {//Zuhörer
+                text: "<br><b>Zuhörer: "
             }
-            Button{
+            Button{//Ja, weiter
                 id: zuhörerButton
                 text: "Ja, weiter"
                 onClicked: {
-                    listView.currentIndex = 1
-                    titleLabel.text = "Einstellungen"
-                    stackView.replace("qrc:/pages/Netzwerkeinstellungen.qml")
+                    listView.currentIndex = 2
+                    titleLabel.text = "Voreinstellungen"
+                    stackView.replace("qrc:/pages/Voreinstellungen.qml")
                     appState=appStateHörerSet
                 }
             }

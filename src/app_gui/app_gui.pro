@@ -7,9 +7,11 @@ QT += quick quickcontrols2 qml websockets
 CONFIG += c++11
 
 SOURCES += ../pdfrenderer/pdfrenderer.cpp \
-            main.cpp
+            main.cpp \
+    web_socket_client.cpp
 
-HEADERS += ../pdfrenderer/pdfrenderer.h
+HEADERS += ../pdfrenderer/pdfrenderer.h \
+    web_socket_client.h
 
 RESOURCES += qml.qrc
 
