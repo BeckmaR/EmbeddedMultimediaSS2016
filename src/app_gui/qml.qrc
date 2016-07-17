@@ -25,7 +25,6 @@
         <file>images/menu@3x.png</file>
         <file>images/menu@4x.png</file>
         <file>pages/DrawerPage.qml</file>
-        <file>pages/Netzwerkeinstellungen.qml</file>
         <file>pages/Touchsteuerung.qml</file>
         <file>pages/Schwingsteuerung.qml</file>
         <file>pages/Gestensteuerung.qml</file>
@@ -40,5 +39,34 @@
         <file>pages/Rollenwahl.qml</file>
         <file>images/blue.png</file>
         <file>main.qml</file>
+        <file>pages/Verbindungsaufbau.qml</file>
+        <file>pages/Voreinstellungen.qml</file>
+        <file>images/PdfControll/audio_button_grenn.png</file>
+        <file>images/PdfControll/audio_button_grey.png</file>
+        <file>images/PdfControll/cam_button_green.png</file>
+        <file>images/PdfControll/cam_button_grey.png</file>
+        <file>images/PdfControll/kipp_button_green.png</file>
+        <file>images/PdfControll/kipp_button_grey.png</file>
+        <file>images/PdfControll/left_button_green.png</file>
+        <file>images/PdfControll/left_button_grey.png</file>
+        <file>images/PdfControll/refresh.png</file>
+        <file>images/PdfControll/refresh_green.png</file>
+        <file>images/PdfControll/refresh_grey.png</file>
+        <file>images/PdfControll/right_button_green.png</file>
+        <file>images/PdfControll/right_button_grey.png</file>
+        <file>images/PdfControllKlein/audio_button_green.png</file>
+        <file>images/PdfControllKlein/audio_button_grey.png</file>
+        <file>images/PdfControllKlein/cam_button_green.png</file>
+        <file>images/PdfControllKlein/cam_button_grey.png</file>
+        <file>images/PdfControllKlein/kipp_button_green.png</file>
+        <file>images/PdfControllKlein/kipp_button_grey.png</file>
+        <file>images/PdfControllKlein/left_button_green.png</file>
+        <file>images/PdfControllKlein/left_button_grey.png</file>
+        <file>images/PdfControllKlein/refresh.png</file>
+        <file>images/PdfControllKlein/refresh_green.png</file>
+        <file>images/PdfControllKlein/refresh_grey.png</file>
+        <file>images/PdfControllKlein/right_button_green.png</file>
+        <file>images/PdfControllKlein/right_button_grey.png</file>
+        <file>images/PdfControll/reload.png</file>
     </qresource>
 </RCC>

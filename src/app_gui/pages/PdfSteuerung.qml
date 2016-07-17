@@ -10,14 +10,48 @@ import QtSensors 5.3
 import QtQuick 2.5
 //END ACCELEROMETER
 
-PdfAnsicht {
+PdfAnsicht{
     button_forward.onClicked: {        
             console.log("Button forward")
             nextpage();
+            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                setPage(""+pagenr);
+            }
     }
+    /*button_sync.onClicked: {
+            console.log("Button forward")
+            nextpage();
+            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                setPage(""+pagenr);
+            }
+    }
+    button_audio.onClicked: {
+            console.log("Button forward")
+            nextpage();
+            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                setPage(""+pagenr);
+            }
+    }
+    rect_gesten.button_gesten.onClicked: {
+            console.log("Button forward")
+            nextpage();
+            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                setPage(""+pagenr);
+            }
+    }
+    button_kipp.onClicked: {
+            console.log("Button forward")
+            nextpage();
+            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                setPage(""+pagenr);
+            }
+    }*/
     button_back.onClicked: {
         console.log("Button back")
         prevpage();
+        if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+            setPage(""+pagenr);
+            }
         }
     //BEGIN ACCELEROMETER
     /*

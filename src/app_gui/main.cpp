@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
 
     QObject::connect(&websocketclient, SIGNAL(OpenPDF(QString)),
                      &myPdfRenderer, SLOT(OpenPDF(QString)));
-    QObject::connect(&websocketclient, SIGNAL(signal_setPage(int)),
-                                            root, SLOT(qml_setPage(int)));
+    QObject::connect(&websocketclient, SIGNAL(signal_setPage(QVariant)),
+                                            root, SLOT(qml_setPage(QVariant)));
     QObject::connect(&websocketclient, SIGNAL(connection_success()),
                      root, SLOT(connection_success()));
 
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
      * void registerMaster(QString)
      * void download_pdf(QString filename)
      * void getPage()
-     * void setPage(int)
+     * void setPage(QString)
      */
 
     QObject::connect(root, SIGNAL(connect(QString)),
@@ -83,8 +83,8 @@ int main(int argc, char *argv[])
                      &websocketclient, SLOT(sendFile(QString)));
     QObject::connect(root, SIGNAL(download_pdf(QString)),
                      &websocketclient, SLOT(download_pdf(QString)));
-    QObject::connect(root, SIGNAL(setPage(int)),
-                     &websocketclient, SLOT(setPage(int)));
+    QObject::connect(root, SIGNAL(setPage(QString)),
+                     &websocketclient, SLOT(setPage(QString)));
     QObject::connect(root, SIGNAL(getPage()),
                      &websocketclient, SLOT(getPage()));
     return app.exec();

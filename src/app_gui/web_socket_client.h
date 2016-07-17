@@ -19,8 +19,9 @@ private:
     QString filePath;
 signals:
     void OpenPDF(QString);
-    void signal_setPage(int);
+    void signal_setPage(QVariant);
     void connection_success();
+    void rm_success();
 
 public slots:
     void connect(QString);
@@ -31,7 +32,7 @@ public slots:
     void registerMaster(QString);
     void download_pdf(QString filename);
     void getPage();
-    void setPage(int);
+    void setPage(QString page);
 };
 
 #endif // WEB_SOCKET_CLIENT_H

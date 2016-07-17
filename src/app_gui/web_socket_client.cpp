@@ -9,19 +9,21 @@ web_socket_client::web_socket_client(QObject *parent) : QObject(parent)
 
 void web_socket_client::connect(QString url)
 {
+    qDebug() << "Connecting to " + url;
     WebSock.open(url);
-    QObject::connect(&WebSock, &QWebSocket::connected,this, onConnected);
+    QObject::connect(&WebSock, &QWebSocket::connected,this, &web_socket_client::onConnected);
 }
 void web_socket_client::onConnected()
 {
     qDebug() << "Connection is";
     isConnected = true;
-    QObject::connect(&WebSock, &QWebSocket::binaryMessageReceived,this, onBinaryMessage);
-    QObject::connect(&WebSock, &QWebSocket::textMessageReceived,this, onTextMessage);
     emit connection_success();
+    QObject::connect(&WebSock, &QWebSocket::binaryMessageReceived,this, &web_socket_client::onBinaryMessage);
+    QObject::connect(&WebSock, &QWebSocket::textMessageReceived,this, &web_socket_client::onTextMessage);
 }
 void web_socket_client::sendFile(QString filename)
 {
+    qDebug() << "Attempting to open " + filename;
     QFile file(filename);
     QByteArray buffer;
     if(!file.open(QIODevice::ReadOnly))
@@ -59,7 +61,7 @@ void web_socket_client::onTextMessage(QString message)
            qDebug()<< message ;
            return;
        }else{
-           emit signal_setPage(pagenum);
+           emit signal_setPage((QVariant)pagenum);
        }
     }
 }
@@ -70,7 +72,7 @@ void web_socket_client::onBinaryMessage(QByteArray data)
         {
             file.write(data);
             file.close();
-            emit OpenPDF(filePath); //nur zur Optik
+            emit OpenPDF(filePath); //emit nur zur Optik
         }
         else
         {
@@ -83,7 +85,9 @@ void web_socket_client::getPage()
         WebSock.sendTextMessage("GP:");
     }
 }
-void web_socket_client::setPage(int)
+void web_socket_client::setPage(QString page)
 {
-
+    if (isConnected){
+        WebSock.sendTextMessage("SP:" + page);
+    }
 }
