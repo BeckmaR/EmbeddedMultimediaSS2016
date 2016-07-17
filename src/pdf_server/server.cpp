@@ -157,7 +157,7 @@ void server::processBinary(QByteArray message)
         pdfcontents = message;
         pSender->sendTextMessage("ACK");
         broadcast("PDFAVAILABLE");
-        pdfpage = 1;
+        pdfpage = 0;
         emit pdfPageChanged(pdfpage);
     }
     else

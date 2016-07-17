@@ -34,28 +34,25 @@ void PdfRenderer::nextPage(void)
     setPage(m_index);
 }
 
-void PdfRenderer::OpenPDF(QString filepath)
+void PdfRenderer::OpenPDF(QUrl url)
 {
-    /*
-    qDebug() << "Url: " << url;
-    if (m_doc) {
-        delete m_doc;
-        m_doc = NULL;
-    }
-    QString filepath = url.toLocalFile();*/
+    QString filepath = url.toLocalFile();
+    qDebug() << "Attempting to open1 " + filepath;
     m_doc = MuPDF::loadDocument(filepath);
+    qDebug() << "Attempting to open2 " + filepath;
     if (NULL == m_doc) {
         qDebug() << "PDF konnte nicht geöffnet werden";
         return;
     }
+    qDebug() << "Attempting to open3 " + filepath;
     m_title = m_doc->title();
     m_numPages = m_doc->numPages();
 
     m_index = 0;
     //openPage(0);
     setPage(m_index);
-
 }
+
 
 QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
