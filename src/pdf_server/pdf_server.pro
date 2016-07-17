@@ -35,6 +35,10 @@ unix {
     OS_PATH_NAME = unix
     target.path = /usr/lib
     INSTALLS += target
+    contains($$QMAKESPEC,"/usr/lib/arm-linux-gnueabihf")
+    {
+        OS_PATH_NAME = raspberry
+    }
     LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
 }
 
