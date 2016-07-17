@@ -178,7 +178,7 @@ void server::socketDisconnected()
             m_master = Q_NULLPTR;
             pdfpage = -1;
             pdfcontents = QByteArray();
-            pdffile->close();
+            //pdffile->close();
             broadcast("CANCELPRESENTATION");
         }
     }
