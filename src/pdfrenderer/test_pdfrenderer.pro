@@ -20,13 +20,10 @@ INCLUDEPATH += $$PWD/../../thirdparty/mupdf-qt/include
 
 win32 {
     OS_PATH_NAME = Windows_NT
-    #LIBS += ../../build/lib_mupdf/$${OS_PATH_NAME}/release/lib_mupdf.dll
-    LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
 }
 
 android {
     OS_PATH_NAME = android
-    LIBS += -L$$PWD/../../build/lib_mupdf/$${OS_PATH_NAME}/release/ -llib_mupdf
 }
 
 linux {
@@ -34,6 +31,7 @@ linux {
     contains($$QMAKESPEC,"/usr/lib/arm-linux-gnueabihf")
     {
         OS_PATH_NAME = raspberry
+        QMLSCENE_DEVICE=softwarecontext
 
     }
     target.path = /usr/lib

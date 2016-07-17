@@ -8,7 +8,7 @@ import QtQuick.Window 2.2
 ApplicationWindow {
     width: 200
     height: 200
-    property alias mainForm1: mainForm1
+
     property int pagenr: -1
     visible: true
     visibility: Window.FullScreen
@@ -20,19 +20,6 @@ ApplicationWindow {
         pagenr = nr
     }
 
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("File")
-            MenuItem {
-                text: qsTr("&Open")
-                onTriggered: fileDialog.open();
-            }
-            MenuItem {
-                text: qsTr("Exit")
-                onTriggered: Qt.quit();
-            }
-        }
-    }
     FileDialog {
         id: fileDialog
         title: "Please choose a PDF file"
@@ -48,33 +35,47 @@ ApplicationWindow {
         //Component.onCompleted: visible = true
     }
 
-    MainForm {
-        id: mainForm1
-        anchors.fill: parent
-        button_back.onClicked: {
-            //console.log("Button back")
-            prevpage();
+    ColumnLayout {
+            id: columnLayout1
+            anchors.fill: parent
+
+            Image {
+                id: image1
+                fillMode: Image.PreserveAspectFit
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                //anchors.fill: parent
+                sourceSize.width: paintedWidth
+
+                //sourceSize.height: paintedHeight;
+                cache: false
+                source: "image://pdfrenderer/" + pagenr
+            }
+
+            RowLayout {
+
+                Button {
+
+                    text: qsTr("Zurück")
+                    onClicked: {
+                                //console.log("Button back")
+                                prevpage();
+                   }
+                }
+                Button {
+
+                    text: qsTr("Vorwärts")
+                    onClicked: {
+                                //console.log("Button forward")
+                                nextpage();
+                    }
+                }
+
+                Text {
+                    id: text1
+                    text: qsTr("Seite: ") + pagenr
+                }
+            }
         }
-        button_forward.onClicked: {
-            //console.log("Button forward")
-            nextpage();
-        }
-    }
-
-    Image {
-        id: image1
-        fillMode: Image.PreserveAspectFit
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-        //anchors.fill: parent
-        sourceSize.width: paintedWidth
-
-        //sourceSize.height: paintedHeight;
-        cache: false
-        source: "image://pdfrenderer/" + pagenr
-    }
-
-
-
 
 }

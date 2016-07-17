@@ -6,8 +6,11 @@
 
 void onConnected();
 void registerAsMaster();
+void sendFile(QString);
+void incPageNum();
 
 static QWebSocket websock;
+static int pagenum;
 
 int main(int argc, char *argv[])
 {
@@ -54,10 +57,42 @@ void onConnected()
         qDebug() << "Everything's fine.";
         websock.sendTextMessage("FUBAR: Fucked Up Beyond All Recognition.");
         registerAsMaster();
+        sendFile("../../theoryoffun.pdf");
+
+        incPageNum();
+
     }
+}
+
+void OnMessageReceived(QString message)
+{
+    qDebug() << message;
 }
 
 void registerAsMaster()
 {
     websock.sendTextMessage("RM:mpw12345");
 }
+
+void sendFile(QString filename)
+{
+    qDebug() << "Sending File...";
+    QFile file(filename);
+    QByteArray buffer;
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        qDebug() << "Could not open file";
+        qDebug() << file.errorString();
+        return;
+    }
+    buffer = file.readAll();
+    file.close();
+    websock.sendBinaryMessage(buffer);
+}
+
+void incPageNum()
+{
+    websock.sendTextMessage("SP:" + QString::number(++pagenum));
+}
+
+
