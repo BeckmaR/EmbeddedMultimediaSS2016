@@ -10,7 +10,6 @@ PdfRenderer::PdfRenderer() : QQuickImageProvider(QQuickImageProvider::Image)
 
 void PdfRenderer::prevPage(void)
 {
-    //qDebug() << "PDF prev Page";
     if (NULL == m_doc) {
         return;
     }
@@ -23,7 +22,6 @@ void PdfRenderer::prevPage(void)
 
 void PdfRenderer::nextPage(void)
 {
-    //qDebug() << "PDF next Page";
     if (NULL == m_doc) {
         return;
     }
@@ -58,12 +56,6 @@ QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &re
 {
     QImage image;
 
-    //qDebug() << "req width: " << requestedSize.width() << "req height: " << requestedSize.height();
-//    if (size != 0)
-//    {
-//        qDebug() << "width: " << size->width() << "height: " << size->height();
-//        //*size = QSize(100, 100);
-//    }
     if (m_page) {
         delete m_page;
         m_page = NULL;

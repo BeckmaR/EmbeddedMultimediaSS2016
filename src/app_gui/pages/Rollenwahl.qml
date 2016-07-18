@@ -41,7 +41,7 @@ Flickable {
             Label {//Zuhörer
                 text: "<br><b>Zuhörer: "
             }
-            Button{//Ja, weiter
+            Button {//Ja, weiter
                 id: zuhörerButton
                 text: "Ja, weiter"
                 onClicked: {

@@ -138,8 +138,10 @@ Item {
                     onClicked:{
                         if(gestensteuerungON==1){
                             gestensteuerungON=0
+                            handcontrol_stop()
                         }else{
                             gestensteuerungON=1
+                            handcontrol_start()
                         }
                     }
                 }

@@ -15,11 +15,12 @@ class OpenCV_Worker;
 class handcontrol : public QObject
 {
     Q_OBJECT
-    OpenCV_Worker *opencv_worker;
+    OpenCV_Worker *opencv_worker = 0;
     QVideoProbe probe;
     QThread thread;
     QTimer Timer;
-    QCamera *camera=0;
+    QCamera *camera = 0;
+    QCameraViewfinderSettings *camerasettings=0;
 
 public:
     //explicit handcontrol(QObject *parent = 0);
@@ -31,7 +32,7 @@ signals:
     void change_page(QVariant dir);
     void debugMessage(QVariant msg);
     void errorMessage(QVariant msg);
-    void finished(QObject *result);
+    //void finished(QObject *result);
 public slots:
     void enable(int);
 

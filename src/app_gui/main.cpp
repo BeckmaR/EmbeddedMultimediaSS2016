@@ -1,4 +1,4 @@
-//#include <QDebug>
+#include <QDebug>
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -14,6 +14,7 @@
 #include "pdfrenderer.h"
 #include "web_socket_client.h"
 #include "audiowindow.h"
+#include "handcontrol.h"
 
 
 int main(int argc, char *argv[])
@@ -41,14 +42,15 @@ int main(int argc, char *argv[])
         return -1;
 
     PdfRenderer myPdfRenderer;
-    engine.addImageProvider(QLatin1String("pdfrenderer"), &myPdfRenderer);//Neu , aber warum=????
+    handcontrol myhandcontrol;
+    engine.addImageProvider(QLatin1String("pdfrenderer"), &myPdfRenderer);
 
     QObject *root = engine.rootObjects()[0];
 
     QObject::connect(root, SIGNAL(nextpage()),&myPdfRenderer, SLOT(nextPage()));
     QObject::connect(root, SIGNAL(prevpage()),&myPdfRenderer, SLOT(prevPage()));
     QObject::connect(root, SIGNAL(openfile(QUrl)),&myPdfRenderer, SLOT(OpenPDF(QUrl)));
-    QObject::connect(&myPdfRenderer, SIGNAL(setPage(QVariant)),root, SLOT(qml_setPage(QVariant)));
+    QObject::connect(&myPdfRenderer, SIGNAL(setPage(QVariant)),root, SLOT(setCurrentPageNr(QVariant)));
 
 
     /*
@@ -61,7 +63,7 @@ int main(int argc, char *argv[])
     QObject::connect(&websocketclient, SIGNAL(OpenPDF(QUrl)),
                      &myPdfRenderer, SLOT(OpenPDF(QUrl)));
     QObject::connect(&websocketclient, SIGNAL(signal_setPage(QVariant)),
-                                            root, SLOT(qml_setPage(QVariant)));
+                                            root, SLOT(setCurrentPageNr(QVariant)));
     QObject::connect(&websocketclient, SIGNAL(connection_success()),
                      root, SLOT(connection_success()));
 
@@ -97,6 +99,16 @@ int main(int argc, char *argv[])
          QObject::connect(&audioengine, SIGNAL(knock()),root, SLOT(klopf_weiter()));
          QObject::connect(&audioengine, SIGNAL(double_knock()),root,SLOT(klopf_zurück()));
 
+
+    // Gestensteuerng
+    QObject *cameraComponent = root->findChild<QObject*>("camera");
+    QCamera *camera = qvariant_cast<QCamera*>(cameraComponent->property("mediaObject"));
+    myhandcontrol.setCamera(camera);
+    QObject::connect(root, SIGNAL(handcontrol_enable(int)),&myhandcontrol, SLOT(enable(int)));
+    QObject::connect(&myhandcontrol, SIGNAL(debugMessage(QVariant)),root, SLOT(handcontrol_debugOut(QVariant)));
+    QObject::connect(&myhandcontrol, SIGNAL(errorMessage(QVariant)),root, SLOT(handcontrol_debugOut(QVariant)));
+    QObject::connect(&myhandcontrol, SIGNAL(change_page(QVariant)),root, SLOT(handcontrol_change_page(QVariant)));
+    qDebug()<<"From main thread: "<<QThread::currentThreadId();
     return app.exec();
 }
 

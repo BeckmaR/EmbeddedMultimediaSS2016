@@ -4,7 +4,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Controls.Universal 2.0
 import Qt.labs.settings 1.0
-
+import QtMultimedia 5.6
 import QtQuick.Dialogs 1.0
 
 
@@ -63,32 +63,82 @@ ApplicationWindow {
     signal nextpage()
     signal prevpage()
     signal openfile(url u)
-    signal startstopKlopfen();
-    function qml_setPage(nr) {
+    signal startstopKlopfen()
+    function setCurrentPageNr(nr) {
         pagenr = nr
-    }
-    function signal_setPage(pagenum){
-        pagenr=pagenum
-    }
-
-    function klopf_weiter() {
-        if (sprachsteuerungON==1)
-        {
-            nextpage();
-            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-                setPage(""+pagenr);
-            }
-        }
-    }
-    function klopf_zurück() {
-    if (sprachsteuerungON==1)
-    {
-        prevpage();
         if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
             setPage(""+pagenr);
         }
     }
+//    function signal_setPage(pagenum){
+//        pagenr=pagenum
+//    }
+    // Klopfsteuerung
+    function klopf_weiter() {
+        if (sprachsteuerungON==1)
+        {
+            nextpage();
+        }
     }
+    function klopf_zurück() {
+        if (sprachsteuerungON==1)
+        {
+            prevpage();
+        }
+    }
+    function handcontrol_change_page(dir)
+    {
+        if (gestensteuerungON ==1)
+        {
+            if(dir ===1)
+            {
+                nextpage();
+            } else if(dir === -1){
+                prevpage();
+            }
+        }
+    }
+    function handcontrol_debugOut(msg)
+    {
+        console.log(msg);
+    }
+
+    // Gestensteuerung
+    signal handcontrol_enable(int enable)
+    VideoOutput {
+        source: camera
+        visible: false
+        Camera {
+            id: camera
+            objectName: "camera"
+            position: Camera.FrontFace
+//                imageProcessing {
+//                    contrast: 0.5
+//                }
+           Component.onCompleted: {
+               camera.stop()
+           }
+        }
+    }
+    function handcontrol_start()
+    {
+        if(Qt.platform.os !== "windows")
+        {
+            camera.start()
+        }
+        handcontrol_enable(1)
+
+    }
+
+    function handcontrol_stop()
+    {
+        if(Qt.platform.os !== "windows")
+        {
+            camera.stop()
+        }
+        handcontrol_enable(0)
+    }
+
     Drawer {//Liste mit z.B. sämtlichen Geräteeinstellungen
         id: drawer
         width: Math.min(window.width, window.height) / 3 * 2

@@ -5,6 +5,7 @@
 
 //#include "QMLRenderer.h"
 #include <QCamera>
+//#include <QCameraViewfinderSettings>
 #include "handcontrol.h"
 #include "opencv_worker.h"
 
@@ -53,6 +54,14 @@ handcontrol::~handcontrol()
 {
     thread.quit();
     delete(opencv_worker);
+    if(camera)
+    {
+        delete(camera);
+    }
+    if(camerasettings)
+    {
+        delete(camerasettings);
+    }
 }
 void handcontrol::setCamera(QCamera *qml_camera)
 {
@@ -64,7 +73,18 @@ void handcontrol::setCamera(QCamera *qml_camera)
         qDebug() << "setSource nicht geklappt";
         // Windows
         camera = new QCamera;
+        camera->setCaptureMode(QCamera::CaptureVideo);
         camera->setViewfinder(opencv_worker);
+        //QList<QCameraViewfinderSettings> test;
+        //test = camera->supportedViewfinderFrameRateRanges();
+        //qDebug() << camera->supportedViewfinderFrameRateRanges().toStdList();
+        QList<QCameraViewfinderSettings> camerasettings2 = camera->supportedViewfinderSettings();
+        qDebug() << "settings size" << camerasettings2.size();
+          foreach (const QCameraViewfinderSettings &cameraviewersettings, camerasettings2) {
+              qDebug() << "max Framerate" << cameraviewersettings.minimumFrameRate();
+              qDebug() << "max Framerate" << cameraviewersettings.maximumFrameRate();
+              qDebug() << "resolution" << cameraviewersettings.resolution();
+          }
     }
 }
 

@@ -9,7 +9,11 @@
 #define STOP_LABEL   "Stop recording"
 #define START_LABEL  "Start recording"
 
-const int BufferSize = 16000;
+#if defined(Q_OS_ANDROID)
+    const int BufferSize = 16000;
+#elif defined(Q_OS_WIN)
+    const int BufferSize = 80000;
+#endif
 //Windows: const int BufferSize = 80000
 //Android: const int BufferSize = 16000;
 
@@ -233,8 +237,8 @@ QVector<float> audioWindow::calculateWindow(qreal frameSize){
     return m_window;
 }
 
-void audioWindow::recognitionTime(qint64 len, int bytesPerSample){
-}
+//void audioWindow::recognitionTime(qint64 len, int bytesPerSample){
+//}
 
 void audioWindow::register_knock()
 {
