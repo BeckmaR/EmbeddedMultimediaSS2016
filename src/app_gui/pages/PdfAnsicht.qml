@@ -183,6 +183,7 @@ Item {
             Rectangle{//rect_reload
                 id: rect_reload
                 visible: if (autoSyncON==0){
+                             getPage();
                              return true
                          }else{
                              return false

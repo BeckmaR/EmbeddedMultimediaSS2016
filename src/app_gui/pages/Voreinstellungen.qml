@@ -28,6 +28,7 @@ Pane {
             onClicked: {
                 if (position!=0){
                     autoSyncON=1
+                    getPage();
                     console.log("autoSyncON=1")
                 }else{
                     autoSyncON=0
