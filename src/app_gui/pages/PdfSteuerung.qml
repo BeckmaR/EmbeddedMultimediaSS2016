@@ -14,9 +14,9 @@ PdfAnsicht{
     button_forward.onClicked: {        
             console.log("Button forward")
             nextpage();
-            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-                setPage(""+pagenr);
-            }
+//            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+//                setPage(""+pagenr);
+//            }
     }
     /*button_sync.onClicked: {
             console.log("Button forward")
