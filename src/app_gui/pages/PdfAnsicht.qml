@@ -62,6 +62,7 @@ Item {
                     horizontalAlignment: Image.AlignHCenter
                     verticalAlignment: Image.AlignVCenter
                     source: if(autoSyncON==1){
+                                setPage(""+pagenr);
                                 return "qrc:/images/PdfControll/refresh_green.png"
                             }else{
                                 return "qrc:/images/PdfControll/refresh_grey.png"
@@ -182,8 +183,7 @@ Item {
             }
             Rectangle{//rect_reload
                 id: rect_reload
-                visible: if (autoSyncON==1){
-                             setPage(""+pagenr);
+                visible: if (autoSyncON==0){
                              getPage();
                              return true
                          }else{
