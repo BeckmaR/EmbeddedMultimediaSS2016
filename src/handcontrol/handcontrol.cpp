@@ -16,6 +16,7 @@ handcontrol::handcontrol()/*(QObject *parent) : public QAbstractVideoFilter(pare
     //camera->setCaptureMode(QCamera::CaptureViewfinder);
     //worker->setHandcontrolPtr(this);
     Timer.setInterval(2000);
+    opencv_worker->setTimerPeriodms(2000);
     //thread.setPriority(QThread::InheritPriority);
     opencv_worker->moveToThread(&thread);
     connect(&Timer, SIGNAL(timeout()), opencv_worker, SLOT(PeriodTimer()));

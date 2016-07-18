@@ -15,6 +15,8 @@ class OpenCV_Worker : public QAbstractVideoSurface
     handcontrol *p_handcontrol;
     int timer_period_ms;
     int counter = 0;
+    int processFrame_cnt =0;
+    int AnalyzeFrame_cnt =0;
     int time_elapse= 0;
     //cv::Mat orginal_frame;
     int firstFrame = 1;

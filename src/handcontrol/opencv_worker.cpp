@@ -23,11 +23,11 @@ bool OpenCV_Worker::present(const QVideoFrame &frame)
 
 void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
 
+    processFrame_cnt++;
     time.start();
     QVideoFrame temp_frame(frame);
     if (temp_frame.isValid()) {
-        //qDebug() << input->pixelFormat();
-        //emit p_handcontrol->debugMessage("AbstractVideoBuffer: " + QString::number(input->pixelFormat()));
+
         if(temp_frame.map(QAbstractVideoBuffer::ReadOnly))
         {
 
@@ -43,30 +43,12 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
             {
                 emit p_handcontrol->debugMessage("orginal frame: height: " + QString::number(temp_frame.height()) + " width: " + QString::number(temp_frame.width()));
             }
-
-            //Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC4,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
-            //emit p_handcontrol->errorMessage("height:" + QString::number(temp_frame.height()) + "width:" + QString::number(temp_frame.width()));
-            //current_frame = cv_temp_frame.clone();
-
-            //qDebug() << "height:" << temp_frame.height() << "width:" << temp_frame.width() << "bytesPerline: " << temp_frame.bytesPerLine();
-            //qDebug() << *temp_frame.bits();
-
             temp_frame.unmap();
-            //emit p_handcontrol->debugMessage("Mat kopiert");
-            //current_frame =  Mat(temp_frame.height(),temp_frame.width(),CV_8UC4,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
-            //qDebug() << "temp_frame.bits(): "<< temp_frame.bits();
-
-            //imshow("test Frames",orginal_frame);
-            //waitKey(0);
-            //qDebug() << "orginal_frame:" << orginal_frame.data;
-
             emit sendFrame(temp_frame.pixelFormat());
         } else {
-            qDebug() << "Kann AbstractVideoBuffer nicht mappen";
             emit p_handcontrol->errorMessage("Kann AbstractVideoBuffer nicht mappen: " + temp_frame.pixelFormat());
         }
     } else {
-        qDebug()<< __FILE__ << __LINE__ << "Frame konnte nicht gelesen werden";
         emit p_handcontrol->errorMessage("Camera Frame konnte nicht gelesen werden");
     }
     //qDebug() << " in map part";
@@ -77,13 +59,14 @@ void OpenCV_Worker::PeriodTimer()
     int Framerate_per_sec = (Frame_counter*1000)/timer_period_ms;
     emit p_handcontrol->debugMessage("Framerate per sec: " + QString::number(Framerate_per_sec));
     emit p_handcontrol->debugMessage("Time for AnalyseFrame: " + QString::number(time_elapse/Framerate_per_sec));
+    emit p_handcontrol->debugMessage("Diff Call processFrame() and AnalyzeFrame() " + QString::number(processFrame_cnt-AnalyzeFrame_cnt));
+
     Frame_counter = 0;
     time_elapse = 0;
 }
 
 void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
-    //p_handcontrol->debugMessage("AnalyzeFrame");
-    //qDebug()<< __FILE__ << __LINE__  << "thread: "<< QThread::currentThreadId();
+    AnalyzeFrame_cnt++;
     if(pixelFormat == QVideoFrame::Format_RGB32) {
         cvtColor(current_frame, frame_gray,CV_RGB2GRAY);
     } else if(pixelFormat == QVideoFrame::Format_NV21) {
@@ -103,8 +86,6 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
     } else {
         frame_sub = frame_gray - prev_frame;
         reduce(frame_sub,hist,0,CV_REDUCE_AVG);
-        //Point maxIdx;
-        //minMaxLoc(hist,0,0,0,&maxIdx);
         int hist_sum =0;
         int hist_max =0;
         for(int i=0; i<hist.cols;++i)
@@ -170,36 +151,6 @@ QList<QVideoFrame::PixelFormat> OpenCV_Worker::supportedPixelFormats(QAbstractVi
 {
     Q_UNUSED(handleType);
     return QList<QVideoFrame::PixelFormat>()
-        << QVideoFrame::Format_ARGB32
-        << QVideoFrame::Format_ARGB32_Premultiplied
-        << QVideoFrame::Format_RGB32
-        << QVideoFrame::Format_RGB24
-        << QVideoFrame::Format_RGB565
-        << QVideoFrame::Format_RGB555
-        << QVideoFrame::Format_ARGB8565_Premultiplied
-        << QVideoFrame::Format_BGRA32
-        << QVideoFrame::Format_BGRA32_Premultiplied
-        << QVideoFrame::Format_BGR32
-        << QVideoFrame::Format_BGR24
-        << QVideoFrame::Format_BGR565
-        << QVideoFrame::Format_BGR555
-        << QVideoFrame::Format_BGRA5658_Premultiplied
-        << QVideoFrame::Format_AYUV444
-        << QVideoFrame::Format_AYUV444_Premultiplied
-        << QVideoFrame::Format_YUV444
-        << QVideoFrame::Format_YUV420P
-        << QVideoFrame::Format_YV12
-        << QVideoFrame::Format_UYVY
-        << QVideoFrame::Format_YUYV
-        << QVideoFrame::Format_NV12
-        << QVideoFrame::Format_NV21
-        << QVideoFrame::Format_IMC1
-        << QVideoFrame::Format_IMC2
-        << QVideoFrame::Format_IMC3
-        << QVideoFrame::Format_IMC4
-        << QVideoFrame::Format_Y8
-        << QVideoFrame::Format_Y16
-        << QVideoFrame::Format_Jpeg
-        << QVideoFrame::Format_CameraRaw
-        << QVideoFrame::Format_AdobeDng;
+        << QVideoFrame::Format_RGB32;
+
 }
