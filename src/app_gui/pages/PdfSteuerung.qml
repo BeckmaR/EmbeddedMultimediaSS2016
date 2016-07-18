@@ -51,8 +51,22 @@ PdfAnsicht{
         prevpage();
         if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
             setPage(""+pagenr);
-            }
         }
+    }
+    Item {
+          Timer {
+              id: autoSyncTimer; interval: 2000; running: true; repeat: true
+              onTriggered: {
+                  if ((appState==appStateHörerReady)&&(autoSyncON==1)){
+                      getPage();
+                  }
+              }
+
+            /*      time.text = Date().toString()
+          }
+          Text { id: time }*/
+      }
+    }
     //BEGIN ACCELEROMETER
     /*
       Set which orientations can be detected
@@ -108,12 +122,24 @@ PdfAnsicht{
                     }
                     else{
                         if (((accelEvaluation.oldX === 1) && (Screen.orientation === 1)) || ((accelEvaluation.oldX === -1) && (Screen.orientation === 4))){
-                            prevpage()
-                            accelTimer.restart()
+                            if (kippsteuerungON==1)
+                            {
+                                prevpage();
+                                accelTimer.restart()
+                                if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                                    setPage(""+pagenr);
+                                }
+                            }
                         }
                         else if (((accelEvaluation.oldX === 1) && (Screen.orientation === 4)) || ((accelEvaluation.oldX === -1) && (Screen.orientation === 1))){
-                            nextpage()
-                            accelTimer.restart()
+                            if (kippsteuerungON==1)
+                            {
+                                nextpage();
+                                accelTimer.restart()
+                                if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                                    setPage(""+pagenr);
+                                }
+                            }
                         }
 
                         accelEvaluation.oldX = 0
@@ -130,12 +156,24 @@ PdfAnsicht{
                     }
                     else{
                         if (((accelEvaluation.oldY === 1) && (Screen.orientation === 2)) || ((accelEvaluation.oldY === -1) && (Screen.orientation === 8))){
-                            nextpage()
-                            accelTimer.restart()
+                            if (kippsteuerungON==1)
+                            {
+                                nextpage();
+                                accelTimer.restart()
+                                if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                                    setPage(""+pagenr);
+                                }
+                            }
                         }
                         else if (((accelEvaluation.oldY === 1) && (Screen.orientation === 8)) || ((accelEvaluation.oldY === -1) && (Screen.orientation === 2))){
-                            prevpage()
-                            accelTimer.restart()
+                            if (kippsteuerungON==1)
+                            {
+                                prevpage();
+                                accelTimer.restart()
+                                if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                                    setPage(""+pagenr);
+                                }
+                            }
                         }
 
                         accelEvaluation.oldY = 0

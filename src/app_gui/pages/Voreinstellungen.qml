@@ -59,8 +59,10 @@ Pane {
                 if (position!=0){
                     sprachsteuerungON=1
                     console.log("sprachsteuerungON=1")
+                    startstopKlopfen();
                 }else{
                     sprachsteuerungON=0
+                    startstopKlopfen();
                 }
             }
         }

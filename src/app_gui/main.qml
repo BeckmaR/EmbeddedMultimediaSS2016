@@ -43,7 +43,7 @@ ApplicationWindow {
     property int rmOK: 0  //rm_success()--> masterOK = 1
     signal toServer_pdf(string path)
     signal connect(string url)
-    signal sendFile(string s)
+    signal sendFile(url u)
     signal registerMaster(string password)
     signal download_pdf(string filename)
     signal getPage()
@@ -62,7 +62,8 @@ ApplicationWindow {
     property int pagenr: -1
     signal nextpage()
     signal prevpage()
-    signal openfile(string _url)
+    signal openfile(url u)
+    signal startstopKlopfen();
     function qml_setPage(nr) {
         pagenr = nr
     }
@@ -70,6 +71,24 @@ ApplicationWindow {
         pagenr=pagenum
     }
 
+    function klopf_weiter() {
+        if (sprachsteuerungON==1)
+        {
+            nextpage();
+            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+                setPage(""+pagenr);
+            }
+        }
+    }
+    function klopf_zurück() {
+    if (sprachsteuerungON==1)
+    {
+        prevpage();
+        if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
+            setPage(""+pagenr);
+        }
+    }
+    }
     Drawer {//Liste mit z.B. sämtlichen Geräteeinstellungen
         id: drawer
         width: Math.min(window.width, window.height) / 3 * 2
@@ -326,7 +345,7 @@ ApplicationWindow {
             Label {//EntwicklerTeam
                 width: infoDialog.availableWidth
                 text: "Diese App ist entwickelt von:<br>"
-                    + "Beckmann, René<br>Brexeler, Sascha<br>Hebbler, Tim<br>Kastano, Diana<br>Miken, Jens"
+                    + "Beckmann, René<br>Brexeler, Sascha<br>Hebbler, Tim<br>Castano, Diana<br>Micke, Jens"
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
             }
@@ -346,13 +365,13 @@ ApplicationWindow {
         folder: shortcuts.home
         nameFilters: [ "Pdf files (*.pdf)" ]
         onAccepted: {
-            console.log("You open: " + fileDialog.fileUrl.toString())
-            var pdf_path = fileDialog.fileUrl.toString()
-            pdf_path= pdf_path.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"");
-            openfile(pdf_path)
+            console.log("You open: " + fileDialog.fileUrl)
+            //var pdf_path = fileDialog.fileUrl.toString()
+            //pdf_path= pdf_path.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"");
+            openfile(fileDialog.fileUrl)
             nextpage();//Da die Neue Pdf sonst erst beim ersten Blättern geladen wird
             prevpage();
-            sendFile(pdf_path);
+            sendFile(fileDialog.fileUrl);
             setPage("0")
         }
         onRejected: {

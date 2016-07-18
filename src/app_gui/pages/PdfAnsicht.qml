@@ -75,12 +75,16 @@ Item {
                             autoSyncON=0
                         }else{
                             autoSyncON=1
+
                         }
                     }
-
-
                 }
             }
+//            if ((appState == appStateHörerReady)&&(autoSyncON==1)){
+//                    getPage();
+//            }else{
+//                getPage();
+//            }
             Rectangle{//rect_audio
                 id: rect_audio
                 width: 35
@@ -103,8 +107,10 @@ Item {
                     onClicked:{
                         if(sprachsteuerungON==1){
                             sprachsteuerungON=0
+                            startstopKlopfen();
                         }else{
                             sprachsteuerungON=1
+                            startstopKlopfen();
                         }
                     }
 
@@ -192,18 +198,16 @@ Item {
                     source: "qrc:/images/PdfControll/reload.png"
                 }
                 MouseArea {
-                    id: button_reload//##########TODO
+                    id: button_reload
                     anchors.fill: parent
                     onClicked: {
                         if ((appState == appStateHörerSet)||(appState == appStateHörerReady)){
-                            console.log("Hörer get Page")
                             getPage();
                          }else{
                             console.log("Sprecher set Page")
                             setPage(""+pagenr);
                          }
                     }
-
                 }
             }
             Rectangle{

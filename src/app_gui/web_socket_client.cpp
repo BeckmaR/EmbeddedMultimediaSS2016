@@ -21,8 +21,9 @@ void web_socket_client::onConnected()
     QObject::connect(&WebSock, &QWebSocket::binaryMessageReceived,this, &web_socket_client::onBinaryMessage);
     QObject::connect(&WebSock, &QWebSocket::textMessageReceived,this, &web_socket_client::onTextMessage);
 }
-void web_socket_client::sendFile(QString filename)
+void web_socket_client::sendFile(QUrl u)
 {
+    QString filename = u.toLocalFile();
     qDebug() << "Attempting to open " + filename;
     QFile file(filename);
     QByteArray buffer;
@@ -72,7 +73,7 @@ void web_socket_client::onBinaryMessage(QByteArray data)
         {
             file.write(data);
             file.close();
-            emit OpenPDF(filePath); //emit nur zur Optik
+            emit OpenPDF(QUrl::fromLocalFile(filePath)); //emit nur zur Optik
         }
         else
         {

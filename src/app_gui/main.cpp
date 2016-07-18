@@ -13,6 +13,7 @@
 #include <QImage>
 #include "pdfrenderer.h"
 #include "web_socket_client.h"
+#include "audiowindow.h"
 
 
 int main(int argc, char *argv[])
@@ -31,6 +32,8 @@ int main(int argc, char *argv[])
 
     web_socket_client websocketclient;
 
+    audioWindow audioengine;
+
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     //engine.load(QUrl("qrc:/gallery.qml"));
@@ -44,7 +47,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(root, SIGNAL(nextpage()),&myPdfRenderer, SLOT(nextPage()));
     QObject::connect(root, SIGNAL(prevpage()),&myPdfRenderer, SLOT(prevPage()));
-    QObject::connect(root, SIGNAL(openfile(QString)),&myPdfRenderer, SLOT(OpenPDF(QString)));
+    QObject::connect(root, SIGNAL(openfile(QUrl)),&myPdfRenderer, SLOT(OpenPDF(QUrl)));
     QObject::connect(&myPdfRenderer, SIGNAL(setPage(QVariant)),root, SLOT(qml_setPage(QVariant)));
 
 
@@ -55,8 +58,8 @@ int main(int argc, char *argv[])
      * void connection_success()
     */
 
-    QObject::connect(&websocketclient, SIGNAL(OpenPDF(QString)),
-                     &myPdfRenderer, SLOT(OpenPDF(QString)));
+    QObject::connect(&websocketclient, SIGNAL(OpenPDF(QUrl)),
+                     &myPdfRenderer, SLOT(OpenPDF(QUrl)));
     QObject::connect(&websocketclient, SIGNAL(signal_setPage(QVariant)),
                                             root, SLOT(qml_setPage(QVariant)));
     QObject::connect(&websocketclient, SIGNAL(connection_success()),
@@ -79,14 +82,21 @@ int main(int argc, char *argv[])
                      &websocketclient, SLOT(connect(QString)));
     QObject::connect(root, SIGNAL(registerMaster(QString)),
                      &websocketclient, SLOT(registerMaster(QString)));
-    QObject::connect(root, SIGNAL(sendFile(QString)),
-                     &websocketclient, SLOT(sendFile(QString)));
+    QObject::connect(root, SIGNAL(sendFile(QUrl)),
+                     &websocketclient, SLOT(sendFile(QUrl)));
     QObject::connect(root, SIGNAL(download_pdf(QString)),
                      &websocketclient, SLOT(download_pdf(QString)));
-    QObject::connect(root, SIGNAL(setPage(QString)),
+         QObject::connect(root, SIGNAL(setPage(QString)),
                      &websocketclient, SLOT(setPage(QString)));
-    QObject::connect(root, SIGNAL(getPage()),
+         QObject::connect(root, SIGNAL(getPage()),
                      &websocketclient, SLOT(getPage()));
+
+
+    //AUDIO
+         QObject::connect(root, SIGNAL(startstopKlopfen()),&audioengine, SLOT(startStopRecording()));
+         QObject::connect(&audioengine, SIGNAL(knock()),root, SLOT(klopf_weiter()));
+         QObject::connect(&audioengine, SIGNAL(double_knock()),root,SLOT(klopf_zurück()));
+
     return app.exec();
 }
 

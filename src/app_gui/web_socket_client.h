@@ -18,7 +18,7 @@ private:
     bool isConnected;
     QString filePath;
 signals:
-    void OpenPDF(QString);
+    void OpenPDF(QUrl);
     void signal_setPage(QVariant);
     void connection_success();
     void rm_success();
@@ -28,7 +28,7 @@ public slots:
     void onConnected();
     void onBinaryMessage(QByteArray);
     void onTextMessage(QString);
-    void sendFile(QString filename);
+    void sendFile(QUrl);
     void registerMaster(QString);
     void download_pdf(QString filename);
     void getPage();
