@@ -182,7 +182,8 @@ Item {
             }
             Rectangle{//rect_reload
                 id: rect_reload
-                visible: if (autoSyncON==0){
+                visible: if (autoSyncON==1){
+                             setPage(""+pagenr);
                              getPage();
                              return true
                          }else{
