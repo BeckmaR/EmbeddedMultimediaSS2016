@@ -206,12 +206,12 @@ ApplicationWindow {
                 ListElement { title: "Rollenwahl"; source: "qrc:/pages/Rollenwahl.qml" }
                 ListElement { title: "Voreinstellungen"; source: "qrc:/pages/Voreinstellungen.qml" }
                 ListElement { title: "Pdf-Ansicht"; source: "qrc:/pages/PdfSteuerung.qml" } //PdfSteuerung ruft PdfAnsicht auf
-                ListElement { title: "Bildschirmeinstellungen"; source: "qrc:/pages/Bildschirmeinstellungen.qml" }
-                ListElement { title: "Audioeinstellungen"; source: "qrc:/pages/Audioeinstellungen.qml" }
-                ListElement { title: "Touchsteuerung"; source: "qrc:/pages/Touchsteuerung.qml" }
-                ListElement { title: "Schwingsteuerung"; source: "qrc:/pages/Schwingsteuerung.qml" }
-                ListElement { title: "Gestensteuerung"; source: "qrc:/pages/Gestensteuerung.qml" }
-                ListElement { title: "Audio/Klatschsteuerung"; source: "qrc:/pages/Klatschsteuerung.qml" }
+                //ListElement { title: "Bildschirmeinstellungen"; source: "qrc:/pages/Bildschirmeinstellungen.qml" }
+                //ListElement { title: "Audioeinstellungen"; source: "qrc:/pages/Audioeinstellungen.qml" }
+                //ListElement { title: "Touchsteuerung"; source: "qrc:/pages/Touchsteuerung.qml" }
+                //ListElement { title: "Schwingsteuerung"; source: "qrc:/pages/Schwingsteuerung.qml" }
+                //ListElement { title: "Gestensteuerung"; source: "qrc:/pages/Gestensteuerung.qml" }
+                //ListElement { title: "Audio/Klatschsteuerung"; source: "qrc:/pages/Klatschsteuerung.qml" }
             }
             ScrollIndicator.vertical: ScrollIndicator { }
         }
