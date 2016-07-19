@@ -108,6 +108,7 @@ ApplicationWindow {
     VideoOutput {
         source: camera
         visible: false
+        autoOrientation: true
         Camera {
             id: camera
             objectName: "camera"

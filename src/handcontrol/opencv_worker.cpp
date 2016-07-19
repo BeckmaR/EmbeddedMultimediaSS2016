@@ -92,6 +92,11 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
     } else {
         frame_sub = frame_gray - prev_frame;
         reduce(frame_sub,hist,0,CV_REDUCE_AVG);
+        hist = hist -10;
+//        qDebug() << "hist.type" << hist.depth();
+//        double min_hist = 0;
+//        min(min_hist,hist);
+//        qDebug() << "hist min" << min_hist;
         int hist_sum =0;
         int hist_max =0;
         for(int i=0; i<hist.cols;++i)
@@ -104,7 +109,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
             }
         }
         int current_index = 0;
-        if (hist_max > 15) //30
+        if (hist_max > 10) //30
         {
             int hist_sum_mean_point = hist_sum/2;
 
