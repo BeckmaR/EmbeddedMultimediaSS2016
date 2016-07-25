@@ -31,6 +31,7 @@ class OpenCV_Worker : public QAbstractVideoSurface
     cv::Mat frame_sub;
     cv::Mat hist;
     QTime time;
+    //cv::Ptr<cv::BackgroundSubtractor> pMOG2;
 public:
     explicit OpenCV_Worker(handcontrol *);
     bool present(const QVideoFrame &frame);

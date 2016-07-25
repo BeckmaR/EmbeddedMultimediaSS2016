@@ -1,4 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    test_mupdf
+    lib_mupdf \
+    pdf_server
+
+CONFIG += ordered

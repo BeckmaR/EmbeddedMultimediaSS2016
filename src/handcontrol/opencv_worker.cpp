@@ -8,6 +8,7 @@ OpenCV_Worker::OpenCV_Worker(handcontrol *parent)
 {
     p_handcontrol = parent;
     QObject::connect(this, SIGNAL(sendFrame(QVideoFrame::PixelFormat)), this, SLOT(AnalyzeFrame(QVideoFrame::PixelFormat)));
+    //pMOG2 = createBackgroundSubtractorMOG2(100,16,false);
 }
 
 void OpenCV_Worker::setTimerPeriodms(int period_ms)
@@ -33,8 +34,7 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
             QVideoFrame::PixelFormat act_pixelFormat = temp_frame.pixelFormat();
             if(act_pixelFormat == QVideoFrame::Format_RGB32) {
                 Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC4,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
-                current_frame = cv_temp_frame.clone();
-                cvtColor(current_frame, frame_gray,CV_RGBA2GRAY);
+                current_frame = cv_temp_frame.clone(); 
             } else if(act_pixelFormat == QVideoFrame::Format_NV21) {
                 Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC1,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
                 resize(cv_temp_frame,frame_gray,Size(640,480),0,0,INTER_NEAREST);
@@ -65,7 +65,7 @@ void OpenCV_Worker::PeriodTimer()
     {
         emit p_handcontrol->debugMessage("Time for AnalyseFrame: " + QString::number(time_elapse/Framerate_per_sec));
     }
-    emit p_handcontrol->debugMessage("Diff Call processFrame() and AnalyzeFrame() " + QString::number(processFrame_cnt-AnalyzeFrame_cnt));
+    //emit p_handcontrol->debugMessage("Diff Call processFrame() and AnalyzeFrame() " + QString::number(processFrame_cnt-AnalyzeFrame_cnt));
 
     Frame_counter = 0;
     time_elapse = 0;
@@ -90,7 +90,8 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
         emit p_handcontrol->debugMessage("frame_gray: height: " + QString::number(frame_gray.rows) + " width: " + QString::number(frame_gray.cols));
         qDebug() << "PixelFormat:" << pixelFormat;
     } else {
-        frame_sub = frame_gray - prev_frame;
+        absdiff(frame_gray,prev_frame,frame_sub);
+        //pMOG2->apply(frame_gray, frame_sub);
         reduce(frame_sub,hist,0,CV_REDUCE_AVG);
         hist = hist -10;
 //        qDebug() << "hist.type" << hist.depth();
@@ -109,7 +110,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
             }
         }
         int current_index = 0;
-        if (hist_max > 10) //30
+        if (hist_max > 20) //30
         {
             int hist_sum_mean_point = hist_sum/2;
 
@@ -135,7 +136,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
                 dir = new_dir;
             }
 
-            if(dir_count==5)
+            if(dir_count==4)
             {
                 emit p_handcontrol->debugMessage("dir: " + QString::number(new_dir) + "dir_count: " + QString::number(dir_count));
                 emit p_handcontrol->change_page(dir);

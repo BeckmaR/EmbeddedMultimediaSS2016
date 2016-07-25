@@ -19,21 +19,21 @@ QML_IMPORT_PATH =
 #include(deployment.pri)
 
 win32 {
-    INCLUDEPATH += ../../build/opencv/include
-    LIBS += -L"../../build/opencv/x86/mingw/bin"
+    INCLUDEPATH += $$PWD/../../build/opencv/include
+    LIBS += -L"$$PWD/../../build/opencv/x86/mingw/bin"
     LIBS += -lopencv_core310 \
         #-lopencv_highgui310 \
         -lopencv_imgproc310 \
         #-lopencv_imgcodecs310 \
-        #-lopencv_video310 \
+        -lopencv_video310 \
         #-lopencv_videoio310
         #-lopencv_bgsegm310
 }
 
 android {
-    INCLUDEPATH += ../../build/opencv/sdk/native/jni/include
-    LIBS += -L"../../build/opencv/sdk/native/libs/armeabi-v7a" \
-            -L"../../build/opencv/sdk/native/3rdparty/libs/armeabi-v7a"
+    INCLUDEPATH += $$PWD/../../build/opencv/sdk/native/jni/include
+    LIBS += -L"$$PWD/../../build/opencv/sdk/native/libs/armeabi-v7a" \
+            -L"$$PWD/../../build/opencv/sdk/native/3rdparty/libs/armeabi-v7a"
 
     LIBS += \
         #-llibtiff\
