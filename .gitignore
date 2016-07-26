@@ -12,3 +12,11 @@ qrc_qml.cpp
 src/server/EMUServer/EMUServer.pro.user
 *.user
 qrc_qml.cpp
+doc/**.aux
+doc/**.out
+doc/latex/documentation.synctex.gz
+doc/**.blg
+doc/**.lof
+doc/**.log
+doc/**.toc
+/doc/latex/server/*.aux

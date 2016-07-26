@@ -12,4 +12,4 @@ in Folder "thirdparty\mupdf-qt\mupdf"
 	   - Compilation will be aborted, but the right libs were build
 	3. Raspberry 3:
            Use the SysGCC toolchain
-	   make OS=raspberry XCFLAGS="-IC:/SysGCC/Raspberry/arm-linux-gnueabihf/include/bits"
+	   make OS=raspberry XCFLAGS="-IC:/SysGCC/Raspberry/arm-linux-gnueabihf/include"
