@@ -8,7 +8,7 @@ OpenCV_Worker::OpenCV_Worker(handcontrol *parent)
 {
     p_handcontrol = parent;
     QObject::connect(this, SIGNAL(sendFrame(QVideoFrame::PixelFormat)), this, SLOT(AnalyzeFrame(QVideoFrame::PixelFormat)));
-    //pMOG2 = createBackgroundSubtractorMOG2(100,16,false);
+    //pMOG2 = createBackgroundSubtractorMOG2(100,16,false); 
 }
 
 void OpenCV_Worker::setTimerPeriodms(int period_ms)
@@ -16,12 +16,14 @@ void OpenCV_Worker::setTimerPeriodms(int period_ms)
     timer_period_ms = period_ms;
 }
 
+// Auffruf für die Windows Version
 bool OpenCV_Worker::present(const QVideoFrame &frame)
 {
     processFrame(frame);
     return true;
 }
 
+// Auffruf bei Android und Windows. Dieser Teil wird noch im GUI Thread ausgeführt.
 void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
 
     processFrame_cnt++;
@@ -36,6 +38,7 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
                 Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC4,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
                 current_frame = cv_temp_frame.clone(); 
             } else if(act_pixelFormat == QVideoFrame::Format_NV21) {
+				// Es wir nur die Luminizenz Y von dem Videoframe verwendet
                 Mat cv_temp_frame(temp_frame.height(),temp_frame.width(),CV_8UC1,(void *) temp_frame.bits(),temp_frame.bytesPerLine());
                 resize(cv_temp_frame,frame_gray,Size(640,480),0,0,INTER_NEAREST);
                 //frame_gray = cv_temp_frame.clone();
@@ -54,7 +57,6 @@ void OpenCV_Worker::processFrame(const QVideoFrame &frame) {
     } else {
         emit p_handcontrol->errorMessage("Camera Frame konnte nicht gelesen werden");
     }
-    //qDebug() << " in map part";
 
 }
 void OpenCV_Worker::PeriodTimer()
@@ -90,16 +92,14 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
         emit p_handcontrol->debugMessage("frame_gray: height: " + QString::number(frame_gray.rows) + " width: " + QString::number(frame_gray.cols));
         qDebug() << "PixelFormat:" << pixelFormat;
     } else {
+		// Differenzbild berechnen
         absdiff(frame_gray,prev_frame,frame_sub);
         //pMOG2->apply(frame_gray, frame_sub);
         reduce(frame_sub,hist,0,CV_REDUCE_AVG);
-        hist = hist -10;
-//        qDebug() << "hist.type" << hist.depth();
-//        double min_hist = 0;
-//        min(min_hist,hist);
-//        qDebug() << "hist min" << min_hist;
+        hist = hist -10; // Rauschteppich entfernen
         int hist_sum =0;
         int hist_max =0;
+		// Maximum und Summe des Histogramms berechnen
         for(int i=0; i<hist.cols;++i)
         {
             int value = hist.at<uchar>(i);
@@ -110,10 +110,10 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
             }
         }
         int current_index = 0;
-        if (hist_max > 20) //30
+        if (hist_max > 20) //Schwellwert für Fehlerminimierung
         {
             int hist_sum_mean_point = hist_sum/2;
-
+			// Schwerpunkt des Histogramms über eine kumulierte Summe berechen.
             for(int hist_cumsum = 0;current_index<hist.cols;current_index++)
             {
                 hist_cumsum += hist.at<uchar>(current_index);
@@ -123,6 +123,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
                 }
             }
 
+			// Statemaschine für die Zählung der Histogrammbewegungen
             int new_dir = 0;
             if (prev_index < current_index) {
                 new_dir = 1;
@@ -154,7 +155,7 @@ void OpenCV_Worker::AnalyzeFrame(QVideoFrame::PixelFormat pixelFormat) {
     ++frame_count;
     //imshow("test Frames",frame_gray);
     //waitKey(0);
-    prev_frame = frame_gray.clone();
+    prev_frame = frame_gray.clone(); // .clone() notwendig weil sonst der Speicher nicht wirklich kopiert wird.
     Frame_counter++;
     time_elapse += time.elapsed();
 }

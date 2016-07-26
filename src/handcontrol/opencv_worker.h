@@ -30,7 +30,7 @@ class OpenCV_Worker : public QAbstractVideoSurface
     cv::Mat prev_frame;
     cv::Mat frame_sub;
     cv::Mat hist;
-    QTime time;
+    QTime time; //zum messen der Verarbeitungsdauer
     //cv::Ptr<cv::BackgroundSubtractor> pMOG2;
 public:
     explicit OpenCV_Worker(handcontrol *);

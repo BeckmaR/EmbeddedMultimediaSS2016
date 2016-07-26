@@ -78,13 +78,13 @@ void handcontrol::setCamera(QCamera *qml_camera)
         //QList<QCameraViewfinderSettings> test;
         //test = camera->supportedViewfinderFrameRateRanges();
         //qDebug() << camera->supportedViewfinderFrameRateRanges().toStdList();
-        QList<QCameraViewfinderSettings> camerasettings2 = camera->supportedViewfinderSettings();
+        /* QList<QCameraViewfinderSettings> camerasettings2 = camera->supportedViewfinderSettings();
         qDebug() << "settings size" << camerasettings2.size();
           foreach (const QCameraViewfinderSettings &cameraviewersettings, camerasettings2) {
               qDebug() << "max Framerate" << cameraviewersettings.minimumFrameRate();
               qDebug() << "max Framerate" << cameraviewersettings.maximumFrameRate();
               qDebug() << "resolution" << cameraviewersettings.resolution();
-          }
+          } */
     }
 }
 
