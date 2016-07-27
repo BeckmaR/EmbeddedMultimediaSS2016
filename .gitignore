@@ -12,3 +12,4 @@ qrc_qml.cpp
 src/server/EMUServer/EMUServer.pro.user
 *.user
 qrc_qml.cpp
+/build/gui_build
