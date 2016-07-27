@@ -16,7 +16,6 @@ void PdfRenderer::prevPage(void)
     if (m_index > 0) {
         --m_index;
     }
-    //openPage(m_index);
     setPage(m_index);
 }
 
@@ -28,7 +27,6 @@ void PdfRenderer::nextPage(void)
     if (m_index < m_numPages - 1) {
         ++m_index;
     }
-    //openPage(m_index);
     setPage(m_index);
 }
 
@@ -67,7 +65,7 @@ QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &re
     m_page = m_doc->page(index);
     QSizeF pdf_size = m_page->size();
     //qDebug() << "image size: " << pdf_size;
-    float ratio = requestedSize.width()/pdf_size.width();
+    float ratio = requestedSize.width()/pdf_size.width(); //Berechnung der optimalen Pixelanzahl
     if(ratio < 1)
     {
         ratio = 1;

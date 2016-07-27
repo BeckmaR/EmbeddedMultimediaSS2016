@@ -18,7 +18,7 @@ class handcontrol : public QObject
     OpenCV_Worker *opencv_worker = 0;
     QVideoProbe probe;
     QThread thread;
-    QTimer Timer;
+    QTimer Timer; //Timer zum Ausrechnen von Statisikwerten wie Framerate 
     QCamera *camera = 0;
     QCameraViewfinderSettings *camerasettings=0;
 
