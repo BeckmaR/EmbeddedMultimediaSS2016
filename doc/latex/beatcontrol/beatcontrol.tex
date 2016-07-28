@@ -1,12 +1,12 @@
-\chapter{Navigation mit dem Mikrofon}
+\subsection{Navigation mit dem Mikrofon}
 \thispagestyle{fancy}
 
-\section{Anforderungen}
+\subsubsection{Anforderungen}
 Die Applikation setzte eine Navigation durch die PDF-Datei mithilfe des Mikrofons voraus, wodurch ein Klatschen oder Klopfen erkannt und als Blättern interpretiert werden konnte. Bei einmaligem oder zweimaligem Klatschen wurden entsprechende Signale zum vor- bzw. zurückblättern gesendet. \\
 \\
 Eine der Herausforderung dabei war, die Erkennung unabhängig von den äußeren Gegebenheiten erfolgen zu lassen (Raum mit oder ohne Nachhall). Außerdem sollte kein Signal zum Weiterschalten der Folien erzeugt werden, wenn ein starker Klang oder Ton aufgenommen wurde (z.B. wenn der Präsentator ggf. lauter sprechen musste). Der Algorithmus und die dabei berechneten Parameter sollten dabei nicht für jedes Gerät angepasst werden, selbst wenn die Mikrofone über unterschiedliche Eigenschaften verfügten. 
 
-\section{Umsetzung}
+\subsubsection{Umsetzung}
 Als erste Implementierung wurde eine Erkennung im Zeitbereich gewählt. Es wurde schnell festgestellt, dass dies eine sehr leise Umgebung voraussetzte. Selbst der Sprecher konnte das Signal aktivieren, wenn er sehr nah am Mikrofon war. Aus diesem Grund erfolgte die Erkennung im Frequenzbereich. Die Signalverarbeitung war hierbei aufwändiger, allerdings wurden damit die Herausforderungen überwunden.\\
 \\
 Das Modul  \href{http://doc.qt.io/qt-5/qtmultimedia-index.html}{Qt Multimedia 5.7} stellt verschiedene C++ Klassen zur Verfügung, die für die Steuerung des Mikrofons hilfreich sind. Eine Abfrage über die verfügbaren Aufnahmegeräte konnte mit \textit{QAudioDeviceInfo} durchgeführt werden. Das Audio-Format und die Darstellung der Daten wurden mithilfe der Klasse \textit{QAudioFormat} festgelegt. Folgende Einstellungen wurden verwendet:
@@ -28,7 +28,7 @@ Die Analyse im Frequenzbereich erfolgt durch das Spektrogramm, das eine Zusammen
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\textwidth]{BeatBilder/bild0.png}
+	\includegraphics[width=1\textwidth]{beatcontrol/BeatBilder/bild0.png}
 	\caption{Aufteilung des Signals in Rahmen}
 	\label{fig:image0}
 \end{figure}
@@ -55,7 +55,7 @@ Es wurde zunächst der Betrag der Transformation berechnet, daraufhin erfolgte d
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\textwidth]{BeatBilder/bild1.png}
+	\includegraphics[width=1\textwidth]{beatcontrol/BeatBilder/bild1.png}
 	\caption{Spektrogramm ("`Hallo"' $+$ Klatschen)}
 	\label{fig:image1}
 \end{figure}
@@ -66,12 +66,12 @@ Der Algorithmus berechnet die Summe der Frequenzanteile jeder Rahmen, wie in \au
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\textwidth]{BeatBilder/bild2.png}
+	\includegraphics[width=1\textwidth]{beatcontrol/BeatBilder/bild2.png}
 	\caption{Summe der Frequenzkomponenten}
 	\label{fig:image2}
 \end{figure}
 
-\section{Erweiterungen}
+\subsubsection{Erweiterungen}
 Die Steuerung einer Präsentation mittels fließender Sprache ist nur mit umfangreichen Kenntnissen der Wahrscheinlichkeitsrechnung und der Signalverarbeitung möglich. Wenn man die begrenzte Zeit des Projektes in Betracht nimmt, wird schnell festgestellt, dass  eine umfangreiche Spracherkennung durch das Programm in der Kürze der Zeit nur schwer umgesetzt werden kann. Man könnte allerdings Open-Source Bibliotheken verwenden, die beispielsweise bereits ein Erkennungssystem für ein kleines Vokabular implementiert haben.\\
 \\
 Allerdings stellt die Applikation einen ersten wichtigen Schritt in diese Richtung dar. Für eine Erkennung im Frequenzbereich bildet das Spektrogramm den Ausgangspunkt für weitere Analysen des Signals. 
