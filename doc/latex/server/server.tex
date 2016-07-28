@@ -1,5 +1,6 @@
-\chapter[server]{Der Server}
+\chapter[Der Server]{Der Server\footnote{René Beckmann}}
 \section{Zweck und Aufgaben des Servers}
+\label{server}
 Der Server stellt die Komponente dar, welche die diversen Endgeräte per Netzwerk miteinander verbindet und verwaltet. Hierbei ist im Folgenden von "`Clients"' die Rede, wenn es um die Menge aller verbundenen Geräte geht. Der "`Master"' stellt den Sprecher dar, welcher eine Präsentation hochladen darf sowie die aktuell angezeigte Seite ändern. Alle anderen Geräte haben lediglich eine Zuhörer-Funktion.
 
 Er authorisiert den Sprecher, der sich mit dem gültigen Master-Passwort anmelden möchte, und erlaubt nach erfolgter Anmeldung das Hochladen einer Präsentation und Steuern der anzuzeigenden Seitenzahl. Die Präsentation wird gleichzeitig auch auf dem Desktop angezeigt, so dass der Server per Monitorkabel an ein Anzeigegerät - z.B. einen Beamer - angeschlossen werden kann um die Präsentation auszugeben. In diesem Projekt lief die Server-Software auf einem Raspberry Pi.

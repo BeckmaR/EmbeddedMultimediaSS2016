@@ -62,7 +62,7 @@ Item {
                     horizontalAlignment: Image.AlignHCenter
                     verticalAlignment: Image.AlignVCenter
                     source: if(autoSyncON==1){
-                                setPage(""+pagenr);
+                                //setPage(""+pagenr);
                                 return "qrc:/images/PdfControll/refresh_green.png"
                             }else{
                                 return "qrc:/images/PdfControll/refresh_grey.png"
