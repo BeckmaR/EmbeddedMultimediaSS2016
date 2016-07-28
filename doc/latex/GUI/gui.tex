@@ -7,8 +7,8 @@ Die Beschreibung des Client bezieht sich im Folgenden nur auf die Applikation, w
 
 \section[Grafische Benutzeroberfläche (GUI)]{Grafische Benutzeroberfläche (GUI)\footnote{Sascha Brexeler}}
 \label{GUI}
-Die Gestaltung dieser GUI bezweckt eine leicht verständliche intuitiv bedienbare Oberfläche mit zielführender Benutzerführung und Hilfestellungen.
-Die GUI ist für Geräte mit Android als Betriebssystem entwickelt, aber theoretisch nach dem kompilieren mit eventuell erforderlichen kleinen Anpassung auch auf andere Plattformen/Geräten ähnlich abgebildet und verwendbar. Erfolgreich getestet ist die App allerdings derzeit nur für Android (4.3 + 4.4) und Windows.
+Die Gestaltung dieser GUI bezweckt eine leicht verständliche, intuitiv bedienbare Oberfläche mit zielführender Benutzerführung und Hilfestellungen.
+Die GUI ist für Geräte mit Android als Betriebssystem entwickelt, aber theoretisch nach dem kompilieren mit eventuell erforderlichen kleinen Anpassungen auch auf anderen Plattformen/Geräten ähnlich abgebildet und verwendbar. Erfolgreich getestet ist die App allerdings derzeit nur für Android (4.3 + 4.4) und Windows.
 
 
 \begin{figure}[ht!]
@@ -33,7 +33,7 @@ Die GUI ist für Geräte mit Android als Betriebssystem entwickelt, aber theoret
 \newpage
 
 \paragraph{Start der App}$\;$\\
-Von dem Startbildschirm aus besteht die Möglichkeit ein Menü (siehe \autoref{client:OptionsMenue}) durch klicken auf den aus drei Punkten bestehenden Menü-Button (siehe \autoref{client:Appstart}) aufzurufen.
+Von dem Startbildschirm aus besteht die Möglichkeit, ein Menü (siehe \autoref{client:OptionsMenue}) durch Klicken auf den aus drei Punkten bestehenden Menü-Button (siehe \autoref{client:Appstart}) aufzurufen.
 \\In diesem lassen sich zwei Pop-Ups zur Hilfe und zum Team aufrufen (siehe \autoref{client:Appstart}).
 \begin{figure}[ht!]
 	\centering
@@ -42,7 +42,7 @@ Von dem Startbildschirm aus besteht die Möglichkeit ein Menü (siehe \autoref{c
 	\label{client:OptionsMenue}
 \end{figure}
 \paragraph{Verbindungsaufbau}$\;$\\
-Des Weiteren kann der Benutzer nach Eingabe einer der gültigen IP-Adresse eine Verbindung zum Server als Zuhörer aufbauen. Die Eingabe der IP-Adresse erfolgt, wie in der üblichen Notation, mit Punkttrennung und eine Portangabe ist nicht nötig, da diese in Client und Server fest einprogrammiert ist.
+Des Weiteren kann der Benutzer nach Eingabe der gültigen IP-Adresse eine Verbindung zum Server als Zuhörer aufbauen. Die Eingabe der IP-Adresse erfolgt, wie in der dafür üblichen Notation, mit Punkttrennung. Eine Portangabe ist nicht nötig, da diese in Client und Server fest einprogrammiert ist.
 
 \begin{figure}[ht!]
 	\centering
@@ -66,11 +66,11 @@ Des Weiteren kann der Benutzer nach Eingabe einer der gültigen IP-Adresse eine 
 \newpage
 
 \paragraph{Auswählen der eigenen Rolle}$\;$\\
-Nach erfolgreichen Verbindungsaufbau wechselt die Ansicht in zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}).
-In dieser Toolbar befindet sich nun zusätzlich ein grüner Pfeil nach links, um zur vorherigen Ansicht zu wechseln.
+Nach erfolgreichem Verbindungsaufbau wechselt die Ansicht in zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}).
+In dieser Toolbar befindet sich nun zusätzlich ein grüner nach links ausgerichteter Pfeil, um zur vorherigen Ansicht zu wechseln.
 \\Die Rollenwahl ist wiederholbar und somit korrigierbar, aber unumgänglich implementiert, da weitere Einstellung und Möglichkeiten auf dieser Entscheidung aufbauen.
 \paragraph{Voreinstellungen als Sprecher}$\;$\\
-Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die Eingabe richtig und bestätigt ist, kann der Benutzer eine Pdf-hochgeladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Eine Erfolgreiche Auswahl sendet die Datei an den Server, der diese direkt an über den Projektor auf Seite 0 ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einige Optionen aus denen er gewünschte über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht diesmal zurück zur Rollenwahl.
+Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die korrekter Eingabe bestätigt ist, kann der Benutzer eine Pdf-Datei hochladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Der Client sendet die Pdf nach dem Öffnen an den Server, der diese direkt auf Seite 0 über den Projektor ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einigen Optionen, aus denen er die Gewünschten über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht diesmal zurück zur Rollenwahl.
 
 \begin{figure}[ht!]
 	\centering
@@ -101,14 +101,11 @@ Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu i
 \newpage
 
 \paragraph{Voreinstellungen als Zuhörer}$\;$\\
-Als Zuhörer sind die Voreinstellungen ähnlich, jedoch entfällt die Passworteingabe und Herunterladen einer Pdf-Datei ersetzt den Vorgang des Hochladens (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Hierbei erfolgt (ohne eine Auswahlmöglichkeit) das Herunterladen der zuletzt auf dem Server geladenen Datei.
+Als Zuhörer sind die Voreinstellungen ähnlich, jedoch entfällt die Passworteingabe und das Herunterladen einer Pdf-Datei ersetzt den Vorgang des Hochladens (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Hierbei erfolgt (ohne eine Auswahlmöglichkeit) das Herunterladen der zuletzt auf dem Server geladenen Datei.
 \paragraph{Pdf-Ansicht}$\;$\\
 Bestätigen der Voreinstellungen des Sprechers oder Zuhörers bedingt einen Kontextwechsel zur Pdf-Ansicht (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}).
 \paragraph{Drawer}$\;$\\
-Ab der Pdf-Ansicht ist der grüne Pfeil oben links durch einen weiteren aus drei waagerechten Strichen bestehenden Menü-Button ersetzt. Dieser Button öffnet eine vertikale Leiste (Drawer) am linken Bildschirmrand, welche ein ListView beinhaltet, dass schnelle Navigation zu allen bisherigen Ansichten und Weiteren ermöglicht (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Durch wischen am vom linken Bildschirmrand nach rechts lässt sich dieser ebenfalls einblenden. Die Navigation über das ListView im Drawer ist nur möglich solange man nicht zu vorherigen Ansichten wechselt. 
-\paragraph{Symbolleiste}$\;$\\
-Die Pdf-Ansicht beinhaltet ein Symbolleiste (siehe \autoref{client:Symbolleiste}) als Reihe von Icons am unteren Bildschirmrand. Mit ihr ist durch die Pfeile außen ein Blättern in der Pdf möglich. Intuitiv blättert der linke Pfeil zurück, der Rechte vor. Die anderen Buttons dienen dem aktivieren/deaktivieren von Bedienoptionen. Grün signalisiert hierbei aktiviert und grau deaktiviert. Das Mikrofon steht für die Audiosteuerung, das Kamerasymbol für  Gestensteuerung und das Männchen mit den ausgestreckten Armen und Beinen im Kreis für die Kippsteurung. Neben diesem Symbol steht die Seitennummer der angezeigten Seite.
-\\Die ineinander greifenden Pfeile signalisieren bei grün, dass die Autosynchronisation aktiv ist. Sobald diese nicht aktiv ist, erscheint ein weiterer Pfeil geschlungen im Uhrzeigersinn in grau auf der Symbolleiste links neben dem Pfeil. Die Funktion ist das manuelle Aktualisieren der Seitenzahl. Ein Sprecher sendet mit dem Refresh-Button die Seitenzahl, die auf seinem Device aktuell ist zum Server, und dieser leitet sie an die Zuhörer-Clients weiter. Ist als Sprecher Autosynchronisation aktiviert, geschieht die bei jedem Blättern automatisch. Zuhörer können über Refresh die aktuelle Seite manuell anfragen oder mit Autosynchronisation alle 2 Sekunden zu der aktuellen Seite zurück springen. Wenn der Sprecher Blättert, erhalten die Zuhörer jedoch in jedem Fall die aktuelle Seite.
+Mit dem Wechsel zur Pdf-Ansicht ist der grüne Pfeil oben links durch einen weiteren aus drei waagerechten Strichen bestehenden Menü-Button ersetzt. Dieser Button öffnet eine vertikale Leiste (Drawer) am linken Bildschirmrand, welche ein ListView beinhaltet. Dieses ListView ermöglicht schnelle Navigation zu allen bisherigen Ansichten und Weiteren (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Durch Wischen vom linken Bildschirmrand nach rechts lässt sich dieser ebenfalls einblenden. Die Navigation über das ListView im Drawer ist nur möglich, solange man nicht zu vorherigen Ansichten wechselt.
 
 \begin{figure}[ht!]
 	\centering
@@ -117,8 +114,12 @@ Die Pdf-Ansicht beinhaltet ein Symbolleiste (siehe \autoref{client:Symbolleiste}
 	\label{client:Symbolleiste}
 \end{figure}
 
+\paragraph{Symbolleiste}$\;$\\
+Die Pdf-Ansicht beinhaltet eine Symbolleiste (siehe \autoref{client:Symbolleiste}) als Reihe von Icons am unteren Bildschirmrand. Mit ihr ist durch die Pfeile außen ein Blättern in der Pdf möglich. Intuitiv  kann der Benutzer durch Betätigen des linken Pfeils zurück blättern und mit dem Rechten vorwärts. Die anderen Buttons dienen zur Aktivierung/Deaktivierung von Bedienoptionen. Grün signalisiert hierbei den Status aktiviert und grau deaktiviert. Das Mikrofon steht für die Audiosteuerung, das Kamerasymbol für  Gestensteuerung und das Männchen mit den ausgestreckten Armen und Beinen im Kreis für die Kippsteurung. Neben diesem Symbol steht die Seitennummer der angezeigten Seite.
+\\Die ineinander greifenden Pfeile signalisieren bei grün, dass die Autosynchronisation aktiv ist. Sobald diese nicht aktiv ist, erscheint ein weiterer Pfeil geschlungen im Uhrzeigersinn in grau auf der Symbolleiste links neben dem Pfeil. Die Funktion ist das manuelle Aktualisieren der Seitenzahl. Ein Sprecher sendet mit dem Refresh-Button die Seitenzahl, die auf seinem Device aktuell ist, zum Server, welcher sie an die Zuhörer-Clients weiterleitet. Ist als Sprecher der Status Autosynchronisation aktiviert, geschieht diese bei jedem Blättern automatisch. Zuhörer können über den Refresh-Button die aktuelle Seite manuell anfragen oder mit Autosynchronisation alle 2 Sekunden zu der aktuellen Seite zurück springen. Wenn der Sprecher blättert, erhalten die Zuhörer jedoch in jedem Fall die aktuelle Seite.
+
 \paragraph{Informationen zur Benutzung}$\;$\\
-Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält sowie für weitere Hilfestellung auf diese eventuell nicht zur Hand liegenden Dokumentation verweist, kann sich der Benutzer über den Drawer zu einer Erklärung der Bedienmöglichkeiten navigieren. Diese Möglichkeit soll einen möglichst einfachen Einstieg ohne viel ausprobieren sicherstellen und Anwendungsfehler verhindern. Um einen mit dieser Anwendung vertrauten Anwender nicht nach jedem Start durch diese Informationen zu führen, ist das Aufrufen optional (siehe \autoref{client:Symbolleiste}).
+Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält, sowie für weitere Hilfestellung auf diese eventuell nicht zur Hand liegenden Dokumentation verweist, kann sich der Benutzer über den Drawer zu einer Erklärung der Bedienmöglichkeiten navigieren. Diese Möglichkeit soll einen möglichst einfachen Einstieg ohne viel Ausprobieren sicherstellen und Anwendungsfehler verhindern. Um einen mit dieser Anwendung vertrauten Anwender nicht nach jedem Start durch diese Informationen zu führen, ist das Aufrufen optional (siehe \autoref{client:Symbolleiste}).
 
 \begin{figure}[ht!]
 	\centering
@@ -138,7 +139,6 @@ Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält sowie 
 	\caption{v.l.n.r.: Gestensteuerung, Kippsteuerung und Klatschsteuerung{\tiny}}
 	\label{client:InformationenBedienhilfen}
 \end{figure}
-
 
 \section[Serveranbindung]{Serveranbindung\footnote{Sascha Brexeler}}
 \label{client-Serveranbindung}
