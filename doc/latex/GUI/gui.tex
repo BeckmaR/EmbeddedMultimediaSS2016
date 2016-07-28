@@ -142,24 +142,20 @@ Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält sowie 
 
 \section[Serveranbindung]{Serveranbindung\footnote{Sascha Brexeler}}
 \label{client-Serveranbindung}
-Die Einbindung der Funktionsblöcke zur Kommunikation des Clients mit dem Server ist in Zusammenarbeit\footnote{zwischen Sascha Brexeler und René Beckmann} im Team entstanden. Hier erfolgt nur eine grobe Beschreibung. Details zur Kommunikation finden Sie in Kapitel ????
+Die Einbindung der Funktionsblöcke zur Kommunikation des Clients mit dem Server ist in Zusammenarbeit\footnote{zwischen Sascha Brexeler und René Beckmann} im Team entstanden. Details zur Kommunikation finden Sie in Kapitel \ref{server}.
 
 
 \section[Software]{Software\footnote{Sascha Brexeler}}
 \label{guiSoftware}
-Die Software der GUI finden Sie im Git Repository \footnote{https://github.com/BeckmaR/EmbeddedMultimediaSS2016/tree/master/src/app\textunderscore gui}. Die Die diesem Ordner sind nur z.T. Ressourcen für das Steuern mittels AudiDateien für die Navigation mittels K
-
+Die Software der GUI finden Sie im Git Repository \footnote{https://github.com/BeckmaR/EmbeddedMultimediaSS2016/tree/master/src/app\textunderscore gui}. Einige Funktionalitäten/Bibliotheken sind jedoch aus benachbarten Ordnern eingebunden.
 
 \paragraph{Konzept}$\;$\\
-Das Softwarekonzept dient der Umsetzung des Bedienkonzepts mit "Qt-Creator"' programmiert in C++ und Qml. Der Qt-Creator ist dafür wegen der Plattformunabhängigkeit ausgewählt.
+Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigationsmöglichkeiten dient Qt-Creator 4.0.2 als IDE. Qt-Creator ist wegen seiner Plattformunabhängigkeit und der grafischen Beschreibungssprache qml für das den Client besonders geeignet. 
 \paragraph{Struktur}$\;$\\
-
+Der in Qt-Creator erstellte Projektordner app\textunderscore gui enthält die Projektdatei "`app\textunderscore gui.pro"', Header-Dateien, Quelldateien und Ressourcendateien. Unter den Quelldateien befindet sich das C++ Hauptprogramm "`main.cpp"'. Unter anderem instantiiert dieses beim Programmstart die Klasse QQmlApplicationEngine unter dem Namen engine. Im Anschluss daran öffnet die Methode engine.load(QUrl(QLatin1String("qrc:/main.qml"))) aus den Ressourcendateien das in qml geschriebene qml-Hauptprogramm "`main.qml"'. Dadurch ist es möglich weitere Ressourcendateien z.B. in Form von Bildern oder weiteren in qml programmierten grafischen und funktionalen Elementen darzustellen oder aufzurufen, wenn diese sich in den Ressourcendateien befinden. Graphische Elemente können Rechtecke, Buttons, oder ganze Menüleisten sein und funktionale Elemente z.B. Timer. Programmiert ist die GUI zum hauptsächlich in qml. Das Signal-Slot-Prinzip kommt dabei an vielen stellen z.B. der Serveranbindung zum Einsatz.
 \paragraph{Zustandssteuerung}$\;$\\
-Die Realisierung der Grafische Oberflächen entsprechend bisheriger Einstellungen ist über Zustände einer Variablen "`appState"' realisiert, die sich die aktuellen Einstellungen bzw. den Ort merkt und entsprechend Informationen mittels der Objekteigenschaft "`visible"' ein oder ausblendet.
-\paragraph{Elemente}$\;$\\
-\paragraph{Einbindung der erweiterten Bedienmöglichkeiten}$\;$\\
-\paragraph{Details}$\;$\\
-\paragraph{Lektionen}$\;$\\
+Die Realisierung der Grafische Oberflächen entsprechend bisheriger Einstellungen ist über Zustände einer Variablen "`appState"' realisiert, die sich die aktuellen Einstellungen bzw. den Ort merkt und dem entsprechend Informationen mittels der Objekteigenschaft "`visible"' ein oder ausblendet. Außerdem gibt es noch Variablen die speichern ob Einstellungen wie z.B. die automatische Synchronisation aktiviert ist, um vor dem ausführen von Funktionen zu überprüften ob diese gewünscht sind.
+\paragraph{Elemente+Einbindung der erweiterten Bedienmöglichkeiten+Details+Lektionen}$\;$\\
 
 \section{Navigation}
 \input{handcontrol/handcontrol}
