@@ -15,16 +15,16 @@ Die GUI ist für Geräte mit Android als Betriebssystem entwickelt, aber theoret
 	\centering
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/1_Startbildschirm.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/1-Startbildschirm.PNG}
 	\end{minipage}
 	%\hfill
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/1_0_1_Startbildschirm_PopUP_Team.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/1-0-1-Startbildschirm-PopUP-Team.PNG}
 	\end{minipage}
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/1_0_1_Startbildschirm_PopUP_Hilfe.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/1-0-1-Startbildschirm-PopUP-Hilfe.PNG}
 	\end{minipage}
 	\caption{v.l.n.r.: Startbildschirm, Über die App, Hilfemenü{\tiny}}
 	\label{client:Appstart}
@@ -37,7 +37,7 @@ Von dem Startbildschirm aus besteht die Möglichkeit ein Menü (siehe \autoref{c
 \\In diesem lassen sich zwei Pop-Ups zur Hilfe und zum Team aufrufen (siehe \autoref{client:Appstart}).
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[scale=0.5]{GUI/Bilder/Info_Menu.PNG}
+	\includegraphics[scale=0.5]{GUI/Bilder/Info-Menu.PNG}
 	\caption{Menü{\tiny}}
 	\label{client:OptionsMenue}
 \end{figure}
@@ -48,33 +48,33 @@ Des Weiteren kann der Benutzer nach Eingabe einer der gültigen IP-Adresse eine 
 	\centering
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/2_Rollenwahl.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/2-Rollenwahl.PNG}
 	\end{minipage}
 	%\hfill
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/3_S_1_Voreinstellung.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/3-S-1-Voreinstellung.PNG}
 	\end{minipage}
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/3_S_5_Voreinstellung.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/3-S-5-Voreinstellung.PNG}
 	\end{minipage}
 	\caption{v.l.n.r.: Rollenwahl, Voreinstellungen des Sprecher vor und nach Registrierung{\tiny}}
-	\label{client:Rollenauswahl+S_Voreinstellungen}
+	\label{client:Rollenauswahl+S-Voreinstellungen}
 \end{figure}
 
 \newpage
 
 \paragraph{Auswählen der eigenen Rolle}$\;$\\
-Nach erfolgreichen Verbindungsaufbau wechselt die Ansicht in zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S_Voreinstellungen}).
+Nach erfolgreichen Verbindungsaufbau wechselt die Ansicht in zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}).
 In dieser Toolbar befindet sich nun zusätzlich ein grüner Pfeil nach links, um zur vorherigen Ansicht zu wechseln.
 \\Die Rollenwahl ist wiederholbar und somit korrigierbar, aber unumgänglich implementiert, da weitere Einstellung und Möglichkeiten auf dieser Entscheidung aufbauen.
 \paragraph{Voreinstellungen als Sprecher}$\;$\\
-Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S_Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die Eingabe richtig und bestätigt ist, kann der Benutzer eine Pdf-hochgeladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Eine Erfolgreiche Auswahl sendet die Datei an den Server, der diese direkt an über den Projektor auf Seite 0 ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einige Optionen aus denen er gewünschte über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht diesmal zurück zur Rollenwahl.
+Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die Eingabe richtig und bestätigt ist, kann der Benutzer eine Pdf-hochgeladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Eine Erfolgreiche Auswahl sendet die Datei an den Server, der diese direkt an über den Projektor auf Seite 0 ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einige Optionen aus denen er gewünschte über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht diesmal zurück zur Rollenwahl.
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[scale=0.7]{GUI/Bilder/3_S_4_Voreinstellung.PNG}
+	\includegraphics[scale=0.7]{GUI/Bilder/3-S-4-Voreinstellung.PNG}
 	\caption{File-Dialog{\tiny}}
 	\label{client:FileDialog}
 \end{figure}
@@ -83,29 +83,29 @@ Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu i
 	\centering
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/7_H_Voreinstellungen.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/7-H-Voreinstellungen.PNG}
 	\end{minipage}
 	%\hfill
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/4_S_PDF-Ansicht.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/4-S-PDF-Ansicht.PNG}
 	\end{minipage}
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/6_Menu-Button_Drawer_mit_Listview.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/6-Menu-Button-Drawer-mit-Listview.PNG}
 	\end{minipage}
 	\caption{v.l.n.r.: Voreinstellungen des Zuhörers, PdfAnsicht und Drawer{\tiny}}
-	\label{client:H_VoreinstellungenPdfAnsichtDrawer}
+	\label{client:H-VoreinstellungenPdfAnsichtDrawer}
 \end{figure}
 
 \newpage
 
 \paragraph{Voreinstellungen als Zuhörer}$\;$\\
-Als Zuhörer sind die Voreinstellungen ähnlich, jedoch entfällt die Passworteingabe und Herunterladen einer Pdf-Datei ersetzt den Vorgang des Hochladens (siehe \autoref{client:H_VoreinstellungenPdfAnsichtDrawer}). Hierbei erfolgt (ohne eine Auswahlmöglichkeit) das Herunterladen der zuletzt auf dem Server geladenen Datei.
+Als Zuhörer sind die Voreinstellungen ähnlich, jedoch entfällt die Passworteingabe und Herunterladen einer Pdf-Datei ersetzt den Vorgang des Hochladens (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Hierbei erfolgt (ohne eine Auswahlmöglichkeit) das Herunterladen der zuletzt auf dem Server geladenen Datei.
 \paragraph{Pdf-Ansicht}$\;$\\
-Bestätigen der Voreinstellungen des Sprechers oder Zuhörers bedingt einen Kontextwechsel zur Pdf-Ansicht (siehe \autoref{client:H_VoreinstellungenPdfAnsichtDrawer}).
+Bestätigen der Voreinstellungen des Sprechers oder Zuhörers bedingt einen Kontextwechsel zur Pdf-Ansicht (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}).
 \paragraph{Drawer}$\;$\\
-Ab der Pdf-Ansicht ist der grüne Pfeil oben links durch einen weiteren aus drei waagerechten Strichen bestehenden Menü-Button ersetzt. Dieser Button öffnet eine vertikale Leiste (Drawer) am linken Bildschirmrand, welche ein ListView beinhaltet, dass schnelle Navigation zu allen bisherigen Ansichten und Weiteren ermöglicht (siehe \autoref{client:H_VoreinstellungenPdfAnsichtDrawer}). Durch wischen am vom linken Bildschirmrand nach rechts lässt sich dieser ebenfalls einblenden. Die Navigation über das ListView im Drawer ist nur möglich solange man nicht zu vorherigen Ansichten wechselt. 
+Ab der Pdf-Ansicht ist der grüne Pfeil oben links durch einen weiteren aus drei waagerechten Strichen bestehenden Menü-Button ersetzt. Dieser Button öffnet eine vertikale Leiste (Drawer) am linken Bildschirmrand, welche ein ListView beinhaltet, dass schnelle Navigation zu allen bisherigen Ansichten und Weiteren ermöglicht (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Durch wischen am vom linken Bildschirmrand nach rechts lässt sich dieser ebenfalls einblenden. Die Navigation über das ListView im Drawer ist nur möglich solange man nicht zu vorherigen Ansichten wechselt. 
 \paragraph{Symbolleiste}$\;$\\
 Die Pdf-Ansicht beinhaltet ein Symbolleiste (siehe \autoref{client:Symbolleiste}) als Reihe von Icons am unteren Bildschirmrand. Mit ihr ist durch die Pfeile außen ein Blättern in der Pdf möglich. Intuitiv blättert der linke Pfeil zurück, der Rechte vor. Die anderen Buttons dienen dem aktivieren/deaktivieren von Bedienoptionen. Grün signalisiert hierbei aktiviert und grau deaktiviert. Das Mikrofon steht für die Audiosteuerung, das Kamerasymbol für  Gestensteuerung und das Männchen mit den ausgestreckten Armen und Beinen im Kreis für die Kippsteurung. Neben diesem Symbol steht die Seitennummer der angezeigten Seite.
 \\Die ineinander greifenden Pfeile signalisieren bei grün, dass die Autosynchronisation aktiv ist. Sobald diese nicht aktiv ist, erscheint ein weiterer Pfeil geschlungen im Uhrzeigersinn in grau auf der Symbolleiste links neben dem Pfeil. Die Funktion ist das manuelle Aktualisieren der Seitenzahl. Ein Sprecher sendet mit dem Refresh-Button die Seitenzahl, die auf seinem Device aktuell ist zum Server, und dieser leitet sie an die Zuhörer-Clients weiter. Ist als Sprecher Autosynchronisation aktiviert, geschieht die bei jedem Blättern automatisch. Zuhörer können über Refresh die aktuelle Seite manuell anfragen oder mit Autosynchronisation alle 2 Sekunden zu der aktuellen Seite zurück springen. Wenn der Sprecher Blättert, erhalten die Zuhörer jedoch in jedem Fall die aktuelle Seite.
@@ -124,16 +124,16 @@ Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält sowie 
 	\centering
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/7_H_Voreinstellungen.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/7-H-Voreinstellungen.PNG}
 	\end{minipage}
 	%\hfill
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/4_S_PDF-Ansicht.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/4-S-PDF-Ansicht.PNG}
 	\end{minipage}
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/6_Menu-Button_Drawer_mit_Listview.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/6-Menu-Button-Drawer-mit-Listview.PNG}
 	\end{minipage}
 	\caption{v.l.n.r.: Gestensteuerung, Kippsteuerung und Klatschsteuerung{\tiny}}
 	\label{client:InformationenBedienhilfen}
@@ -141,13 +141,13 @@ Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält sowie 
 
 
 \section[Serveranbindung]{Serveranbindung\footnote{Sascha Brexeler}}
-\label{client_Serveranbindung}
+\label{client-Serveranbindung}
 Die Einbindung der Funktionsblöcke zur Kommunikation des Clients mit dem Server ist in Zusammenarbeit\footnote{zwischen Sascha Brexeler und René Beckmann} im Team entstanden. Hier erfolgt nur eine grobe Beschreibung. Details zur Kommunikation finden Sie in Kapitel ????
 
 
 \section[Software]{Software\footnote{Sascha Brexeler}}
 \label{guiSoftware}
-Die Software finden Sie im Git Repository  \footnote{https://github.com/BeckmaR/EmbeddedMultimediaSS2016/tree/master/src/} in im Ordner 
+Die Software finden Sie im Git Repository  \footnote{https://github.com/BeckmaR/EmbeddedMultimediaSS2016/tree/master/src/} in im Ordner
 
 
 \paragraph{Konzept}$\;$\\
@@ -162,8 +162,7 @@ Die Realisierung der Grafische Oberflächen entsprechend bisheriger Einstellunge
 \paragraph{Lektionen}$\;$\\
 
 \section{Navigation}
-\input{handcontrol/handcontrol}
-\input{Beschleunigungssensor/Beschleunigungssensor}
+\input{handcontrol/handcontrol}Beschleunigungssensor}
 
 \section{Features}
 - Blättern in einer Pdf ohne dass ein Update auf dem Server erfolgt\\
