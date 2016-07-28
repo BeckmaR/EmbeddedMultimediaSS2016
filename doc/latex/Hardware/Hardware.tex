@@ -2,3 +2,170 @@
 \thispagestyle{fancy}
 \label{Hardware}
 Dieses Kapitel behandelt die Eingesetzte Hardware und deren Konfiguration.
+\section{Raspberry Pi 3}
+\label{HardwareRaspberryPi3}
+Zur Bearbeitung des Projektes wurde an jede Gruppe ein\glqq Raspberry Pi 3\grqq inklusive einer 16GB MicroSD Karte verteilt.\\
+In diesem Projekt wurde der \glqq Raspberry Pi 3\grqq als Server, Verteiler, Zugangspunkt und Primäres Display genutzt.\\
+Dazu mussten Debian, QT5.7, QTCreator 4.0.2, hostapd, dnsmasq, lighttpd, die in Kapitel installiert und, wie in den weiteren Abschnitten erläutert, eingestellt werden.
+\subsection{Debian}
+Als Betriebssystem kam die neueste für den Raspberry Pi angepasste Debian Version namens \glqq Raspbian\grqq zum Einsatz.\\
+Diese wird als Abbilddatei zur Verfügung gestellt und lässt sich Problemlos auf die Ausgeteilte SD Karte brennen.\\
+\subsubsection{Hindernisse}
+Zum Reibungslosen Betrieb des Debian Systems sind einige Hindernisse zu überwinden.
+\paragraph{Stromsparmodus}$\;$\\
+Ein bekanntes Problem der Raspbian Distribution ist, dass ein verdunkeln und Abschalten des Bildschirms nicht immer mit den gängigen Methoden zu unterbinden ist.\\
+Abhilfe schafft das Ausnutzen eines anderen bekannten Fehlers. Dazu muss das Programm xscreenserver installiert und in seinen Einstellungen deaktiviert werden. Dadurch beendet sich xscreenserver bei seinem Aufruf selbst und der Bildschirm kann nicht verdunkeln.
+\paragraph{HDMI Kompatibilität}$\;$\\
+Bei Tests mit unterschiedlichen Bildschirmen ist aufgefallen, dass der experimentelle openGL Treiber nicht mit älteren Geräten kompatibel ist.\\
+Um diesen Abzuschalten ist darauf zu achten, dass in der /boot/config.txt die Zeile dtoverlay=vc4-kms-v3d ausgeblendet ist.\\
+Um weiter die Verträglichkeit mit älteren Bildschirmen zu erhöhen lässt sich die Auflösung des HDMI-Ausganges auf VGA begrenzen. Dies ermöglicht auch, dass das Gerät ohne Bildschirm betrieben werden kann.\\
+Dazu muss in der bereits Erwähnten /boot/config.txt der Eintrag hdmi\textunderscore force\textunderscore hotplug=1 aktiviert sein.\\
+Für weitere Einstellungsmöglichkeiten sei an dieser Stelle auf die Kommentare in der /boot/config.txt und die Raspbian Dokumentation verwiesen.
+\subsection{QT5.7}
+Für dieses Projekt wurde die zu dieser Zeit neu herausgekommene QT Version 5.7 benutzt. Da jedoch nur QT 5.3 in den Debian Jessie Bezugsquellen integriert wurde musste diese händisch kompiliert werden.
+\paragraph{Vorbereitungen}$\;$\\
+Da die Dokumentation des Herstellers zur händischen Kompilierung nicht vollständig ist wird diese hier ohne die Integration des WebKit skizziert.\\
+Dieser Vorgang benötigt zwischen 10 und 20 Stunden.
+
+\begin{lstlisting}[frame=single,breaklines=true,basicstyle=\tiny,language=C,label={QT5.7compile},caption={Skizze zur Installation von Qt5.7}]
+Das Dateisystem auf die gesamte 16GB SD Karte erweitern.
+sudo raspi-config
+---
+Auslagerungsdatei auf 2GB erweitern 
+sudo nano /etc/dphys-swapfile 
+CONF\textunderscore SWAPSIZE=2048 
+
+sudo dphys-swapfile setup 
+---
+Sicherstellen, dass die Folgenden Dateien gefunden werden:
+sudo ln -s /opt/vc/include/interface/vcos/pthreads/vcos_futex_mutex.h /opt/vc/include/interface/vcos/vcos_futex_mutex.h
+sudo ln -s /opt/vc/include/interface/vcos/pthreads/vcos_platform.h /opt/vc/include/interface/vcos/vcos_platform.h
+sudo ln -s /opt/vc/include/interface/vcos/pthreads/vcos_platform_types.h /opt/vc/include/interface/vcos/vcos_platform_types.h
+sudo ln -s /opt/vc/include/interface/vmcs_host/linux/vchost_config.h /opt/vc/include/interface/vmcs_host/vchost_config.h
+---
+Sicherstellen, dass die richtigen openGLES Treiber geladen werden:
+sudo mv /usr/lib/arm-linux-gnueabihf/libEGL.so.1.0.0  /usr/lib/arm-linux-gnueabihf/libEGL.so.1.0.0.backup
+sudo mv /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.0.0 /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.0.0.backup
+sudo ln -s /opt/vc/lib/libEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1.0.0
+sudo ln -s /opt/vc/lib/libGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.0.0
+---
+Laden und entpacken von QT5.7.0
+mkdir /home/pi/opt
+cd /home/pi/opt
+wget http://download.qt.io/official_releases/qt/5.7/5.7.0/single/qt-everywhere-opensource-src-5.7.0.tar.gz
+mkdir -p /home/pi/opt/qt-everywhere-opensource-src-5.7.0
+ln -s /home/pi/opt/qt-everywhere-opensource-src-5.7.0 /home/pi/opt/qt5
+tar zxvf /home/pi/opt/qt-everywhere-opensource-src-5.7.0.tar.gz
+---
+Pfade anpassen
+nano /home/pi/setup_qt.sh
+export LD_LIBRARY_PATH=/usr/local/qt5/lib
+export PATH=/usr/local/qt5/bin:$PATH
+
+nano /home/pi/setup_general.sh
+export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
+---
+und automatisch laden
+echo source /home/pi/setup_qt.sh >> /home/pi/.bashrc
+echo source /home/pi/setup_qt.sh >> /home/pi/.profile
+echo source /home/pi/setup_general.sh >> /home/pi/.bashrc
+echo source /home/pi/setup_general.sh >> /home/pi/.profile
+---
+Abhaengigkeiten installieren:
+sudo apt-get install libfontconfig1-dev libdbus-1-dev libfreetype6-dev libudev-dev libicu-dev libsqlite3-dev \
+ libxslt1-dev libssl-dev libasound2-dev libavcodec-dev libavformat-dev \
+libswscale-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev gstreamer-tools gstreamer0.10-plugins-good \
+ gstreamer0.10-plugins-bad libraspberrypi-dev \
+libpulse-dev libx11-dev libglib2.0-dev libcups2-dev freetds-dev libsqlite0-dev libpq-dev \
+libiodbc2-dev libmysqlclient-dev firebird-dev libpng12-dev libjpeg62-turbo-dev libgst-dev libxext-dev libxcb1 \
+ libxcb1-dev libx11-xcb1 \
+libx11-xcb-dev libxcb-keysyms1 libxcb-keysyms1-dev libxcb-image0 libxcb-image0-dev libxcb-shm0 libxcb-shm0-dev \
+ libxcb-icccm4 libxcb-icccm4-dev libxcb-sync1 \
+libxcb-sync-dev libxcb-render-util0 libxcb-render-util0-dev libxcb-xfixes0-dev libxrender-dev libxcb-shape0-dev \
+ libxcb-randr0-dev libxcb-glx0-dev libxi-dev \ 
+libdrm-dev libinput-dev mtdev-tools libmtdev-dev libproxy-dev libts-dev pkg-config pulseaudio libxcb-xkb-dev \
+ libxkbcommon-dev libxkbcommon-x11-dev \ 
+libharfbuzz-dev gperf bison flex cmake cmake-data libatspi-dev libxcb-xinlibxcb-xinerama0 libxcb-xinerama0-dev \ 
+libcap-dev libtiff5-dev libwebp-dev libmng-dev \ 
+libjasper-dev libjpeg-dev ruby libxcomposite-dev libxdamage-dev libxrandr-dev libxtst-dev libpci-dev libnss3-dev \ 
+libxss-dev libegl1-mesa-dev libgles2-mesa-dev \
+libglu1-mesa-dev "^libxcb.*" build-essential
+---
+Bauen
+cd /home/pi/opt/qt-everywhere-opensource-src-5.7.0
+sudo mount --bind /opt/vc/include /usr/local/include
+./configure -v -opengl auto -tslib -force-pkg-config -device linux-rpi3-g++ -device-option CROSS_COMPILE=/usr/bin/ -opensource -confirm-license -optimized-qmake -reduce-exports -release -qt-pcre -make libs -make tools -skip qtwebengine -nomake examples -no-use-gold-linker -prefix /usr/local/qt5
+make -j3
+---
+Falls dies Fehlschlagen sollte muss gcc6 ueber die Stretch Quellen nachinstalliert werden.
+\end{lstlisting}
+\paragraph{Einschränkungen}$\;$\\
+Unter QT 5.7 funktioniert openGL und openGLES auf dem \glqq Raspberry Pi 3\grqq nur mittelmäßig und ausschließlich im Vollbild.
+\paragraph{Alternativen}$\;$\\
+The Qt Company bietet für zahlende Kunden ein funktionierendes QT5.7 Abbild mit dem der \glqq Raspberry Pi 3\grqq über das Netzwerk als direktes Ziel in QTCreator eingebunden werden kann.\\
+Alternativ lassen sich auch über andere Umwege die hier nicht beschritten wurden Programme für die ARMv8 Architektur des \glqq Raspberry Pi 3\grqq Crosskompilieren.\\
+Ausweichen auf die Debian Stretch Quellen liefert vollfunktionstüchtige Versionen von QT 5.6 und QTCreator 4.0.2
+\subsection{WLAN-Accespoint}
+Da der\glqq Raspberry Pi 3\grqq mit einem AP-Mode fähigem WLAN-Modul ausgestattet ist sei an dieser Stelle die Inbetriebnahme als WLAN-Accesspoint mit hostapd und dnsmasq kurz dargestellt.
+\begin{lstlisting}[frame=single,breaklines=true,basicstyle=\tiny,language=C,label={WLANCode},caption={WLAN-Accespoint}]
+Installation von hostapd
+sudo apt-get install hostapd
+sudo nano /etc/hostapd/hostapd.conf
+
+interface=wlan0
+driver=nl80211
+ssid=Presentao
+channel=3
+hw_mode=g
+wmm_enabled=1
+country_code=DE
+ieee80211d=1
+ignore_broadcast_ssid=0
+auth_algs=1
+wpa=2
+wpa_key_mgmt=WPA-PSK
+rsn_pairwise=CCMP
+wpa_passphrase=raspberry
+---
+Konfiguration Zuordnen
+sudo nano /etc/default/hostapd
+
+DAEMON_CONF="/etc/hostapd/hostapd.conf"
+---
+Routerfunktion einrichten
+sudo apt-get install dnsmasq
+sudo nano /etc/dnsmasq.conf
+
+interface=wlan0
+no-dhcp-interface=eth0
+dhcp-range=192.168.1.2,192.168.1.254,1h
+dhcp-option=option:dns-server,192.168.1.1
+---
+Portforwarding
+sudo nano /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+auto eth0
+allow-hotplug eth0
+iface eth0 inet manual
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet static
+address 192.168.1.1
+netmask 255.255.255.0
+up /sbin/iptables -A FORWARD -o eth0 -i wlan0 -m conntrack --ctstate NEW -j ACCEPT
+up /sbin/iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+up /sbin/iptables -t nat -F POSTROUTING
+up /sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+up sysctl -w net.ipv4.ip_forward=1
+up sysctl -w net.ipv6.conf.all.forwarding=1
+up service hostapd restart
+up service dnsmasq restart
+---
+Neustarten
+\end{lstlisting}
+\subsection{Klientenverteilung}
+Für die Verteilung des Klienten wurde lighttpd installiert und eine minimale index.html Datei die auf entsprechende Klientenbinärdateien verweist geschrieben.
+\subsection{Presentao-Server}
+Der Projektserver wurde direkt auf dem \glqq Raspberry Pi 3\grqq kompiliert und über eine einfache Schleife in den Autostart integriert.
