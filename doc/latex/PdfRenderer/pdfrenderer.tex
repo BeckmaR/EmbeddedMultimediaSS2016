@@ -1,8 +1,6 @@
-\chapter{PDF Renderer}
+\chapter[PDF Renderer]{PDF Renderer\footnote{Abschnitt von Tim Hebbeler erstellt}}
 \thispagestyle{fancy}
 
-Kapitel erstellt von Tim Hebbeler
-\\
 Der PDF-Renderer wurde als separate C++-Klasse entwickelt und ist in die Android App und den Server eingebunden.
 
 Im Laufe der Entwicklung wurden die Bibliotheken \href{https://poppler.freedesktop.org/}{Poppler} und \href{http://mupdf.com/}{MuPDF} untersucht. Das Projekt Poppler ist eine unter der GPL stehende Bibliothek und basiert auf \href{https://de.wikipedia.org/wiki/Xpdf}{Xpdf}. Poppler bietet schon ein Qt-Binding, doch leider liegt der Fokus auf unixartige Betriebssysteme und nicht auf der Plattformunabhängigkeit \footnote{\url{https://de.wikipedia.org/wiki/Poppler}}. Die PDF Darstellung wird aber auf verschiedenen Plattform, wie Android, dem Raspberry Pi und Windows benötigt, deshalb konnte Poppler nicht verwendet werden.
