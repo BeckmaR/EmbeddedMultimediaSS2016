@@ -2,8 +2,8 @@
 University Project
 
 Tim Hebbler
-René Beckmann
+RenÃ© Beckmann
 Diana Kastano
-Jens Miken
+Jens Helge Micke
 Sascha Brexeler
 
