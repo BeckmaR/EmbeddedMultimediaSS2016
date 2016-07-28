@@ -1,1 +1,69 @@
 \chapter{Der Server}
+\section{Zweck und Aufgaben des Servers}
+Der Server stellt die Komponente dar, welche die diversen Endgeräte per Netzwerk miteinander verbindet und verwaltet. Hierbei ist im Folgenden von "`Clients"' die Rede, wenn es um die Menge aller verbundenen Geräte geht. Der "`Master"' stellt den Sprecher dar, welcher eine Präsentation hochladen darf sowie die aktuell angezeigte Seite ändern. Alle anderen Geräte haben lediglich eine Zuhörer-Funktion.
+
+Er authorisiert den Sprecher, der sich mit dem gültigen Master-Passwort anmelden möchte, und erlaubt nach erfolgter Anmeldung das Hochladen einer Präsentation und Steuern der anzuzeigenden Seitenzahl. Die Präsentation wird gleichzeitig auch auf dem Desktop angezeigt, so dass der Server per Monitorkabel an ein Anzeigegerät - z.B. einen Beamer - angeschlossen werden kann um die Präsentation auszugeben. In diesem Projekt lief die Server-Software auf einem Raspberry Pi.
+
+Per Netzwerk wird die Präsentation sowie die anzuzeigende Seitenzahl auf Anforderung an die Clients verteilt, so dass jeder Client die Präsentation synchron mitverfolgen kann.
+
+Nachdem sich ein Master von dem Server getrennt hat, ist das Verbinden eines neuen Mastergerätes ohne Probleme möglich. Dies erlaubt es, nacheinander mehrere Sprecher eine Präsentation halten zu lassen, ohne dass die Server-Software neugestartet wird. Das gleichzeitige Verbinden mehrerer Sprecher ist hingegen nicht möglich, um Verwirrungen und komplizierte Rechteverwaltungen zu vermeiden.
+
+\section{Das Konzept}
+Die Implementierung der Netzwerkverbindung erfolgte auf Basis von Websockets. Dies ist ein auf TCP basierendes Protokoll, bei dem eine bidirektionale Datenverbindung möglich ist. Die Verbindung wird außerdem aufrecht erhalten - dies ermöglicht es, serverseitig die Verbindung zum Master separat abzuspeichern. So wird nicht bei jeder Aktion eine Authentifizierung benötigt. Außerdem könnte ein Server, der nicht-persistente Verbindungen verwendet, nicht die aktuelle Seitenzahl an alle Clients broadcasten - er kennt seine Clients gar nicht, und jede Aktion wird von den Clients eingeleitet. Diese müssten beispielsweise alle $x$ Sekunden den Server pollen, um die aktuelle Seitenzahl zu erfragen.
+
+Diese Technik stellt also kein \textit{Stateless Design} dar, sondern einen sehr simplen Zustandsautomaten.
+
+\subsection{Kommunikationsprotokoll}
+Mit Hilfe der Qt-Implementierung von Websockets, den \verb+QWebSocket+s, lassen sich Text- und Binärnachrichten versenden. Auf dieser Basis wurde ein sehr einfaches textbasiertes Protokoll für die Kommunikation zwischen Server und Client entwickelt. Die folgenden Befehle können vom Client an den Server gesendet werden, dieser antwortet dann an diesen oder alle Clients.
+
+Alle Kommandos folgen einem einheitlichen Format: Zwei Zeichen, gefolgt von einem Doppelpunkt und weiteren Zeichen beliebiger Länge (einschließlich Länge 0, also keine weiteren Zeichen). Die beiden Zeichen vor dem Doppelpunkt definieren, was getan werden soll, und die weiteren Zeichen stellen die "`Payload"' dar, wie zum Beispiel weitere Argumente oder das Passwort bei dem Versuch sich als Master anzumelden.
+\begin{itemize}
+	\item \verb+RM+ - \textbf{R}egister as \textbf{M}aster.
+		\begin{description}
+			\item[Payload] Das korrekte Master-Passwort.
+			\item[Fehlermeldungen] \verb+BADPW+ bei falschem Passwort, \verb+MASTERISSET+ wenn es bereits einen Master gibt - per WebSocket an den Client gesendet
+			\item [Erfolgsbestätigung] \verb+ACK+
+			\item [Beispiele] Korrekt: \verb+RM:mpw12345+, nicht korrekt: \verb+RM:123+
+		\end{description}
+	\item \verb+SP+ - \textbf{S}et \textbf{P}age.
+		\begin{description}
+			\item[Payload] Eine Seitenzahl, die sich in einen integer umwandeln lässt.
+			\item[Fehlermeldungen] \verb+BADPAGENUM+ bei ungültigen Seitenzahlen, die nicht zu einem integer gewandelt werden konnten, \verb+NOTALLOWED+ wenn der Sender nicht als Master registriert ist.
+			\item [Erfolgsbestätigung] Broadcast der Seitenzahl an alle (Weiterleitung)
+			\item [Beispiele] Korrekt: \verb+SP:3+, nicht korrekt: \verb+SP:x+
+		\end{description}
+	\item \verb+GP+ - \textbf{G}et \textbf{P}age.
+		\begin{description}
+			\item[Payload] Wird ignoriert, nichts notwendig. 
+			\item[Fehlermeldungen] Wenn noch kein pdf verfügbar ist, wird die Default-Seitenzahl '-1' gesendet.
+			\item [Erfolgsbestätigung] Antwort mit \verb+PN:X+, wobei $X$ die Seitenzahl bezeichnet.
+			\item [Beispiele] Korrekt: \verb+GP:+, oder auch korrekt: \verb+GP:x+ - Payload wird ignoriert
+		\end{description}
+	\item \verb+DL+ - \textbf{D}own\textbf{l}oad.
+		\begin{description}
+			\item[Payload] Wird ignoriert.
+			\item[Fehlermeldungen] \verb+NOFILE+, wenn keine Präsentation hochgeladen wurde.
+			\item [Erfolgsbestätigung] Der Inhalt der Datei wird per BinaryMessage an den Client geschickt.
+			\item [Beispiele] Korrekt: \verb+DL:+,
+		\end{description}
+	\item \verb+UL+ - \textbf{U}p \textbf{L}oad. Kann verwendet werden, um zu erfragen, ob ein Upload erlaubt ist.
+		\begin{description}
+			\item[Payload] Wird ignoriert.
+			\item[Fehlermeldungen] \verb+NOTALLOWED+ wenn der Sender nicht als Master registriert ist.
+			\item [Erfolgsbestätigung] \verb+ACK+
+			\item [Beispiele] Korrekt: \verb+DL:+
+		\end{description}
+	\item Die Präsentation hochladen. Dies ist kein Textkommando, sondern erfolgt direkt per BinaryMessage. Diese wird nur akzeptiert, wenn der Sender der aktuelle Master ist. In diesem Fall wird das enthaltene \verb+QByteArray+ direkt an den pdfrenderer weitergeleitet, welcher dieses dann in eine Datei schreibt und anzeigt.
+\end{itemize}
+Andere Kommandos werden generell mit \verb+BADCMD+ beantwortet.
+
+\section{Mögliche Verbesserungen}
+Der Server erledigt seine Aufgabe recht gut. Die Schnittstelle ist möglichst simpel gehalten und weist eine geringe Fehleranfälligkeit auf. Diverse Funktionen für die Sicherheit oder Annehmlichkeiten wären aber noch vorstellbar.
+
+\begin{itemize}
+	\item Verschlüsselte Verbindung. Das Master-Passwort wird, wie alles andere auch, per Klartext übertragen. Während der Präsentation ist ein weiterer Master nicht erlaubt, danach könnte ein potentieller Angreifer sich aber anmelden.
+	\item Broadcast des Servers. Der Server könnte in regelmäßigen Abständen per UDP-Broadcast auf sich aufmerksam machen. Dadurch könnten Clients sich automatisch verbinden, und das unelegante Eintippen der ip-Adresse im Client würde entfallen.
+	\item Zuteilung einer ID zu einem Master. Mit dieser ID könnte ein Master sich nach einem Verbindungsabbruch neu verbinden und an der vorherigen Stelle weitermachen.
+\end{itemize}
+
+
