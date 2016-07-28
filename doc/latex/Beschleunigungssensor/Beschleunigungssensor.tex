@@ -1,3 +1,35 @@
-\subsection[Navigation Beschleunigungssensor]{Navigation Beschleunigungssensor\footnote{Jens Helge Micke}}
+\subsection[Beschleunigungssensor]{Beschleunigungssensor\footnote{Jens Helge Micke}}
 \thispagestyle{fancy}
 \label{Beschleunigungssensor}
+Nach Anwendungsfall 1.4.2 (siehe Seite \pageref{Anwendungsfälle} ff) galt es Blättern durch das Auswerten in den Endgeräten verbauter Beschleunigungssensoren zu ermöglichen.
+
+\subsubsection{Anforderungen}
+\label{BeschleunigungssensorAnforderungen}
+Zur Auswertung des Beschleunigungssensors müssen dessen Daten ausgelesen werden können.\\
+Relativ zur momentanen Endgerätsorientierung soll das Kippen nach Rechts oder Links erkannt und als Vor- oder Zurück-Blättern interpretiert werden.\\
+Kleinstbewegungen gilt es zu ignorieren.\\
+Mehrfachauslösungen sind zu minimieren.
+
+\subsubsection{Umsetzung}
+\label{BeschleunigungssensorUmsetzung}
+An dieser Stelle werden kurz die Ansätze der Beschleunigungssensorsteuerung skizziert.\\
+Die Implementierung ist im Quellcode app\textunderscore gui/pages/PdfSteuerung.qml nachzulesen.
+\paragraph{Auslesen des Beschleunigungssensors}$\;$\\
+Nach Integration von QtSensors kann der Sensortyp Accelerator genutzt und eingestellt werden.\\
+Unter den Einstellungen können der Sensor aktiviert, die Datenrate\footnote{Nicht von allen Beschleunigungssensoren unterstützt.} eingestellt und das Verhalten bei einem Sensorveränderungsereignis definiert werden.\\
+Die Sensorwerte Der X-, Y- und Z-Achse sind über .reading.x .reading.y .reading.z auszulesen.
+\paragraph{Endgerätsorientierung}$\;$\\
+Zur Erkennung der derzeitigen Endgerätsorientierung stellt Qt QtQuick.Window bereit.
+Durch die Definition einer Updatemaske können die Wechsel zwischen den Orientierungen 1: Portrait, 2: Landscape, 4: Inverted Portrait und 8: Inverted Landscape erkannt und über Screen.Orientation ausgelesen werden.
+\paragraph{Kleinstbewegungen}$\;$\\
+Kleinstbewegungen werden am einfachsten über eine definierte Mindestauslenkung des Beschleunigungssensors ignoriert.
+\paragraph{Mehrfachauslösung}$\;$\\
+Um Mehrfachauslösungen vorzubeugen und die Beschränkung der nicht immer einstellbaren Datenrate zu umgehen kann mit QtQuick ein Zeitgeber definiert werden der das Blättern nur alle 500ms zulässt.
+\subsubsection{Alternativen}
+\label{BeschleunigungssensorAlternativen}
+Technisch aufwendigere Alternativen sind denkbar, für den Umfang der Projektarbeit und mit Blick auf die Rechenleistung der Endgeräte jedoch nicht unbedingt Zielführend.\\
+An dieser Stelle seien einige Möglichkeiten motiviert.
+\paragraph{Kleinstbewegungen}$\;$\\
+Kleinstbewegungen und die Eigenschwingung des Endgerätes könnten auch über eine Spektralanalyse des Sensorsignals ignoriert werden.
+\paragraph{Mehrfachauslösung}$\;$\\
+Der Besprochene Mehrfachauslöseschutz könnte auch Global eingesetzt werden.
