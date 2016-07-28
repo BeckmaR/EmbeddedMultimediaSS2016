@@ -19,4 +19,4 @@ doc/latex/**/*.blg
 doc/latex/**/*.lof
 doc/latex/**/*.log
 doc/latex/**/*.toc
-
+/build/gui_build
