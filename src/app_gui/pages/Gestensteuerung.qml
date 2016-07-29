@@ -27,7 +27,7 @@ Flickable {
                 font.pixelSize: 22
                 font.italic: true
                 color: "steelblue"
-                text: "Wenn diese Funktion und die Kamara aktiviert sind, können langsame horizontale Wischebewegungen vor der Frontkamera zum Blättern in der Pdf genutzt werden! Wischen nach rechs bedingt Vorwärt- Wischen nach links Rückwärtsblättern. Eine ausreichende Helligkeit und ein nicht bewegter Hintergrund sorgen für gute Einsatzbedingungen"
+                text: "Wenn diese Funktion und die Kamara aktiviert sind, können langsame horizontale Wischebewegungen vor der Frontkamera zum Blättern in der Pdf genutzt werden! Wischen nach rechs bedingt Vorwärts- Wischen nach links Rückwärtsblättern. Eine ausreichende Helligkeit und ein sich nicht bewegender Hintergrund sorgen für gute Einsatzbedingungen"
             }
         }
     }

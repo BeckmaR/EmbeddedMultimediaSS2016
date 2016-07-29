@@ -3,13 +3,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-/* VON GALLERY
-*/
 #include <QQmlContext>
 #include <QSettings>
 #include <QQuickStyle>
-/* VON GUI
-*/
+
 #include <QImage>
 #include "pdfrenderer.h"
 #include "web_socket_client.h"
@@ -37,7 +34,6 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-    //engine.load(QUrl("qrc:/gallery.qml"));
     if (engine.rootObjects().isEmpty())
         return -1;
 

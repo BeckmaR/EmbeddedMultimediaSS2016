@@ -67,8 +67,7 @@ Des Weiteren kann der Benutzer nach Eingabe der gültigen IP-Adresse eine Verbin
 
 \paragraph{Auswählen der eigenen Rolle}$\;$\\
 Nach erfolgreichem Verbindungsaufbau wechselt die Ansicht in zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}).
-In dieser Toolbar befindet sich nun zusätzlich ein grüner nach links ausgerichteter Pfeil, um zur vorherigen Ansicht zu wechseln.
-\\Die Rollenwahl ist wiederholbar und somit korrigierbar, aber unumgänglich implementiert, da weitere Einstellung und Möglichkeiten auf dieser Entscheidung aufbauen.
+In dieser Toolbar befindet sich nun zusätzlich ein grüner nach links ausgerichteter Pfeil, um zur vorherigen Ansicht zu wechseln. Die Rollenwahl ist wiederholbar und somit korrigierbar, aber unumgänglich implementiert, da weitere Einstellung und Möglichkeiten auf dieser Entscheidung aufbauen.
 \paragraph{Voreinstellungen als Sprecher}$\;$\\
 Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die korrekter Eingabe bestätigt ist, kann der Benutzer eine Pdf-Datei hochladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Der Client sendet die Pdf nach dem Öffnen an den Server, der diese direkt auf Seite 0 über den Projektor ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einigen Optionen, aus denen er die Gewünschten über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht diesmal zurück zur Rollenwahl.
 
@@ -119,7 +118,7 @@ Die Pdf-Ansicht beinhaltet eine Symbolleiste (siehe \autoref{client:Symbolleiste
 \\Die ineinander greifenden Pfeile signalisieren bei grün, dass die Autosynchronisation aktiv ist. Sobald diese nicht aktiv ist, erscheint ein weiterer Pfeil geschlungen im Uhrzeigersinn in grau auf der Symbolleiste links neben dem Pfeil. Die Funktion ist das manuelle Aktualisieren der Seitenzahl. Ein Sprecher sendet mit dem Refresh-Button die Seitenzahl, die auf seinem Device aktuell ist, zum Server, welcher sie an die Zuhörer-Clients weiterleitet. Ist als Sprecher der Status Autosynchronisation aktiviert, geschieht diese bei jedem Blättern automatisch. Zuhörer können über den Refresh-Button die aktuelle Seite manuell anfragen oder mit Autosynchronisation alle 2 Sekunden zu der aktuellen Seite zurück springen. Wenn der Sprecher blättert, erhalten die Zuhörer jedoch in jedem Fall die aktuelle Seite.
 
 \paragraph{Informationen zur Benutzung}$\;$\\
-Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält, sowie für weitere Hilfestellung auf diese eventuell nicht zur Hand liegenden Dokumentation verweist, kann sich der Benutzer über den Drawer zu einer Erklärung der Bedienmöglichkeiten navigieren. Diese Möglichkeit soll einen möglichst einfachen Einstieg ohne viel Ausprobieren sicherstellen und Anwendungsfehler verhindern. Um einen mit dieser Anwendung vertrauten Anwender nicht nach jedem Start durch diese Informationen zu führen, ist das Aufrufen optional (siehe \autoref{client:InformationenBedienhilfen}).
+Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält sowie für weitere Hilfestellung auf diese eventuell nicht zur Hand liegenden Dokumentation verweist, kann sich der Benutzer über den Drawer zu einer Erklärung der Bedienmöglichkeiten navigieren. Diese Option soll einen möglichst einfachen Einstieg ohne unnötiges Ausprobieren sicherstellen und Anwendungsfehler verhindern. Um einen mit dieser Anwendung vertrauten Anwender nicht nach jedem Start durch diese Informationen zu führen, ist das Aufrufen optional (siehe \autoref{client:InformationenBedienhilfen}).
 
 \newpage
     
@@ -156,7 +155,7 @@ Die Einbindung der Funktionsblöcke zur Kommunikation des Clients mit dem Server
 Die Software der GUI finden Sie im Git Repository \footnote{https://github.com/BeckmaR/EmbeddedMultimediaSS2016/tree/master/src/app\textunderscore gui}. Einige Funktionalitäten/Bibliotheken sind jedoch aus benachbarten Ordnern eingebunden.
 
 \paragraph{Konzept}$\;$\\
-Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigationsmöglichkeiten dient Qt-Creator 4.0.2 als IDE. Qt-Creator ist wegen seiner Plattformunabhängigkeit und der grafischen Beschreibungssprache qml für das den Client besonders geeignet. Programmiert ist die GUI überwiegend mit qml. Eine Kombination mit C++ Funktionen sowie das Signal-Slot-Prinzip kommen dabei an vielen stellen z.B. der Serveranbindung zum Einsatz. Mit dem Design-Tool von Qt-Creator stand eine graphische Programmiermöglichkeit von qml-Code zur Verfügung. Dieses stellt eine interessante Ergänzung zum "`schriftlichen"' Programmieren dar. Nach einer erfolgreichen Erprobung des Tools habe ich mich zugunsten der Homogenität des Codes gegen dieses entschieden.
+Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigationsmöglichkeiten dient Qt-Creator 4.0.2 als IDE. Qt-Creator ist wegen seiner Plattformunabhängigkeit und der grafischen Beschreibungssprache qml für den Client besonders geeignet. Programmiert ist die GUI überwiegend mit qml. Eine Kombination mit C++ Funktionen sowie das Signal-Slot-Prinzip kommen dabei an vielen stellen z.B. der Serveranbindung zum Einsatz. Mit dem Design-Tool von Qt-Creator stand eine graphische Programmiermöglichkeit von qml-Code zur Verfügung. Dieses stellt eine interessante Ergänzung zum "`schriftlichen"' Programmieren dar. Nach einer erfolgreichen Erprobung des Tools habe ich mich zugunsten der Homogenität des Codes gegen dieses Tool entschieden.
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.8]{GUI/Bilder/Projektordnerstruktur.PNG}
@@ -166,9 +165,9 @@ Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigat
 
 
 \paragraph{Struktur}$\;$\\
-Der in Qt-Creator erstellte Projektordner app\textunderscore gui enthält die Projektdatei "`app\textunderscore gui.pro"', Header-Dateien, Quelldateien und Ressourcendateien (siehe \autoref{client:Projektordnerstruktur}). Unter den Quelldateien befindet sich das C++ Hauptprogramm "`main.cpp"'. Unter anderem instantiiert dieses beim Programmstart die Klasse QQmlApplicationEngine unter dem Namen engine. Im Anschluss daran öffnet die Methode engine.load(QUrl(QLatin1String("qrc:/main.qml"))) aus den Ressourcendateien das in qml geschriebene qml-Hauptprogramm "`main.qml"'. Die Datei qml.qrc verwaltet die Ressourcen. Dadurch ist es möglich aus dem qml-Hauptprogramm weitere Ressourcendateien z.B. in Form von Bildern oder weiteren in qml programmierten grafischen und funktionalen Elementen darzustellen oder aufzurufen, wenn diese sich in den Ressourcendateien befinden. Graphische Elemente können Rechtecke, Buttons, oder ganze Menüleisten sein und funktionale Elemente z.B. Timer.
-Das StackView beinhaltet den Inhalt, welcher außerhalb der Randelemente Drawer oder ToolBar auf dem Bildschirm zur Anzeige kommt. Im Hauptprogramm befindet sich im StackView die Startansicht. Bei weiter Navigation durch die GUI ersetzen andere in qml geschriebene Dateien das StackView. Pop-ups überblenden es nur.
-Für eine gute Übersicht über den Code bietet der Ct-Creator die Möglichkeit Codebl\"ocke einzuklappen(siehe \autoref{client:codeausschnitt-main.qml}).
+Der in Qt-Creator erstellte Projektordner app\textunderscore gui enthält die Projektdatei "`app\textunderscore gui.pro"', Header-Dateien, Quelldateien und Ressourcendateien (siehe \autoref{client:Projektordnerstruktur}). Unter den Quelldateien befindet sich das C++ Hauptprogramm "`main.cpp"'. Unter anderem instantiiert dieses beim Programmstart die Klasse QQmlApplicationEngine unter dem Namen "`engine"'. Im Anschluss daran öffnet die Methode engine.load(QUrl(QLatin1String("qrc:/main.qml"))) aus den Ressourcendateien das in qml geschriebene qml-Hauptprogramm "`main.qml"'. Die Datei qml.qrc verwaltet die Ressourcen. Dadurch ist es möglich, aus dem qml-Hauptprogramm weitere Ressourcendateien, z.B. in Form von Bildern oder weiteren, in qml programmierten grafischen und funktionalen Elementen darzustellen oder aufzurufen, wenn diese sich in den Ressourcendateien befinden. Graphische Elemente können Rechtecke, Buttons, oder ganze Menüleisten sein und funktionale Elemente z.B. Timer.
+Das StackView beinhaltet den Inhalt, welcher außerhalb der Randelemente Drawer oder ToolBar auf dem Bildschirm zur Anzeige kommt. Im Hauptprogramm befindet sich im StackView die Startansicht. Bei weiterer Navigation durch die GUI ersetzen andere in qml geschriebene Dateien das StackView. Pop-ups überblenden es nur.
+Für eine gute Übersicht über den Code bietet der Ct-Creator die Möglichkeit, Codebl\"ocke einzuklappen(siehe \autoref{client:codeausschnitt-main.qml}).
 
 \begin{figure}[ht!]
 	\centering
@@ -178,7 +177,7 @@ Für eine gute Übersicht über den Code bietet der Ct-Creator die Möglichkeit 
 \end{figure}
 
 \paragraph{Zustandssteuerung}$\;$\\
-Die Realisierung der grafischen Oberflächen entsprechend bisheriger Einstellungen ist über Zustände einer Variablen "`appState"' realisiert.Entsprechend der aktuellen Zustände sind Informationen mittels der Objekteigenschaft "`visible"' ein oder ausblendet oder über "`enable"' aktiviert oder deaktiviert. Außerdem gibt es weitere Variablen die speichern ob Einstellungen wie z.B. die automatische Synchronisation aktiviert ist, um vor dem ausführen von Funktionen zu überprüften ob diese gewünscht sind.
+Die Realisierung der grafischen Oberflächen entsprechend bisheriger Einstellungen ist über Zustände einer Variablen "`appState"' realisiert. Entsprechend der aktuellen Zustände sind Informationen mittels der Objekteigenschaft "`visible"' ein- oder ausgeblendet oder über "`enable"' aktiviert oder deaktiviert. Außerdem gibt es weitere Variablen, die speichern, dass Einstellungen wie z.B. die automatische Synchronisation aktiviert sind, um vor dem Ausführen von Funktionen zu überprüfen, ob diese gewünscht sind.
 
 \newpage
 
@@ -186,36 +185,36 @@ Die Realisierung der grafischen Oberflächen entsprechend bisheriger Einstellung
 \input{beatcontrol/beatcontrol}
 \input{handcontrol/handcontrol}
 \input{Beschleunigungssensor/Beschleunigungssensor}
-\section{Features}
-- Blättern in einer Pdf ohne dass ein Update auf dem Server erfolgt\\
-\\INOF ans TEAM:Diese Section ist noch nicht fertig
-\section{Erweiterungspotential}
-Einige zusätzliche Funktionalitäten könnten, den Wert der Applikation für Zuhörer und Sprecher steigern.\\
-\\INOF ans TEAM:Diese Section lade ich später hoch
-\\INOF ans TEAM:Wenn Ihr die Zuverlässigkeit der Gestensteuerung, Kippsteuerung, Audiosteuerung oder die Sicherheit der Kommunikation noch verbessern wollt, könnt ihr ja wie Tim es in euren Abschnitt einfügen. Hier geht es nur um Erweiterungen der allgemeinen mögliche Funktionalität der Clientapp wie Puplikumsfragen oder sowas.
-Erweiterungen für den Sprecher:\\
 
-Erweiterungen für den Zuhörer:\\
-- Einstellen der Zeit die vergehen soll bis sich die Applikation synchronisiert\\
+\section[Features]{Features\footnote{Sascha Brexeler}}
 
--Wartesymbol/Beschäftigungsanzeige
--Touchstgesten
--Audioeinstellungen
--Bildeinstellungen/Wahl der Kamera
+Exemplarisch sind hier einige wichtige Features aufgelistet.
 
+\paragraph{Ein Sprecher kann:}$\;$\\
+- eine Pdf-Datei in der App von seinem Gerät öffnen und über einem Projektor ausgeben\\
+- blättern in einer Pdf ohne dass ein Update auf dem Server erfolgt\\
+- Seiten automatisch beim Blättern oder manuell an den Server senden
+\paragraph{Ein Zuhörer kann:}$\;$\\
+- frei blättern in einer Pdf bis der Sprecher die Seite auf dem Server aktualisiert\\
+- Einstellen, dass er nach 2 Sekunden wieder auf der aktuellen Seite ist
+\paragraph{Sprecher und Zuhörer können:}$\;$\\
+- Buttons, Wischgesten, Klopfgeräusche oder Kippbewegungen zum Blättern nutzen\\
+- die App auf Geräten mit unterschiedlichen Auflösungen und Displaygrößen verwenden\\
+- auf vielen Seiten scollen, wenn nicht der gesamte Inhalt auf den Display passt\\
+- ohne viel Vorwissen die App bedienen, wenn ein Server mit bekannter IP-Adresse in Betrieb ist\\
+- eine an die Displayausrichtung automatisch horizontal oder vertikal ausgerichtete Pdf betrachten
+\section[Erweiterungspotential]{Erweiterungspotential\footnote{Sascha Brexeler}}
 
+Einige mögliche Erweiterungen sind in diesem Abschnitt aufgelistet. Andere denkbare Verbesserungen sind z.T. in anderen Kapiteln aufgeführt. In Kapitel \ref{Ausblick} finden Sie Möglichkeiten, mit einer abgeänderten Applikation ganz neue Anwendungen zu erschlie\ss en.
 
+\paragraph{Erweiterungen für den Zuhörer:}$\;$\\
+- Einstellen der Zeit, die vergehen soll, bis sich die Applikation synchronisiert, wenn Autosynchronisation aktiviert ist
 
-\newpage
-So kann Code eingefügt werden.
-\begin{lstlisting}[frame=single,breaklines=true,basicstyle=\tiny,language=C,label={PWMStart},caption={Kommentierter Start der PWM}]
-/*! \brief Starts the PWM
-* 
-* To make sure that the PWM behaves correctly after a Compare Bit Change the PWM is started and reset with a software trigger.
-*/
-static void vStartPwm( void )
-{
-tc_start( &AVR32_TC0, PWM_CHANNEL );
-tc_software_trigger( &AVR32_TC0, PWM_CHANNEL );
-}
-\end{lstlisting}
+\paragraph{Erweiterungen für Sprecher und Zuhörer:}$\;$\\
+- Zoomen in der Pdf \\
+- Erkennung von Touchstgesten in der Pdf-Ansicht zum Zoomen und Blättern\\
+- Audioeinstellungen (z.B. Kalibrieren des Schwellwertes von Schalldruckpegelen fürs Blättern)\\
+- Kameraeinstellungen (z.B. Wahl zwischen Frontkamera und Hauptkamera)\\
+- Wartesymbol/Beschäftigungsanzeige (in aktueller Version nicht erforderlich)\\
+- Zeichnen/Markieren auf der Pdf und Mitschneiden von Tonaufnahmen\\
+- Interaktion von Zuhörern mit dem Sprecher über Zuhöreranfragen

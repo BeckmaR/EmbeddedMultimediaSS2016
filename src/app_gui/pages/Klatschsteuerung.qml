@@ -27,7 +27,7 @@ Flickable {
                 font.pixelSize: 22
                 font.italic: true
                 color: "steelblue"
-                text: "Wenn diese Funktion und das Mikrofon aktiviert sind, können Audiosignale mit einem breiten Frequenzspektrum bei einem ausreichen hohen Schalldruckpegel zum Blättern in der Pdf genutzt werden! Geeignete Signale entstehen beim Klopfen, oder Klatschen. Einmaliges Ausführen innerhalb einer Sekunde dieht zum Vorwärt- zweimaliges zum Rückwärtsblättern"
+                text: "Wenn diese Funktion und das Mikrofon aktiviert sind, können Audiosignale mit einem breiten Frequenzspektrum bei einem ausreichend hohen Schalldruckpegel zum Blättern in der Pdf genutzt werden! Geeignete Signale entstehen beim Klopfen, oder Klatschen. Einmaliges Ausführen innerhalb einer Sekunde dieht zum Vorwärts- zweimaliges Ausführen zum Rückwärtsblättern"
             }
         }
     }
