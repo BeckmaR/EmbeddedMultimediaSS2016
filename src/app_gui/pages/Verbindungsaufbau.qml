@@ -41,7 +41,7 @@ Flickable {
                 text: "Verbinden"
                 onClicked: {
              //       connectionOK=0
-                    connect("ws://"+ipAdress.text)//+":1234"
+                    connect("ws://"+ipAdress.text+":1234")//
                 }
             }
         }
