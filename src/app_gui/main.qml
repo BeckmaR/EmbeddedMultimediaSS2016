@@ -262,7 +262,7 @@ ApplicationWindow {
                     id: connectButton
                     text: "Verbinden"
                     onClicked: {
-                        connect("ws://"+ipAdress.text)
+                        connect("ws://"+ipAdress.text+":1234")
                         }
                 }
             }
