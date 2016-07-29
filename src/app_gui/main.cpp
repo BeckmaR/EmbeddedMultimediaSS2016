@@ -47,10 +47,10 @@ int main(int argc, char *argv[])
 
     QObject *root = engine.rootObjects()[0];
 
-    QObject::connect(root, SIGNAL(nextpage()),&myPdfRenderer, SLOT(nextPage()));
-    QObject::connect(root, SIGNAL(prevpage()),&myPdfRenderer, SLOT(prevPage()));
+    //QObject::connect(root, SIGNAL(nextpage()),&myPdfRenderer, SLOT(nextPage()));
+    //QObject::connect(root, SIGNAL(prevpage()),&myPdfRenderer, SLOT(prevPage()));
     QObject::connect(root, SIGNAL(openfile(QUrl)),&myPdfRenderer, SLOT(OpenPDF(QUrl)));
-    QObject::connect(&myPdfRenderer, SIGNAL(setPage(QVariant)),root, SLOT(setCurrentPageNr(QVariant)));
+    QObject::connect(&myPdfRenderer, SIGNAL(sendTotalPageCount(QVariant)),root, SLOT(setTotalPageCount(QVariant)));
 
 
     /*
@@ -88,16 +88,16 @@ int main(int argc, char *argv[])
                      &websocketclient, SLOT(sendFile(QUrl)));
     QObject::connect(root, SIGNAL(download_pdf(QString)),
                      &websocketclient, SLOT(download_pdf(QString)));
-         QObject::connect(root, SIGNAL(setPage(QString)),
+    QObject::connect(root, SIGNAL(setPage(QString)),
                      &websocketclient, SLOT(setPage(QString)));
-         QObject::connect(root, SIGNAL(getPage()),
+    QObject::connect(root, SIGNAL(getPage()),
                      &websocketclient, SLOT(getPage()));
 
 
     //AUDIO
-         QObject::connect(root, SIGNAL(startstopKlopfen()),&audioengine, SLOT(startStopRecording()));
-         QObject::connect(&audioengine, SIGNAL(knock()),root, SLOT(klopf_weiter()));
-         QObject::connect(&audioengine, SIGNAL(double_knock()),root,SLOT(klopf_zurück()));
+     QObject::connect(root, SIGNAL(startstopKlopfen()),&audioengine, SLOT(startStopRecording()));
+     QObject::connect(&audioengine, SIGNAL(knock()),root, SLOT(klopf_weiter()));
+     QObject::connect(&audioengine, SIGNAL(double_knock()),root,SLOT(klopf_zurück()));
 
 
     // Gestensteuerng

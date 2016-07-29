@@ -15,6 +15,11 @@ Item {
     id: item
     property alias button_forward: button_forward
     property alias button_back: button_back
+    property alias button_auto_sync: button_auto_sync
+    property alias button_audio: button_audio
+    property alias button_gesten: button_gesten
+    property alias button_kipp: button_kipp
+    property alias button_reload: button_reload
     ColumnLayout {
         id: columnLayout1
         anchors.fill: parent
@@ -27,7 +32,7 @@ Item {
             sourceSize.width: paintedWidth;
             sourceSize.height: paintedHeight;
             cache: false
-            source: "image://pdfrenderer/" + pagenr
+            source: "image://pdfrenderer/" + pdf_pagenr
         }
 
         RowLayout {
@@ -62,30 +67,16 @@ Item {
                     horizontalAlignment: Image.AlignHCenter
                     verticalAlignment: Image.AlignVCenter
                     source: if(autoSyncON==1){
-                                //setPage(""+pagenr);
                                 return "qrc:/images/PdfControll/refresh_green.png"
                             }else{
                                 return "qrc:/images/PdfControll/refresh_grey.png"
                             }
                 }
                 MouseArea {
-                    id: button_sync //############TODO
+                    id: button_auto_sync
                     anchors.fill: parent
-                    onClicked:{
-                        if(autoSyncON==1){
-                            autoSyncON=0
-                        }else{
-                            autoSyncON=1
-
-                        }
-                    }
                 }
             }
-//            if ((appState == appStateHörerReady)&&(autoSyncON==1)){
-//                    getPage();
-//            }else{
-//                getPage();
-//            }
             Rectangle{//rect_audio
                 id: rect_audio
                 width: 35
@@ -103,18 +94,8 @@ Item {
                             }
                 }
                 MouseArea {
-                    id: button_audio//###########TODO
+                    id: button_audio
                     anchors.fill: parent
-                    onClicked:{
-                        if(sprachsteuerungON==1){
-                            sprachsteuerungON=0
-                            startstopKlopfen();
-                        }else{
-                            sprachsteuerungON=1
-                            startstopKlopfen();
-                        }
-                    }
-
                 }
             }
             Rectangle{//rect_gesten
@@ -134,17 +115,8 @@ Item {
                             }
                 }
                 MouseArea {
-                    id: button_gesten//##############TODO
+                    id: button_gesten
                     anchors.fill: parent
-                    onClicked:{
-                        if(gestensteuerungON==1){
-                            gestensteuerungON=0
-                            handcontrol_stop()
-                        }else{
-                            gestensteuerungON=1
-                            handcontrol_start()
-                        }
-                    }
                 }
             }
             Rectangle{//rect_kipp
@@ -164,21 +136,13 @@ Item {
                             }
                 }
                 MouseArea {
-                    id: button_kipp//##########TODO
+                    id: button_kipp
                     anchors.fill: parent
-                    onClicked:{
-                        if(kippsteuerungON==1){
-                            kippsteuerungON=0
-                        }else{
-                            kippsteuerungON=1
-                        }
-                    }
-
                 }
             }
             Text {//PageNumber
                 id: text1
-                text: qsTr("  ") + pagenr
+                text: qsTr("  ") + pdf_pagenr + "/" + pdf_page_count
                 anchors.centerIn: rowLayout1.Center
                 Layout.fillWidth: true
                 font.pixelSize: 20
@@ -186,7 +150,6 @@ Item {
             Rectangle{//rect_reload
                 id: rect_reload
                 visible: if (autoSyncON==0){
-                             getPage();
                              return true
                          }else{
                              return false
@@ -204,14 +167,6 @@ Item {
                 MouseArea {
                     id: button_reload
                     anchors.fill: parent
-                    onClicked: {
-                        if ((appState == appStateHörerSet)||(appState == appStateHörerReady)){
-                            getPage();
-                         }else{
-                            console.log("Sprecher set Page")
-                            setPage(""+pagenr);
-                         }
-                    }
                 }
             }
             Rectangle{

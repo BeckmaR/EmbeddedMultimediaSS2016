@@ -59,32 +59,53 @@ ApplicationWindow {
     }
 
     //Pdf-Controll
-    property int pagenr: -1
-    signal nextpage()
-    signal prevpage()
+    property int pdf_pagenr: -1
+    property int pdf_page_count: 0
+    function pdf_nextpage()
+    {
+        var temp_pagenr = pdf_pagenr;
+        if(temp_pagenr+1 > pdf_page_count) {
+            temp_pagenr = pdf_page_count;
+        }   else {
+            temp_pagenr++;
+        }
+        setCurrentPageNr(temp_pagenr);
+    }
+
+    function pdf_prevpage()
+    {
+        var temp_pagenr = pdf_pagenr;
+        if (temp_pagenr > 0)
+        {
+            temp_pagenr--;
+        }
+        setCurrentPageNr(temp_pagenr);
+    }
+    function setTotalPageCount(nr)
+    {
+        pdf_page_count = nr-1;
+    }
+
     signal openfile(url u)
-    signal startstopKlopfen()
     function setCurrentPageNr(nr) {
-        pagenr = nr
+        pdf_pagenr = nr
         if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-            setPage(""+pagenr);
+            setPage(""+pdf_pagenr);
         }
     }
-//    function signal_setPage(pagenum){
-//        pagenr=pagenum
-//    }
 
     // Klopfsteuerung
+    signal startstopKlopfen()
     function klopf_weiter() {
         if (sprachsteuerungON==1)
         {
-            nextpage();
+            pdf_nextpage();
         }
     }
     function klopf_zurück() {
         if (sprachsteuerungON==1)
         {
-            prevpage();
+            pdf_prevpage();
         }
     }
     function handcontrol_change_page(dir){
@@ -92,9 +113,9 @@ ApplicationWindow {
         {
             if(dir ===1)
             {
-                nextpage();
+                pdf_nextpage();
             } else if(dir === -1){
-                prevpage();
+                pdf_prevpage();
             }
         }
     }
@@ -413,8 +434,9 @@ ApplicationWindow {
             //var pdf_path = fileDialog.fileUrl.toString()
             //pdf_path= pdf_path.replace(/^(file:\/{3})|(qrc:\/{2})|(http:\/{2})/,"");
             openfile(fileDialog.fileUrl)
-            nextpage();//Da die Neue Pdf sonst erst beim ersten Blättern geladen wird
-            prevpage();
+            //pdf_nextpage();//Da die Neue Pdf sonst erst beim ersten Blättern geladen wird
+            //prevpage();
+            setCurrentPageNr(0)
             sendFile(fileDialog.fileUrl);
             setPage("0")
         }

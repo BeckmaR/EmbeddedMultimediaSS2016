@@ -7,7 +7,7 @@ PdfRenderer::PdfRenderer() : QQuickImageProvider(QQuickImageProvider::Image)
     m_doc = 0;
     m_page = 0;
 }
-
+/*
 void PdfRenderer::prevPage(void)
 {
     if (NULL == m_doc) {
@@ -28,7 +28,7 @@ void PdfRenderer::nextPage(void)
         ++m_index;
     }
     setPage(m_index);
-}
+}*/
 
 void PdfRenderer::OpenPDF(QUrl url)
 {
@@ -43,10 +43,10 @@ void PdfRenderer::OpenPDF(QUrl url)
     qDebug() << "Attempting to open3 " + filepath;
     m_title = m_doc->title();
     m_numPages = m_doc->numPages();
-
+    emit sendTotalPageCount(m_numPages);
     m_index = 0;
     //openPage(0);
-    setPage(m_index);
+    //setPage(m_index);
 }
 
 
@@ -59,7 +59,10 @@ QImage PdfRenderer::requestImage(const QString &id, QSize *size, const QSize &re
         m_page = NULL;
     }
     int index = id.toInt();
-    if (index == -1) {
+    if( index > m_numPages-1) {
+        index = m_numPages-1;
+    }
+    if (index < 0) {
         return image;
     }
     m_page = m_doc->page(index);

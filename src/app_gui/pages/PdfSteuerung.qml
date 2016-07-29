@@ -12,44 +12,55 @@ import QtQuick 2.5
 
 PdfAnsicht{
     button_forward.onClicked: {        
-            console.log("Button forward")
-            nextpage();
-//            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-//                setPage(""+pagenr);
-//            }
+        //console.log("Button forward")
+        pdf_nextpage();
     }
-    /*button_sync.onClicked: {
-            console.log("Button forward")
-            nextpage();
-            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-                setPage(""+pagenr);
-            }
-    }
-    button_audio.onClicked: {
-            console.log("Button forward")
-            nextpage();
-            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-                setPage(""+pagenr);
-            }
-    }
-    rect_gesten.button_gesten.onClicked: {
-            console.log("Button forward")
-            nextpage();
-            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-                setPage(""+pagenr);
-            }
-    }
-    button_kipp.onClicked: {
-            console.log("Button forward")
-            nextpage();
-            if ((appState==appStateSprecherReady)&&(autoSyncON==1)){
-                setPage(""+pagenr);
-            }
-    }*/
     button_back.onClicked: {
-        console.log("Button back")
-        prevpage();
+        //console.log("Button back")
+        pdf_prevpage();
     }
+    button_gesten.onClicked:{
+        if(gestensteuerungON==1){
+            gestensteuerungON=0
+            handcontrol_stop()
+        }else{
+            gestensteuerungON=1
+            handcontrol_start()
+        }
+    }
+    button_auto_sync.onClicked:{
+        if(autoSyncON==1){
+            autoSyncON=0
+        }else{
+            autoSyncON=1
+            setCurrentPageNr(pdf_pagenr)
+        }
+    }
+    button_audio.onClicked:{
+        if(sprachsteuerungON==1){
+            sprachsteuerungON=0
+            startstopKlopfen();
+        }else{
+            sprachsteuerungON=1
+            startstopKlopfen();
+        }
+    }
+    button_kipp.onClicked:{
+        if(kippsteuerungON==1){
+            kippsteuerungON=0
+        }else{
+            kippsteuerungON=1
+        }
+    }
+    button_reload.onClicked: {
+        if ((appState == appStateHörerSet)||(appState == appStateHörerReady)){
+            getPage();
+         }else{
+            console.log("Sprecher set Page")
+            setPage(""+pdf_pagenr);
+         }
+    }
+
     Item {
           Timer {
               id: autoSyncTimer

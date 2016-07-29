@@ -267,20 +267,3 @@ Pane {
         }
     }
 }
-
-/*Label {//webSocketId.status == WebSocket.Open ? qsTr("Sending...") : qsTr("Welcome!")
-    id: messageBox
-    width: parent.width
-    wrapMode: Label.Wrap
-    horizontalAlignment: Qt.AlignHCenter
-    text: webSocketId.status == WebSocket.Open ? qsTr("Sending...") : qsTr("Welcome!")
-*/
-
-   /* MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            socket.active = !socket.active
-            //Qt.quit();
-        }
-    }*/
-//   }

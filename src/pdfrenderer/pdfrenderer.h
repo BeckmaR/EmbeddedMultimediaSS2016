@@ -14,11 +14,12 @@ public:
     virtual QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
 signals:
-    void setPage(QVariant nr);
+    //void setPage(QVariant nr);
+    void sendTotalPageCount(QVariant nr);
 
 public slots:
-    void prevPage();
-    void nextPage();
+    //void prevPage();
+    //void nextPage();
     void OpenPDF(QUrl);
 
 private:
