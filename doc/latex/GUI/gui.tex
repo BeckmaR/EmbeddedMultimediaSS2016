@@ -8,7 +8,7 @@ Die Beschreibung des Client bezieht sich im Folgenden nur auf die Applikation, w
 \section[Grafische Benutzeroberfläche (GUI)]{Grafische Benutzeroberfläche (GUI)\footnote{Sascha Brexeler}}
 \label{GUI}
 Die Gestaltung dieser GUI bezweckt eine leicht verständliche, intuitiv bedienbare Oberfläche mit zielführender Benutzerführung und Hilfestellungen.
-Die GUI ist für Geräte mit Android als Betriebssystem entwickelt, aber theoretisch nach dem kompilieren mit eventuell erforderlichen kleinen Anpassungen auch auf anderen Plattformen/Geräten ähnlich abgebildet und verwendbar. Erfolgreich getestet ist die App allerdings derzeit nur für Android (4.3 + 4.4) und Windows.
+Die GUI ist für Geräte mit Android als Betriebssystem entwickelt, aber theoretisch nach dem Kompilieren mit eventuell erforderlichen kleinen Anpassungen auch auf anderen Plattformen/Geräten ähnlich abgebildet und verwendbar. Erfolgreich getestet ist die App allerdings derzeit nur für Android (4.3 + 4.4) und Windows.
 
 
 \begin{figure}[ht!]
@@ -66,10 +66,10 @@ Des Weiteren kann der Benutzer nach Eingabe der gültigen IP-Adresse eine Verbin
 \newpage
 
 \paragraph{Auswählen der eigenen Rolle}$\;$\\
-Nach erfolgreichem Verbindungsaufbau wechselt die Ansicht in zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}).
+Nach erfolgreichem Verbindungsaufbau wechselt die Ansicht zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}).
 In dieser Toolbar befindet sich nun zusätzlich ein grüner nach links ausgerichteter Pfeil, um zur vorherigen Ansicht zu wechseln. Die Rollenwahl ist wiederholbar und somit korrigierbar, aber unumgänglich implementiert, da weitere Einstellung und Möglichkeiten auf dieser Entscheidung aufbauen.
 \paragraph{Voreinstellungen als Sprecher}$\;$\\
-Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die korrekter Eingabe bestätigt ist, kann der Benutzer eine Pdf-Datei hochladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Der Client sendet die Pdf nach dem Öffnen an den Server, der diese direkt auf Seite 0 über den Projektor ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einigen Optionen, aus denen er die Gewünschten über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht diesmal zurück zur Rollenwahl.
+Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die korrekte Eingabe bestätigt ist, kann der Benutzer eine Pdf-Datei hochladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Der Client sendet die Pdf nach dem Öffnen an den Server, der diese direkt auf Seite eins über den Projektor ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einigen Optionen, aus denen er die Gewünschten über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht dieses Mal zurück zur Rollenwahl.
 
 \begin{figure}[ht!]
 	\centering
@@ -104,7 +104,7 @@ Als Zuhörer sind die Voreinstellungen ähnlich, jedoch entfällt die Passwortei
 \paragraph{Pdf-Ansicht}$\;$\\
 Bestätigen der Voreinstellungen des Sprechers oder Zuhörers bedingt einen Kontextwechsel zur Pdf-Ansicht (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}).
 \paragraph{Drawer}$\;$\\
-Mit dem Wechsel zur Pdf-Ansicht ist der grüne Pfeil oben links durch einen weiteren aus drei waagerechten Strichen bestehenden Menü-Button ersetzt. Dieser Button öffnet eine vertikale Leiste (Drawer) am linken Bildschirmrand, welche ein ListView beinhaltet. Dieses ListView ermöglicht schnelle Navigation zu allen bisherigen Ansichten und Weiteren (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Durch Wischen vom linken Bildschirmrand nach rechts lässt sich dieser ebenfalls einblenden. Die Navigation über das ListView im Drawer ist nur möglich, solange man nicht zu vorherigen Ansichten wechselt.
+Mit dem Wechsel zur Pdf-Ansicht ist der grüne Pfeil oben links durch einen weiteren aus drei waagerechten Strichen bestehenden Menü-Button ersetzt. Dieser Button öffnet eine vertikale Leiste (Drawer) am linken Bildschirmrand, welche ein ListView beinhaltet. Dieses ListView ermöglicht schnelle Navigation zu allen bisherigen und weiteren Ansichten (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Durch Wischen vom linken Bildschirmrand nach rechts lässt sich dieser ebenfalls einblenden. Die Navigation über das ListView im Drawer ist nur möglich, solange man nicht zu vorherigen Ansichten wechselt.
 
 \begin{figure}[ht!]
 	\centering
@@ -114,8 +114,8 @@ Mit dem Wechsel zur Pdf-Ansicht ist der grüne Pfeil oben links durch einen weit
 \end{figure}
 
 \paragraph{Symbolleiste}$\;$\\
-Die Pdf-Ansicht beinhaltet eine Symbolleiste (siehe \autoref{client:Symbolleiste}) als Reihe von Icons am unteren Bildschirmrand. Mit ihr ist durch die Pfeile außen ein Blättern in der Pdf möglich. Intuitiv  kann der Benutzer durch Betätigen des linken Pfeils zurück blättern und mit dem Rechten vorwärts. Die anderen Buttons dienen zur Aktivierung/Deaktivierung von Bedienoptionen. Grün signalisiert hierbei den Status aktiviert und grau deaktiviert. Das Mikrofon steht für die Audiosteuerung, das Kamerasymbol für  Gestensteuerung und das Männchen mit den ausgestreckten Armen und Beinen im Kreis für die Kippsteurung. Neben diesem Symbol steht die Seitennummer der angezeigten Seite.
-\\Die ineinander greifenden Pfeile signalisieren bei grün, dass die Autosynchronisation aktiv ist. Sobald diese nicht aktiv ist, erscheint ein weiterer Pfeil geschlungen im Uhrzeigersinn in grau auf der Symbolleiste links neben dem Pfeil. Die Funktion ist das manuelle Aktualisieren der Seitenzahl. Ein Sprecher sendet mit dem Refresh-Button die Seitenzahl, die auf seinem Device aktuell ist, zum Server, welcher sie an die Zuhörer-Clients weiterleitet. Ist als Sprecher der Status Autosynchronisation aktiviert, geschieht diese bei jedem Blättern automatisch. Zuhörer können über den Refresh-Button die aktuelle Seite manuell anfragen oder mit Autosynchronisation alle 2 Sekunden zu der aktuellen Seite zurück springen. Wenn der Sprecher blättert, erhalten die Zuhörer jedoch in jedem Fall die aktuelle Seite.
+Die Pdf-Ansicht beinhaltet eine Symbolleiste (siehe \autoref{client:Symbolleiste}) als Reihe von Icons am unteren Bildschirmrand. Mit ihr ist durch die Pfeile außen ein Blättern in der Pdf möglich. Intuitiv  kann der Benutzer durch Betätigen des linken Pfeils zurückblättern und mit dem Rechten vorwärts. Die anderen Buttons dienen zur Aktivierung/Deaktivierung von Bedienoptionen. Grün signalisiert hierbei den Status "`aktiviert"' und grau "`deaktiviert"'. Das Mikrofon steht für die Audiosteuerung, das Kamerasymbol für  Gestensteuerung und das Männchen mit den ausgestreckten Armen und Beinen im Kreis für die Kippsteurung. Neben diesem Symbol steht die Seitennummer der angezeigten Seite.
+\\Die ineinander greifenden Pfeile signalisieren bei grün, dass die Autosynchronisation aktiv ist. Sobald diese nicht aktiv ist, erscheint ein weiterer Pfeil geschlungen im Uhrzeigersinn in grau auf der Symbolleiste links neben dem Pfeil. Die Funktion ist das manuelle Aktualisieren der Seitenzahl. Ein Sprecher sendet mit dem Refresh-Button die Seitenzahl, die auf seinem Device aktuell ist, zum Server, welcher sie an die Zuhörer-Clients weiterleitet. Ist als Sprecher der Status Autosynchronisation aktiviert, geschieht diese bei jedem Blättern automatisch. Zuhörer können über den Refresh-Button die aktuelle Seite manuell anfragen oder mit Autosynchronisation alle zwei Sekunden zu der aktuellen Seite zurück springen. Wenn der Sprecher blättert, erhalten die Zuhörer jedoch in jedem Fall die aktuelle Seite.
 
 \paragraph{Informationen zur Benutzung}$\;$\\
 Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält sowie für weitere Hilfestellung auf diese eventuell nicht zur Hand liegenden Dokumentation verweist, kann sich der Benutzer über den Drawer zu einer Erklärung der Bedienmöglichkeiten navigieren. Diese Option soll einen möglichst einfachen Einstieg ohne unnötiges Ausprobieren sicherstellen und Anwendungsfehler verhindern. Um einen mit dieser Anwendung vertrauten Anwender nicht nach jedem Start durch diese Informationen zu führen, ist das Aufrufen optional (siehe \autoref{client:InformationenBedienhilfen}).
@@ -155,7 +155,7 @@ Die Einbindung der Funktionsblöcke zur Kommunikation des Clients mit dem Server
 Die Software der GUI finden Sie im Git Repository \footnote{https://github.com/BeckmaR/EmbeddedMultimediaSS2016/tree/master/src/app\textunderscore gui}. Einige Funktionalitäten/Bibliotheken sind jedoch aus benachbarten Ordnern eingebunden.
 
 \paragraph{Konzept}$\;$\\
-Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigationsmöglichkeiten dient Qt-Creator 4.0.2 als IDE. Qt-Creator ist wegen seiner Plattformunabhängigkeit und der grafischen Beschreibungssprache qml für den Client besonders geeignet. Programmiert ist die GUI überwiegend mit qml. Eine Kombination mit C++ Funktionen sowie das Signal-Slot-Prinzip kommen dabei an vielen stellen z.B. der Serveranbindung zum Einsatz. Mit dem Design-Tool von Qt-Creator stand eine graphische Programmiermöglichkeit von qml-Code zur Verfügung. Dieses stellt eine interessante Ergänzung zum "`schriftlichen"' Programmieren dar. Nach einer erfolgreichen Erprobung des Tools habe ich mich zugunsten der Homogenität des Codes gegen dieses Tool entschieden.
+Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigationsmöglichkeiten dient Qt-Creator 4.0.2 als IDE. Qt-Creator ist wegen seiner Plattformunabhängigkeit und der grafischen Beschreibungssprache qml für den Client besonders geeignet. Programmiert ist die GUI überwiegend mit qml. Eine Kombination mit C++ Funktionen sowie das Signal-Slot-Prinzip kommen dabei an vielen Stellen z.B. der Serveranbindung zum Einsatz. Mit dem Design-Tool von Qt-Creator stand eine graphische Programmiermöglichkeit von qml-Code zur Verfügung. Dieses stellt eine interessante Ergänzung zum "`schriftlichen"' Programmieren dar. Nach einer erfolgreichen Erprobung des Tools habe ich mich zugunsten der Homogenität des Codes gegen dieses Tool entschieden.
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.8]{GUI/Bilder/Projektordnerstruktur.PNG}
@@ -172,7 +172,7 @@ Für eine gute Übersicht über den Code bietet der Ct-Creator die Möglichkeit,
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.8]{GUI/Bilder/qml-main-Codeausschnitt.PNG}
-	\caption{Wesentliche eingeklappte Codebl\"ocke des qml-Hauptprogramms "`main.qml"' {\tiny}}
+	\caption{Wesentliche Codebl\"ocke (eingeklappt) des qml-Hauptprogramms "`main.qml"' {\tiny}}
 	\label{client:codeausschnitt-main.qml}
 \end{figure}
 
@@ -196,7 +196,7 @@ Exemplarisch sind hier einige wichtige Features aufgelistet.
 - Seiten automatisch beim Blättern oder manuell an den Server senden
 \paragraph{Ein Zuhörer kann:}$\;$\\
 - frei blättern in einer Pdf bis der Sprecher die Seite auf dem Server aktualisiert\\
-- Einstellen, dass er nach 2 Sekunden wieder auf der aktuellen Seite ist
+- einstellen, dass er nach zwei Sekunden wieder auf der aktuellen Seite ist
 \paragraph{Sprecher und Zuhörer können:}$\;$\\
 - Buttons, Wischgesten, Klopfgeräusche oder Kippbewegungen zum Blättern nutzen\\
 - die App auf Geräten mit unterschiedlichen Auflösungen und Displaygrößen verwenden\\
