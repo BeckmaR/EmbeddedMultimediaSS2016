@@ -142,7 +142,7 @@ Item {
             }
             Text {//PageNumber
                 id: text1
-                text: qsTr("  ") + pdf_pagenr + "/" + pdf_page_count
+                text: qsTr("  ") + (pdf_pagenr+1) + "/" + (pdf_page_count+1)
                 anchors.centerIn: rowLayout1.Center
                 Layout.fillWidth: true
                 font.pixelSize: 20
