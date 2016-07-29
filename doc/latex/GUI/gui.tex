@@ -69,7 +69,7 @@ Des Weiteren kann der Benutzer nach Eingabe der gültigen IP-Adresse eine Verbin
 Nach erfolgreichem Verbindungsaufbau wechselt die Ansicht zur Rollenauswahl. Ein Label zeigt diese Position mittig der oberen Leiste (Toolbar) an (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}).
 In dieser Toolbar befindet sich nun zusätzlich ein grüner nach links ausgerichteter Pfeil, um zur vorherigen Ansicht zu wechseln. Die Rollenwahl ist wiederholbar und somit korrigierbar, aber unumgänglich implementiert, da weitere Einstellung und Möglichkeiten auf dieser Entscheidung aufbauen.
 \paragraph{Voreinstellungen als Sprecher}$\;$\\
-Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die korrekte Eingabe bestätigt ist, kann der Benutzer eine Pdf-Datei hochladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Der Client sendet die Pdf nach dem Öffnen an den Server, der diese direkt auf Seite 1 über den Projektor ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einigen Optionen, aus denen er die Gewünschten über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht dieses Mal zurück zur Rollenwahl.
+Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu ist eine Passwortabfrage eingerichtet. Das sog. Masterpasswort ist "`mpw12345"'. Wenn die Eingabe fehlerhaft erfolgte, erscheint zusätzlich unter dem Textfeld zur Passworteingabe (siehe \autoref{client:Rollenauswahl+S-Voreinstellungen}) in Dickschrift der Hinweis: "`Bitte überprüfen Sie Ihre Passworteingabe"'. Sobald die korrekte Eingabe bestätigt ist, kann der Benutzer eine Pdf-Datei hochladen. Dazu muss der Nutzer eine Pdf-Datei über den File-Dialog (siehe \autoref{client:FileDialog}) suchen und auswählen. Der Client sendet die Pdf nach dem Öffnen an den Server, der diese direkt auf Seite eins über den Projektor ausgibt. Bevor der Sprecher mit Bestätigen zur Pdf-Ansicht wechselt, sieht dieser noch eine Liste (ListView) mit einigen Optionen, aus denen er die Gewünschten über Schiebeschalter (SwitchDelegates) auswählen kann. Mit dem grünen Pfeil wechselt die Ansicht dieses Mal zurück zur Rollenwahl.
 
 \begin{figure}[ht!]
 	\centering
@@ -196,7 +196,7 @@ Exemplarisch sind hier einige wichtige Features aufgelistet.
 - Seiten automatisch beim Blättern oder manuell an den Server senden
 \paragraph{Ein Zuhörer kann:}$\;$\\
 - frei blättern in einer Pdf bis der Sprecher die Seite auf dem Server aktualisiert\\
-- einstellen, dass er nach 2 Sekunden wieder auf der aktuellen Seite ist
+- einstellen, dass er nach zwei Sekunden wieder auf der aktuellen Seite ist
 \paragraph{Sprecher und Zuhörer können:}$\;$\\
 - Buttons, Wischgesten, Klopfgeräusche oder Kippbewegungen zum Blättern nutzen\\
 - die App auf Geräten mit unterschiedlichen Auflösungen und Displaygrößen verwenden\\
