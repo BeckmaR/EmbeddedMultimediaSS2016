@@ -1,4 +1,4 @@
-\subsection{Navigation mit dem Mikrofon}
+\subsection[Navigation mit dem Mikrofon]{Navigation mit dem Mikrofon \footnote{Diana Castano}}
 \thispagestyle{fancy}
 
 \subsubsection{Anforderungen}
@@ -55,7 +55,7 @@ Es wurde zunächst der Betrag der Transformation berechnet, daraufhin erfolgte d
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\textwidth]{beatcontrol/BeatBilder/bild1.png}
+	\includegraphics[angle=0,width=14cm]{beatcontrol/BeatBilder/bild1.png}
 	\caption{Spektrogramm ("`Hallo"' $+$ Klatschen)}
 	\label{fig:image1}
 \end{figure}
@@ -64,9 +64,9 @@ Hier ist die zeitliche Entwicklung aller Frequenzkomponenten des Signals zu sehe
 \\
 Der Algorithmus berechnet die Summe der Frequenzanteile jeder Rahmen, wie in \autoref{fig:image2} zu sehen ist (in diesem Fall wurden zwei Klatschen aufgenommen). Wenn die Summe eine bestimmte Schwelle überschreitet, und der darauffolgende Wert wiederum kleiner ist, wird dies als ein Klatschen erkannt. Anschließend wird für eine Sekunde ein Timer gestartet. Wenn innerhalb dieser Zeit die gleiche Erkennung erfolgt, wird das Signal zum Zurückblättern gesendet. Ansonsten wird das Signal zum Vorblättern gesendet.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{beatcontrol/BeatBilder/bild2.png}
+	\includegraphics[angle=0,width=14cm]{beatcontrol/BeatBilder/bild2.png}
 	\caption{Summe der Frequenzkomponenten}
 	\label{fig:image2}
 \end{figure}

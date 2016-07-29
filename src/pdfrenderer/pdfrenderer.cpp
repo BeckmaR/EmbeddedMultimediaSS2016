@@ -7,7 +7,7 @@ PdfRenderer::PdfRenderer() : QQuickImageProvider(QQuickImageProvider::Image)
     m_doc = 0;
     m_page = 0;
 }
-/*
+
 void PdfRenderer::prevPage(void)
 {
     if (NULL == m_doc) {
@@ -28,7 +28,7 @@ void PdfRenderer::nextPage(void)
         ++m_index;
     }
     setPage(m_index);
-}*/
+}
 
 void PdfRenderer::OpenPDF(QUrl url)
 {
