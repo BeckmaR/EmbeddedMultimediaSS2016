@@ -79,6 +79,8 @@ Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu i
 	\label{client:FileDialog}
 \end{figure}
 
+\newpage
+
 \begin{figure}[ht!]
 	\centering
 	\begin{minipage}{0.31\linewidth}
@@ -97,8 +99,6 @@ Der Sprecher muss sich zunächst als solcher bei dem Server registrieren. Dazu i
 	\caption{v.l.n.r.: Voreinstellungen des Zuhörers, PdfAnsicht und Drawer{\tiny}}
 	\label{client:H-VoreinstellungenPdfAnsichtDrawer}
 \end{figure}
-
-\newpage
 
 \paragraph{Voreinstellungen als Zuhörer}$\;$\\
 Als Zuhörer sind die Voreinstellungen ähnlich, jedoch entfällt die Passworteingabe und das Herunterladen einer Pdf-Datei ersetzt den Vorgang des Hochladens (siehe \autoref{client:H-VoreinstellungenPdfAnsichtDrawer}). Hierbei erfolgt (ohne eine Auswahlmöglichkeit) das Herunterladen der zuletzt auf dem Server geladenen Datei.
@@ -119,24 +119,29 @@ Die Pdf-Ansicht beinhaltet eine Symbolleiste (siehe \autoref{client:Symbolleiste
 \\Die ineinander greifenden Pfeile signalisieren bei grün, dass die Autosynchronisation aktiv ist. Sobald diese nicht aktiv ist, erscheint ein weiterer Pfeil geschlungen im Uhrzeigersinn in grau auf der Symbolleiste links neben dem Pfeil. Die Funktion ist das manuelle Aktualisieren der Seitenzahl. Ein Sprecher sendet mit dem Refresh-Button die Seitenzahl, die auf seinem Device aktuell ist, zum Server, welcher sie an die Zuhörer-Clients weiterleitet. Ist als Sprecher der Status Autosynchronisation aktiviert, geschieht diese bei jedem Blättern automatisch. Zuhörer können über den Refresh-Button die aktuelle Seite manuell anfragen oder mit Autosynchronisation alle 2 Sekunden zu der aktuellen Seite zurück springen. Wenn der Sprecher blättert, erhalten die Zuhörer jedoch in jedem Fall die aktuelle Seite.
 
 \paragraph{Informationen zur Benutzung}$\;$\\
-Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält, sowie für weitere Hilfestellung auf diese eventuell nicht zur Hand liegenden Dokumentation verweist, kann sich der Benutzer über den Drawer zu einer Erklärung der Bedienmöglichkeiten navigieren. Diese Möglichkeit soll einen möglichst einfachen Einstieg ohne viel Ausprobieren sicherstellen und Anwendungsfehler verhindern. Um einen mit dieser Anwendung vertrauten Anwender nicht nach jedem Start durch diese Informationen zu führen, ist das Aufrufen optional (siehe \autoref{client:Symbolleiste}).
+Da das bisherige Hilfe-Pop-Up nur recht allgemeine Informationen enthält, sowie für weitere Hilfestellung auf diese eventuell nicht zur Hand liegenden Dokumentation verweist, kann sich der Benutzer über den Drawer zu einer Erklärung der Bedienmöglichkeiten navigieren. Diese Möglichkeit soll einen möglichst einfachen Einstieg ohne viel Ausprobieren sicherstellen und Anwendungsfehler verhindern. Um einen mit dieser Anwendung vertrauten Anwender nicht nach jedem Start durch diese Informationen zu führen, ist das Aufrufen optional (siehe \autoref{client:InformationenBedienhilfen}).
+
+\newpage
+
+\stepcounter{footnote}           % Fußnotenzähler weitersetzen          
+\footnotetext{Text zur Kippsteuerung von Jens Helge Micke} 
 
 \begin{figure}[ht!]
 	\centering
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/7-H-Voreinstellungen.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/Klatschsteuerung.PNG}
 	\end{minipage}
 	%\hfill
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/4-S-PDF-Ansicht.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/Gestensteuerung.PNG}
 	\end{minipage}
 	\begin{minipage}{0.31\linewidth}
 		\centering
-		\includegraphics[scale=0.5]{GUI/Bilder/6-Menu-Button-Drawer-mit-Listview.PNG}
+		\includegraphics[scale=0.5]{GUI/Bilder/Kippsteuerung.PNG}
 	\end{minipage}
-	\caption{v.l.n.r.: Gestensteuerung, Kippsteuerung und Klatschsteuerung{\tiny}}
+	\caption[v.l.n.r.: Klatschsteuerung, Gestensteuerung und Kippsteuerung]{v.l.n.r.: Klatschsteuerung, Gestensteuerung und Kippsteuerung.\footnotemark}
 	\label{client:InformationenBedienhilfen}
 \end{figure}
 
@@ -150,12 +155,31 @@ Die Einbindung der Funktionsblöcke zur Kommunikation des Clients mit dem Server
 Die Software der GUI finden Sie im Git Repository \footnote{https://github.com/BeckmaR/EmbeddedMultimediaSS2016/tree/master/src/app\textunderscore gui}. Einige Funktionalitäten/Bibliotheken sind jedoch aus benachbarten Ordnern eingebunden.
 
 \paragraph{Konzept}$\;$\\
-Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigationsmöglichkeiten dient Qt-Creator 4.0.2 als IDE. Qt-Creator ist wegen seiner Plattformunabhängigkeit und der grafischen Beschreibungssprache qml für das den Client besonders geeignet. 
+Zur Umsetzung von GUI, Serveranbinung und der Einbindung der erweiterten Navigationsmöglichkeiten dient Qt-Creator 4.0.2 als IDE. Qt-Creator ist wegen seiner Plattformunabhängigkeit und der grafischen Beschreibungssprache qml für das den Client besonders geeignet. Programmiert ist die GUI überwiegend mit qml. Eine Kombination mit C++ Funktionen sowie das Signal-Slot-Prinzip kommen dabei an vielen stellen z.B. der Serveranbindung zum Einsatz. Mit dem Design-Tool von Qt-Creator stand eine graphische Programmiermöglichkeit von qml-Code zur Verfügung. Dieses stellt eine interessante Ergänzung zum "`schriftlichen"' Programmieren dar. Nach einer erfolgreichen Erprobung des Tools habe ich mich zugunsten der Homogenität des Codes gegen dieses entschieden.
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.8]{GUI/Bilder/Projektordnerstruktur.PNG}
+	\caption{Projektordnerstruktur {\tiny}}
+	\label{client:Projektordnerstruktur}
+\end{figure}
+
+
 \paragraph{Struktur}$\;$\\
-Der in Qt-Creator erstellte Projektordner app\textunderscore gui enthält die Projektdatei "`app\textunderscore gui.pro"', Header-Dateien, Quelldateien und Ressourcendateien. Unter den Quelldateien befindet sich das C++ Hauptprogramm "`main.cpp"'. Unter anderem instantiiert dieses beim Programmstart die Klasse QQmlApplicationEngine unter dem Namen engine. Im Anschluss daran öffnet die Methode engine.load(QUrl(QLatin1String("qrc:/main.qml"))) aus den Ressourcendateien das in qml geschriebene qml-Hauptprogramm "`main.qml"'. Dadurch ist es möglich weitere Ressourcendateien z.B. in Form von Bildern oder weiteren in qml programmierten grafischen und funktionalen Elementen darzustellen oder aufzurufen, wenn diese sich in den Ressourcendateien befinden. Graphische Elemente können Rechtecke, Buttons, oder ganze Menüleisten sein und funktionale Elemente z.B. Timer. Programmiert ist die GUI zum hauptsächlich in qml. Das Signal-Slot-Prinzip kommt dabei an vielen stellen z.B. der Serveranbindung zum Einsatz.
+Der in Qt-Creator erstellte Projektordner app\textunderscore gui enthält die Projektdatei "`app\textunderscore gui.pro"', Header-Dateien, Quelldateien und Ressourcendateien (siehe \autoref{client:Projektordnerstruktur}). Unter den Quelldateien befindet sich das C++ Hauptprogramm "`main.cpp"'. Unter anderem instantiiert dieses beim Programmstart die Klasse QQmlApplicationEngine unter dem Namen engine. Im Anschluss daran öffnet die Methode engine.load(QUrl(QLatin1String("qrc:/main.qml"))) aus den Ressourcendateien das in qml geschriebene qml-Hauptprogramm "`main.qml"'. Die Datei qml.qrc verwaltet die Ressourcen. Dadurch ist es möglich aus dem qml-Hauptprogramm weitere Ressourcendateien z.B. in Form von Bildern oder weiteren in qml programmierten grafischen und funktionalen Elementen darzustellen oder aufzurufen, wenn diese sich in den Ressourcendateien befinden. Graphische Elemente können Rechtecke, Buttons, oder ganze Menüleisten sein und funktionale Elemente z.B. Timer.
+Das StackView beinhaltet den Inhalt, welcher außerhalb der Randelemente Drawer oder ToolBar auf dem Bildschirm zur Anzeige kommt. Im Hauptprogramm befindet sich im StackView die Startansicht. Bei weiter Navigation durch die GUI ersetzen andere in qml geschriebene Dateien das StackView. Pop-ups überblenden es nur.
+Für eine gute Übersicht über den Code bietet der Ct-Creator die Möglichkeit Codebl\"ocke einzuklappen(siehe \autoref{client:codeausschnitt-main.qml}).
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.8]{GUI/Bilder/qml-main-Codeausschnitt.PNG}
+	\caption{Wesentliche eingeklappte Codebl\"ocke des qml-Hauptprogramms "`main.qml"' {\tiny}}
+	\label{client:codeausschnitt-main.qml}
+\end{figure}
+
 \paragraph{Zustandssteuerung}$\;$\\
-Die Realisierung der Grafische Oberflächen entsprechend bisheriger Einstellungen ist über Zustände einer Variablen "`appState"' realisiert, die sich die aktuellen Einstellungen bzw. den Ort merkt und dem entsprechend Informationen mittels der Objekteigenschaft "`visible"' ein oder ausblendet. Außerdem gibt es noch Variablen die speichern ob Einstellungen wie z.B. die automatische Synchronisation aktiviert ist, um vor dem ausführen von Funktionen zu überprüften ob diese gewünscht sind.
-\paragraph{Elemente+Einbindung der erweiterten Bedienmöglichkeiten+Details+Lektionen}$\;$\\
+Die Realisierung der grafischen Oberflächen entsprechend bisheriger Einstellungen ist über Zustände einer Variablen "`appState"' realisiert.Entsprechend der aktuellen Zustände sind Informationen mittels der Objekteigenschaft "`visible"' ein oder ausblendet oder über "`enable"' aktiviert oder deaktiviert. Außerdem gibt es weitere Variablen die speichern ob Einstellungen wie z.B. die automatische Synchronisation aktiviert ist, um vor dem ausführen von Funktionen zu überprüften ob diese gewünscht sind.
+
+\newpage
 
 \section{Navigation}
 \input{beatcontrol/beatcontrol}
@@ -173,7 +197,10 @@ Erweiterungen für den Sprecher:\\
 Erweiterungen für den Zuhörer:\\
 - Einstellen der Zeit die vergehen soll bis sich die Applikation synchronisiert\\
 
-
+-Wartesymbol/Beschäftigungsanzeige
+-Touchstgesten
+-Audioeinstellungen
+-Bildeinstellungen/Wahl der Kamera
 
 
 

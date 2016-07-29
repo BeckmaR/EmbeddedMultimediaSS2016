@@ -9,7 +9,11 @@ Flickable {
     Pane {
         id: pane
         width: flickable.width
-        height: flickable.height * 1.25
+        height: if (flickable.height<column.height) {
+                    return column.height + 50
+                } else {
+                    return flickable.height * 1.25
+                }
 
         Column {
             id: column
@@ -20,13 +24,10 @@ Flickable {
                 width: parent.width
                 wrapMode: Label.Wrap
                 horizontalAlignment: Qt.AlignHCenter
-                text: "Klatschsteuerungseinstellungen werden hier vorgenommen:"
-            }
-
-            Image {
-                rotation: 90
-                source: "qrc:/images/arrows.png"
-                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 22
+                font.italic: true
+                color: "steelblue"
+                text: "Wenn diese Funktion und das Mikrofon aktiviert sind, können Audiosignale mit einem breiten Frequenzspektrum bei einem ausreichen hohen Schalldruckpegel zum Blättern in der Pdf genutzt werden! Geeignete Signale entstehen beim Klopfen, oder Klatschen. Einmaliges Ausführen innerhalb einer Sekunde dieht zum Vorwärt- zweimaliges zum Rückwärtsblättern"
             }
         }
     }

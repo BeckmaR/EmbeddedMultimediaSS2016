@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     QObject::connect(&websocketclient, SIGNAL(OpenPDF(QUrl)),
                      &myPdfRenderer, SLOT(OpenPDF(QUrl)));
     QObject::connect(&websocketclient, SIGNAL(signal_setPage(QVariant)),
-                                            root, SLOT(setCurrentPageNr(QVariant)));
+                     root, SLOT(setCurrentPageNr(QVariant)));
     QObject::connect(&websocketclient, SIGNAL(connection_success()),
                      root, SLOT(connection_success()));
 

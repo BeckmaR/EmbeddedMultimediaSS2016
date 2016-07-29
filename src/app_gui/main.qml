@@ -38,7 +38,7 @@ ApplicationWindow {
     property int sprachsteuerungON: 0 //Wenn = 1 --> Sync Button grün angezeigt
     property int kippsteuerungON: 0 //Wenn = 1 --> Sync Button grün angezeigt
 
-    //connection
+    //Serveranbindung
     property int pwFalsch: 0
     property int rmOK: 0  //rm_success()--> masterOK = 1
     signal toServer_pdf(string path)
@@ -49,7 +49,7 @@ ApplicationWindow {
     signal getPage()
     signal setPage(string page)
     function rm_success(){
-            //rmOK=1//SPÄTAA vielleicht
+            //rmOK=1//Könnte noch ausgewärtet werden.
     }
     function connection_success(){
             listView.currentIndex = 1
@@ -73,6 +73,7 @@ ApplicationWindow {
 //    function signal_setPage(pagenum){
 //        pagenr=pagenum
 //    }
+
     // Klopfsteuerung
     function klopf_weiter() {
         if (sprachsteuerungON==1)
@@ -86,8 +87,7 @@ ApplicationWindow {
             prevpage();
         }
     }
-    function handcontrol_change_page(dir)
-    {
+    function handcontrol_change_page(dir){
         if (gestensteuerungON ==1)
         {
             if(dir ===1)
@@ -98,8 +98,7 @@ ApplicationWindow {
             }
         }
     }
-    function handcontrol_debugOut(msg)
-    {
+    function handcontrol_debugOut(msg){
         console.log(msg);
     }
 
@@ -121,8 +120,7 @@ ApplicationWindow {
            }
         }
     }
-    function handcontrol_start()
-    {
+    function handcontrol_start(){
         if(Qt.platform.os !== "windows")
         {
             camera.start()
@@ -130,9 +128,7 @@ ApplicationWindow {
         handcontrol_enable(1)
 
     }
-
-    function handcontrol_stop()
-    {
+    function handcontrol_stop(){
         if(Qt.platform.os !== "windows")
         {
             camera.stop()
@@ -140,7 +136,7 @@ ApplicationWindow {
         handcontrol_enable(0)
     }
 
-    Drawer {//Liste mit z.B. sämtlichen Geräteeinstellungen
+    Drawer {//Einblendbare Leiste am linken Bildschirmrand
         id: drawer
         width: Math.min(window.width, window.height) / 3 * 2
         height: window.height
@@ -207,12 +203,9 @@ ApplicationWindow {
                 ListElement { title: "Rollenwahl"; source: "qrc:/pages/Rollenwahl.qml" }
                 ListElement { title: "Voreinstellungen"; source: "qrc:/pages/Voreinstellungen.qml" }
                 ListElement { title: "Pdf-Ansicht"; source: "qrc:/pages/PdfSteuerung.qml" } //PdfSteuerung ruft PdfAnsicht auf
-                //ListElement { title: "Bildschirmeinstellungen"; source: "qrc:/pages/Bildschirmeinstellungen.qml" }
-                //ListElement { title: "Audioeinstellungen"; source: "qrc:/pages/Audioeinstellungen.qml" }
-                //ListElement { title: "Touchsteuerung"; source: "qrc:/pages/Touchsteuerung.qml" }
-                //ListElement { title: "Schwingsteuerung"; source: "qrc:/pages/Schwingsteuerung.qml" }
-                //ListElement { title: "Gestensteuerung"; source: "qrc:/pages/Gestensteuerung.qml" }
-                //ListElement { title: "Audio/Klatschsteuerung"; source: "qrc:/pages/Klatschsteuerung.qml" }
+                ListElement { title: "Kippsteuerung"; source: "qrc:/pages/Schwingsteuerung.qml" }
+                ListElement { title: "Klatschsteuerung"; source: "qrc:/pages/Klatschsteuerung.qml" }
+                ListElement { title: "Gestensteuerung"; source: "qrc:/pages/Gestensteuerung.qml" }
             }
             ScrollIndicator.vertical: ScrollIndicator { }
         }
@@ -255,7 +248,7 @@ ApplicationWindow {
         }
     }
 
-    header: ToolBar { //Leiste am Bildschirm unten
+    header: ToolBar { //Leiste am oberen Bildschirmrand
         Material.foreground: "white"
 
         RowLayout {
@@ -410,7 +403,7 @@ ApplicationWindow {
         }
     }
 
-    FileDialog{//Um Dateien später aufrufen zu können
+    FileDialog{//Um Dateien aufrufen zu können
         id: fileDialog
         title: "Please choose a PDF file"
         folder: shortcuts.home
@@ -429,19 +422,4 @@ ApplicationWindow {
             console.log("Canceled")
         }
     }
-/*    Timer{
-          //id: getPageTimer
-          id: registerMasterTimer
-          interval: 100
-          running: false
-          repeat: true
-          onTriggered: {
-              console.log("RM-Send")
-              connect("ws://"+ipAdress.text);
-              registerMasterTimer.stop()
-              //console.log("GP-Send")
-              //getPage();
-          }
-    }*/
 }
-
