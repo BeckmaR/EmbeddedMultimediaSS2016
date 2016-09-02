@@ -1,9 +1,10 @@
 # EmbeddedMultimediaSS2016
 University Project
+Ruhr-Universität Bochum
 
-Tim Hebbler
-René Beckmann
-Diana Kastano
-Jens Helge Micke
-Sascha Brexeler
+Tim Hebbeler  
+René Beckmann  
+Diana Kastano  
+Jens Helge Micke  
+Sascha Brexeler  
 
