@@ -1,5 +1,5 @@
 # EmbeddedMultimediaSS2016
-University Project
+University Project  
 Ruhr-Universität Bochum
 
 Tim Hebbeler  
